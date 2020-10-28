@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
-
-import myShop.conn.DBCon;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
@@ -22,7 +19,14 @@ public class OrderDAO {
 		return instance;
 	}
 	private OrderDAO() {}
-
+	
+	public static Connection getConnection() throws Exception{
+		Context ctx = new InitialContext();
+		Context j = (Context)ctx.lookup("java:comp/env");
+		DataSource ds = (DataSource)j.lookup("jdbc/orcl");
+		Connection conn = ds.getConnection();
+		return conn;
+	}
 
 	public List getOrderList(String user_id, int start, int end) throws Exception {
 		String sql = "select * "
@@ -32,7 +36,7 @@ public class OrderDAO {
 		List myOrderList = null;
 		myOrderList = new ArrayList();
 		try {
-			Connection conn = DBCon.getConnection();
+			Connection conn = getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			pstmt.setInt(2, start);
@@ -67,7 +71,7 @@ public class OrderDAO {
 		int x = 0;
 
 		try {
-			Connection conn = DBCon.getConnection();
+			Connection conn = getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			ResultSet rs = pstmt.executeQuery();
