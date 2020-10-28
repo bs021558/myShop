@@ -7,14 +7,14 @@ import java.sql.SQLException;
 
 import myShop.conn.DBCon;
 
-public class productDAO {
+public class ProductDAO {
 
-	private static productDAO instance = new productDAO();
+	private static ProductDAO instance = new ProductDAO();
 
-	private productDAO() {
+	private ProductDAO() {
 	}
 
-	public static productDAO getInstance() {
+	public static ProductDAO getInstance() {
 		return instance;
 	}
 
@@ -22,7 +22,7 @@ public class productDAO {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 
-	public void insertProduct(productDTO product) {//»óÇ°µî·Ï
+	public void insertProduct(ProductDTO product) {//»óÇ°µî·Ï
 		try {
 			conn = DBCon.getConnection();
 

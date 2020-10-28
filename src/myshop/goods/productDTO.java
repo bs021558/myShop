@@ -1,6 +1,6 @@
 package myshop.goods;
 
-public class productDTO {
+public class ProductDTO {
 
 	private int goods_code;
 	private String goods_brand;

@@ -1,13 +1,13 @@
-<%@page import="myShop.mvc.user.OrderDTO"%>
-<%@page import="myShop.mvc.user.biard.MyShopDAO"%>
-<%@page import="myShop.mvc.user.OrderDAO"%>
+<%@page import="myshop.order.OrderDTO"%>
+<%@page import="myshop.goods.ProductDAO"%>
+<%@page import="myshop.order.OrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <h1>myOrders 페이지입니다.</h1>
 
 <%
-    //세션 획득
+	//세션 획득
     String userId = (String)session.getAttribute("sessionId");
     //로그인되어 있지 않으면 loginForm.jsp파일로 리디렉트합니다.
     if(userId==null)
@@ -24,7 +24,7 @@
     OrderDAO orderPro = OrderDAO.getInstance();
   	
     //MyShopDAO: 상품DB DAO 클래스 이름
-    MyShopDAO dao = MyShopDAO.getInstance();
+    ProductDAO dao = ProductDAO.getInstance();
     
     int pageSize=10;
     int currentPage = Integer.parseInt(pageNum);//현재페이지
