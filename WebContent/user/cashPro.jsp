@@ -1,8 +1,8 @@
-<%@page import="myShop.mvc.user.UserDTO"%>
-<%@page import="myShop.mvc.user.UserDAO"%>
+<%@page import="myshop.user.UserDTO"%>
+<%@page import="myshop.user.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="dto" class="myShop.mvc.user.UserDTO" />
+<jsp:useBean id="dto" class="myshop.user.UserDTO" />
 <jsp:setProperty name="dto" property="*" />
 <%
 	request.setCharacterEncoding("UTF-8");

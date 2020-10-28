@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import myShop.conn.DBCon;
+import myshop.alldb.DBCon;
 
 
 public class MyShopDAO {
@@ -24,7 +24,7 @@ public class MyShopDAO {
     private MyShopDAO() {
     }
 	
-/// 1.데이터 세기
+/// 1.�뜲�씠�꽣 �꽭湲�
 	public int getAlbumCount() {
 		int totalAlbumCount = 0;
 		
@@ -48,7 +48,7 @@ public class MyShopDAO {
 	
 
 		
-//2. 파일데이터 전체조회
+//2. �뙆�씪�뜲�씠�꽣 �쟾泥댁“�쉶
 	public List getAlbums(int start, int end) {
 		List albumList=null;
 		try {
@@ -82,7 +82,7 @@ public class MyShopDAO {
 		return albumList;
 	}
 
-//상품상세페이지
+//�긽�뭹�긽�꽭�럹�씠吏�
 	public MyShopDTO detailProduct(int code) {
 		MyShopDTO dto = null;
 		try {

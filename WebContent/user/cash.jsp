@@ -1,5 +1,5 @@
-<%@page import="myShop.mvc.user.UserDTO"%>
-<%@page import="myShop.mvc.user.UserDAO"%>
+<%@page import="myshop.user.UserDTO"%>
+<%@page import="myshop.user.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

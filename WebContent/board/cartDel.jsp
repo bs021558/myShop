@@ -1,4 +1,4 @@
-<%@page import="myShop.mvc.user.CartDAO"%>
+<%@page import="myshop.cart.CartDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import = "java.sql.Timestamp" %>
 

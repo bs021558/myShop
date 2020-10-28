@@ -1,6 +1,6 @@
-<%@page import="myShop.mvc.user.OrderDTO"%>
-<%@page import="myShop.mvc.user.biard.MyShopDAO"%>
-<%@page import="myShop.mvc.user.OrderDAO"%>
+<%@page import="myshop.order.OrderDTO"%>
+<%@page import="myshop.goods.MyShopDAO"%>
+<%@page import="myshop.order.OrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>

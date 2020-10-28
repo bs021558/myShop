@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import myShop.conn.DBCon;
+import myshop.alldb.DBCon;
 
 public class productDAO {
 

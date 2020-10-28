@@ -1,11 +1,10 @@
+<%@page import="myshop.user.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import= "myShop.mvc.user.UserDAO" %>
-<%@ page import= "myShop.mvc.user.UserDTO" %>
 
     <h1>회원가입Pro</h1>
 
-    <jsp:useBean id="dto" class= "myShop.mvc.user.UserDTO" />
+    <jsp:useBean id="dto" class= "myshop.user.UserDTO" />
     <jsp:setProperty property="*" name="dto" />
 
     	<%

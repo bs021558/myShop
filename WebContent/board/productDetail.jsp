@@ -1,5 +1,5 @@
-<%@page import="myShop.mvc.user.biard.MyShopDTO"%>
-<%@page import="myShop.mvc.user.biard.MyShopDAO"%>
+<%@page import="myshop.goods.MyShopDTO"%>
+<%@page import="myshop.goods.MyShopDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  
