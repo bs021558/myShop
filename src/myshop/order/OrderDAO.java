@@ -9,23 +9,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+
+import myshop.alldb.DBCon;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
 public class OrderDAO {
 	private static OrderDAO instance = new OrderDAO();
 
+	private OrderDAO() {
+	}
+
 	public static OrderDAO getInstance() {
 		return instance;
 	}
-	private OrderDAO() {}
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 	
-	public static Connection getConnection() throws Exception{
-		Context ctx = new InitialContext();
-		Context j = (Context)ctx.lookup("java:comp/env");
-		DataSource ds = (DataSource)j.lookup("jdbc/orcl");
-		Connection conn = ds.getConnection();
-		return conn;
+	public boolean contactCheck(int orderNo, String userId) throws Exception{
+		String sql = "select * from order where order_number = ? buyer = ?";
+		boolean result = false;
+		try {
+			Connection conn = DBCon.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderNo);
+			pstmt.setString(2, userId);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = true;
+			} 			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll();
+		}
+		return result;
 	}
 
 	public List getOrderList(String user_id, int start, int end) throws Exception {
@@ -36,7 +58,7 @@ public class OrderDAO {
 		List myOrderList = null;
 		myOrderList = new ArrayList();
 		try {
-			Connection conn = getConnection();
+			Connection conn = DBCon.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			pstmt.setInt(2, start);
@@ -71,7 +93,7 @@ public class OrderDAO {
 		int x = 0;
 
 		try {
-			Connection conn = getConnection();
+			Connection conn = DBCon.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			ResultSet rs = pstmt.executeQuery();
@@ -88,9 +110,7 @@ public class OrderDAO {
 	}
 
 	public void closeAll() {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+
 		if (rs != null) {
 			try {
 				rs.close();
