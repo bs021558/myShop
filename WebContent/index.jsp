@@ -1,40 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="myshop.user.UserDAO" %>
-    
+<%@ page import="myshop.user.UserDTO" %>
+
 <%
-	if(session.getAttribute("sessionId") == null){
-		String id = null , pw = null , auto=null;
-		Cookie [] cookies = request.getCookies();
-		if(cookies != null){//쿠키가 있을 때만 실행
-%>
-<jsp:useBean id="dto" class="myshop.user.UserDTO" />
-<jsp:setProperty property="*" name="dto"/>
-<%	
-			for(Cookie c : cookies){
-				if(c.getName().equals("cid")){ id = c.getValue();dto.setUser_id(id);}
-				if(c.getName().equals("cpw")){ pw = c.getValue();dto.setUser_pw(pw);}
-				if(c.getName().equals("cauto")){ auto = c.getValue();dto.setAuto(auto);}
-			}
-			UserDAO udao = UserDAO.getInstance();
-			boolean result = udao.loginCheck(dto);
-			if(result){
-				session.setAttribute("id", dto.getUser_id()); // 세션 생성
-				if(dto.getAuto() != null && dto.getAuto().equals("1")){
-					Cookie cid = new Cookie("cid", dto.getUser_id());
-					Cookie cpw = new Cookie("cpw", dto.getUser_pw());
-					Cookie cauto = new Cookie("cauto", dto.getAuto());
-					cid.setMaxAge(60*60*24);
-					cpw.setMaxAge(60*60*24);
-					cauto.setMaxAge(60*60*24);
-					response.addCookie(cid);
-					response.addCookie(cpw);
-					response.addCookie(cauto);
-				}
-			}
+	//세션이 있을 때만 동작
+	if(session.getAttribute("sessionId")!=null){
+		//세션 불러오기
+		String sessionId = (String)session.getAttribute("sessionId");
+		String sessionAuto = (String)session.getAttribute("sessionAuto");
+	
+		//세션ID로 회원정보 dto에 저장
+		UserDAO udao = UserDAO.getInstance();
+		UserDTO udto = new UserDTO();
+		udto = udao.myInfo(sessionId);
+
+		//로그인 체크
+	    boolean result = udao.loginCheck(udto);
+	  	
+		//쿠키 생성
+		if(result){ 
+	    	if(sessionAuto.equals("1")){
+	    		Cookie cid = new Cookie("cid" , sessionId);
+	    		Cookie cpw = new Cookie("cpw" , udto.getUser_pw());
+	    		Cookie cauto = new Cookie("cauto" , sessionAuto);
+	    		cid.setMaxAge(60*60*24);
+	    		cpw.setMaxAge(60*60*24);
+	    		cauto.setMaxAge(60*60*24);
+	    		response.addCookie(cid);
+	    		response.addCookie(cpw);
+	    		response.addCookie(cauto);
+	    	}
 		}
 	}
-	
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -47,7 +46,7 @@
 <h1>로그인</h1>
 <%@ include file="/include/top.jsp"%> <!-- 상단 -->
 </div>
-<%@ include file="/include/image.jsp" %> <!--age파일 -->
+<%@ include file="/include/image.jsp" %> <!--image파일 -->
 <div>
 <%@ include file="/include/mainGoods.jsp" %> 
 </div>

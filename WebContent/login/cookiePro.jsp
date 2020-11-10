@@ -9,50 +9,21 @@
 
  
 <%
-	String user_id = null, user_pw = null, auto = null ;
-		Cookie [] cookies = request.getCookies();
-		if(cookies != null){
-		for(Cookie c : cookies){
-		if(c.getName().equals("cid")){
-			user_id = c.getValue();
-			dto.setUser_id(user_id);
-		}
-		if(c.getName().equals("cpw")){
-			user_pw = c.getValue();
-			dto.setUser_pw(user_pw);
-		}
-		if(c.getName().equals("cauto")){
-			auto = c.getValue();				
-			dto.setAuto(auto);
-		}
-		}
-		}
-    	
-    	UserDAO dao = new UserDAO();
+    	UserDAO dao = UserDAO.getInstance();
     	boolean result = dao.loginCheck(dto);
     
-    	if(result){
-    		session.setAttribute("sessionId", dto.getUser_id()); 
-    		session.setAttribute("rating", dto.getRating());
-    		
-    		if(dto.getAuto() != null){ //&& dto.getAuto().equals("1"))
-    			Cookie cid = new Cookie("cid" , dto.getUser_id());
-    			Cookie cpw = new Cookie("cpw" , dto.getUser_pw());
-    			Cookie cauto = new Cookie("cauto" , dto.getAuto());
-    			cid.setMaxAge(60*60*24);
-    			cpw.setMaxAge(60*60*24);
-    			cauto.setMaxAge(60*60*24);
-    			response.addCookie(cid);
-    			response.addCookie(cpw);
-    			response.addCookie(cauto);
-    		}
+    	if(result){//쿠키생성하는 부분
+    		session.setAttribute("sessionId", dto.getUser_id());
+    		session.setAttribute("sessionAuto",dto.getAuto());
     		response.sendRedirect("/myShop/index.jsp");
+		}else {
 %>
-		  <%}else {%>
 			<script>
-				alert("로그인 / 패스워드를 다시 입력해주십시오.");
+				alert("아이디 / 패스워드를 다시 입력해주십시오.");
 				location.href = "/myShop/login/loginForm.jsp";
 			</script>
 		  
-<%} %>		  
+<%
+		} 
+%>		  
 		  

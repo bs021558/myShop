@@ -3,7 +3,7 @@
 	<%
 	
 	
-		String user_id = null, user_pw = null, auto = null;
+/* 		String user_id = null, user_pw = null, auto = null;
 		Cookie [] cookies = request.getCookies();
 		if(cookies != null){
 			for(Cookie c : cookies){
@@ -15,12 +15,12 @@
 		
 		if(auto != null && user_id != null && user_pw != null){
  			response.sendRedirect("/myShop/index.jsp");
-		}
+		} */
 	%>
 <body style="text-align: center;">
 	<%@ include file="/include/top.jsp"%> <!-- 상단 -->
 	<div>
-		<br />
+		<br/>
 		<form action="cookiePro.jsp" method="post">
 			<h1>로그인화면</h1>
 			<br/>

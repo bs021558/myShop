@@ -10,9 +10,6 @@
 		if(sessionId == null){
 			response.sendRedirect("/myShop/login/loginForm.jsp");
   		}
-		UserDAO dao = new UserDAO();
-		UserDTO dto = dao.myInfo(sessionId);
- 
     %>
 
 	
