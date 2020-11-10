@@ -7,8 +7,8 @@
 <%@ page import="myshop.contact.ContactDAO" %>
 <%@ page import="myshop.contact.ContactDTO" %>
 
-     <h1>contactPro 페이지..!!</h1>
-<%
+     <h1>contactPro 페이지..!!</h1> 
+<% 
 	request.setCharacterEncoding("UTF-8");
 
 	//세션 획득

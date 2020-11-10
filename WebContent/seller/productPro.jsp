@@ -1,10 +1,10 @@
-<%@page import="myshop.goods.productDAO"%>
-<%@page import="myshop.goods.productDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.sql.*" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@page import="myshop.goods.productDAO"%>
+<%@page import="myshop.goods.productDTO"%>
 <h1>writePro page</h1>
    <% request.setCharacterEncoding("UTF-8");  %>
 
