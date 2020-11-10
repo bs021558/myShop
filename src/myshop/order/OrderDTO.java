@@ -3,16 +3,23 @@ import java.sql.Timestamp;
 
 public class OrderDTO 
 {
+	private int order_pk;
 	private int order_number;
 	private int goods_code;
-	private String buyer;
-	private String seller;
+	private String user_id;
+	private String re_name;
+	private String re_phone;
+	private String re_address;
 	private int amount;
 	private int total_price;
 	private String track;
 	private Timestamp order_date;
 	
-	public void setOrderNumber(int orderNumber)
+	public void setOrder_pk(int order_pk)
+	{
+		this.order_pk = order_pk;
+	}
+	public void setOrder_number(int orderNumber)
 	{
 		this.order_number = orderNumber;
 	}
@@ -20,13 +27,21 @@ public class OrderDTO
 	{
 		this.goods_code=goods_code;
 	}
-	public void setBuyer(String buyer)
+	public void setRe_name(String re_name)
 	{
-		this.buyer=buyer;
+		this.re_name = re_name;
 	}
-	public void setSeller(String seller)
+	public void setRe_phone(String re_phone)
 	{
-		this.seller=seller;
+		this.re_phone = re_phone;
+	}
+	public void setRe_address(String re_address)
+	{
+		this.re_address = re_address;
+	}
+	public void setUser_id(String user_id)
+	{
+		this.user_id=user_id;
 	}
 	public void setAmount(int amount)
 	{
@@ -46,6 +61,10 @@ public class OrderDTO
 	}
 	
 	
+	public int getOrder_pk()
+	{
+		return order_pk;
+	}
 	public int getOrder_number()
 	{
 		return order_number;
@@ -54,13 +73,18 @@ public class OrderDTO
 	{
 		return goods_code;
 	}
-	public String getBuyer()
+	public String getUser_id()
 	{
-		return buyer;
+		return user_id;
 	}
-	public String getSeller()
-	{
-		return seller;
+	public String getRe_name() {
+		return re_name;
+	}
+	public String getRe_phone() {
+		return re_phone;
+	}
+	public String getRe_address() {
+		return re_address;
 	}
 	public int getAmount()
 	{

@@ -6,11 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
-import myShop.conn.DBCon;
+import myshop.alldb.DBCon;
 
 
 public class CartDAO {
@@ -31,12 +27,13 @@ public class CartDAO {
 	public void insertCart(CartDTO cart) throws Exception{
 		try {
 			conn = DBCon.getConnection();
-			String sql = "insert into myCart values(?,?,?,?)";
+			String sql = "insert into cart values(?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, cart.getUser_id());
 			pstmt.setInt(2, cart.getGoods_code());
 			pstmt.setString(3,cart.getGoods_name());
 			pstmt.setInt(4, cart.getAmount());
+			pstmt.setInt(5, cart.getGoods_price());
 			
 			pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -50,7 +47,7 @@ public class CartDAO {
 		int x=0;
 		try {
 			Connection conn = DBCon.getConnection();
-			String sql = "select count(*) from myCart where user_id=?";
+			String sql = "select count(*) from cart where user_id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sessionId);
 			ResultSet rs = pstmt.executeQuery();
@@ -70,9 +67,9 @@ public class CartDAO {
 		List cartList = null;		
 		try {
 		    Connection conn = DBCon.getConnection();
-		    String sql = "select user_id,goods_code,goods_name,amount,r "+
-			"from (select user_id,goods_code,goods_name,amount,rownum r " +
-			"from (select * from myCart where user_id=? order by user_id) order by user_id) where r >= ? and r <= ? ";
+		    String sql = "select user_id,goods_code,goods_name,amount,goods_price,r "+
+			"from (select user_id,goods_code,goods_name,amount,goods_price,rownum r " +
+			"from (select * from cart where user_id=? order by user_id) order by user_id) where r >= ? and r <= ? ";
 		    
 		        PreparedStatement pstmt = conn.prepareStatement(sql);
 		        pstmt.setString(1, sessionId);
@@ -88,6 +85,7 @@ public class CartDAO {
 					cart.setGoods_code(rs.getInt("goods_code"));
 					cart.setGoods_name(rs.getString("goods_name"));
 					cart.setAmount(rs.getInt("amount"));
+					cart.setGoods_price(rs.getInt("goods_price"));
 					
 					cartList.add(cart);
 					}while(rs.next());
@@ -102,7 +100,7 @@ public class CartDAO {
 	public void deleteCart(String sessionId, int goods_code) {
 		try {
 			conn = DBCon.getConnection();
-			String sql = "delete from myCart where user_id=? and goods_code=?";
+			String sql = "delete from cart where user_id=? and goods_code=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sessionId);
 			pstmt.setInt(2, goods_code);

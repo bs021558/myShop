@@ -1,37 +1,74 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1" >  <!-- 반응형 웹에 사용하는 메타태그 -->
-<link rel="stylesheet" href="/myShop/css/bootstrap.css"> <!-- 참조  -->
+<%@page import="myshop.user.UserDTO"%>
+<%@page import="myshop.user.UserDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/myShop/css/index.css">
+<br />
+<br />
+<br />
+<br />
+<br />
+<%!String sessionId;%>
+<div id="mainframe" style="border-color: red;">
+	<div id="top">
+		<div id="header_brandform"></div>
+		<ul>
+			<li>&nbsp;</li>
+			<li>&nbsp;</li>
+		</ul>
+		<div id="header_member">
+			<%
+				if (session.getAttribute("sessionId") != null) {
+					sessionId = (String) session.getAttribute("sessionId");
+					UserDAO topdao = new UserDAO();
+					UserDTO topdto = topdao.myInfo(sessionId);
+					String rating = topdto.getRating();
+			%>
+						<% if(rating.equals("1")){%>
+			<ul>
+				<li><%=sessionId%>님</li>
+				<li>|</li>
+				<li><a href="/myShop/member/myPage.jsp">내 정보</a></li>
+				<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+			</ul>
+						<%}else if(rating.equals("2")){%>
+						<ul>
+							<li><%=sessionId%>님</li>
+							<li>|</li>
+							<li><a href="/myShop/seller/sellerStore.jsp">가게 정보</a></li>
+							<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+						</ul>
+						<%}else{%>
+						<ul>
+						<li><%=sessionId%>님</li>
+						<li>|</li>
+						<li>운영자 또는 미등급</li>
+					</ul>
+					<%} %>
+			<%
+				} else {
+			%>
+			<ul>
+				<li><a href="/myShop/login/intac.jsp">회원가입</a></li>
+				<li>|</li>
+				<li><a href="/myShop/login/loginForm.jsp">로그인</a></li>
+			</ul>
+			<%
+				}
+			%>
+		</div>
+	</div>
 
-    <nav class ="navbar navbar-default">
-        <div class="navbar-header"> <!-- 홈페이지의 로고 -->
-            <button type="button" class="navbar-toggle collapsed"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expand="false">
-                <span class ="icon-bar"></span> <!-- 줄였을때 옆에 짝대기 -->
-                <span class ="icon-bar"></span> <span class ="icon-bar"></span>
-            </button>
-            <a class ="navbar-brand" href="/myShop/index.jsp">myShop</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="/">스토어</a></li>
-                <li><a href="/">시공</a></li>
-                <li><a href="/">커뮤니티</a></li>
-                <li><form action="#" method ="post"> <input type="text" name="?" />
-            <input type="submit" value="검색" />           </form></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                <a href="#	" class = "dropdown-toggle" data-toggle="dropdown" role ="button" aria-haspopup="true" aria-expanded="false">
-                접속하기
-                <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li class="active"><a href="/myShop/user/loginForm.jsp">로그인</a></li>
-                        <li><a href="/myShop/user/insertForm.jsp">회원가입</a></li>                    
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+	<div id="mainmenu">
+		<div id="logo">
+			<a href="/myShop/index.jsp">myShop</a>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="/myShop/board/goodsList.jsp">스토어</a></li>
+				<li><a href="/myShop/community/commuList.jsp">커뮤니티</a></li>
+				<li><a href="/myShop/community/opBoard.jsp">문의하기</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

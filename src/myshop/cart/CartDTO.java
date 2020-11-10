@@ -1,5 +1,4 @@
 package myshop.cart;
-import java.sql.Timestamp;
 
 public class CartDTO {
 	
@@ -7,6 +6,14 @@ public class CartDTO {
 	private int goods_code;
 	private String goods_name;
 	private int amount;
+	private int goods_price;
+	
+	public int getGoods_price() {
+		return goods_price;
+	}
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -31,6 +38,7 @@ public class CartDTO {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	
 }
 	
 	

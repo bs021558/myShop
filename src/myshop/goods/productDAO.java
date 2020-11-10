@@ -5,16 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import myShop.conn.DBCon;
+import myshop.alldb.DBCon;
 
-public class ProductDAO {
+public class productDAO {
 
-	private static ProductDAO instance = new ProductDAO();
+	private static productDAO instance = new productDAO();
 
-	private ProductDAO() {
+	private productDAO() {
 	}
 
-	public static ProductDAO getInstance() {
+	public static productDAO getInstance() {
 		return instance;
 	}
 
@@ -22,7 +22,7 @@ public class ProductDAO {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 
-	public void insertProduct(ProductDTO product) {//»óÇ°µî·Ï
+	public void insertProduct(productDTO product) {//»óÇ°µî·Ï
 		try {
 			conn = DBCon.getConnection();
 

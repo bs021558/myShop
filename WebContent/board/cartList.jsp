@@ -1,20 +1,24 @@
-<%@page import="myshop.goods.MyShopDAO"%>
-<%@page import="myshop.cart.CartDAO"%>
-<%@page import="myshop.cart.CartDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import = "java.util.List" %>
+<%@page import="myshop.cart.CartDAO" %>
+<%@page import="myshop.cart.CartDTO" %>
+<%@page import="myshop.board.MyShopDAO" %>   
+<%@page import="myshop.order.OrderDAO" %>  
+<%@page import="java.util.List" %>
+<%@page import="java.text.DecimalFormat"%>
+
 <script>
 
 </script>
 <%
-     String sessionId = (String)session.getAttribute("id");
+     String sessionId = (String)session.getAttribute("sessionId");
     if(sessionId==null)
   	{
 %>
 	<script>
       alert("로그인 후 이용 가능합니다");
-      window.location='/myShop/board/login.jsp';
+      window.location='/myShop/login/loginForm.jsp';
      </script>
 
 <%} %>
@@ -32,14 +36,12 @@
     int goods_code=0; 
 	int number=0;
 	int cartTotalPrice = 0; //장바구니 총액
-	
+	int selected = 1;
 	List cartList = null;
-	CartDTO dto = new CartDTO();
     CartDAO c_dao = CartDAO.getInstance();
     MyShopDAO dao = MyShopDAO.getInstance();
 	count = c_dao.getCartCount(sessionId);
-	goods_code = dto.getGoods_code(); 
-// 		DecimalFormat df = new DecimalFormat("###,###");
+		DecimalFormat df = new DecimalFormat("###,###");
 	if (count > 0){
 		cartList = c_dao.getCartList(sessionId, startRow, endRow);
 	}
@@ -65,13 +67,13 @@
 	</td>
 </tr>
 <tr>
-	<td align="center"><input type="button" value="담으러 가기" onclick="document.location.href='cartTest.jsp'"></td>
+	<td align="center"><input type="button" value="담으러 가기" onclick="document.location.href='goodsList.jsp'"></td>
 </tr>
 </table>
 <%	}else{
 %>
 	
-<form method="POST" name="delForm" action="cartDel.jsp?pageNum=<%=pageNum%>" onsubmit="return deleteSave()">
+<form method="post" name="cartList" action="buyForm.jsp">
 	<tr>
 		<td align="center" width="10%">선택</td>
 		<td align="center" width="250">상품</td>
@@ -81,20 +83,23 @@
 	</tr>
 	<%
 		for (int i = 0; i < cartList.size(); i++) {
-			CartDTO cart = (CartDTO)cartList.get(i);		
+			CartDTO cart = (CartDTO)cartList.get(i);
 	%>
 	<tr height="30">
-		<td align="center"><input  type="checkbox" name="checkedUserId" value="selected" /></td>
-		<td align="center" width="250" ><%=cart.getGoods_code()%>(수정) </td>
-		<td align="center" width="100"> <%=cart.getAmount()%>(수정)</td>
-		<td align="center" width="100" ><%=cartTotalPrice%>(수정)</td>
-		<td align="center"><input type="button" value="삭제" onclick="document.location.href='deletePro.jsp?user_id=<%=sessionId%>&goods_code=<%=cart.getGoods_code()%>&pageNum=<%=pageNum%>'"></td>
+		<input type="hidden" name="user_id" value="<%=sessionId %>">
+		<input type="hidden" name="goods_code" value="<%=goods_code %>">
+		<td align="center"><input type="checkbox" name="cartCheck" value="<%=selected++%>" checked></td>
+		<td align="center" width="250" ><input type="button" value="<%=cart.getGoods_name() %>" onclick="document.location.href='goodsDetail.jsp?goods_code=<%=cart.getGoods_code()%>'"></td>
+		<td align="center" width="100"><%=cart.getAmount()%></td>
+		<td align="center" width="100" ><%=cart.getGoods_price()%></td>
+		<td align="center"><input type="button" value="삭제" onclick="document.location.href='cartDel.jsp?user_id=<%=sessionId%>&goods_code=<%=cart.getGoods_code()%>&pageNum=<%=pageNum%>'"></td>
+		 <% cartTotalPrice += (cart.getAmount() * cart.getGoods_price()); %>
  	 </tr>
      <%}%>
       <tr>
- 	 	<td align="right" colspan="5"> 총 금액: <%=cartTotalPrice %> 원<br/>
- 	 	
- 	 	<input type="button" name="order" value="선택상품 주문"></td><br />
+ 	 	<td align="right" colspan="5"> 총 금액:<%=df.format(cartTotalPrice)%> 원<br/>
+ 	 	<input type="button" value="담으러 가기" onclick="document.location.href='goodsList.jsp'">
+ 	 	<input type="submit" value="선택상품 주문"></td><br />
  	 </tr>
 </table>
 	
