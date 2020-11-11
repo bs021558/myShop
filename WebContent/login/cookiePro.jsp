@@ -12,7 +12,7 @@
     	UserDAO dao = UserDAO.getInstance();
     	boolean result = dao.loginCheck(dto);
     
-    	if(result){//쿠키생성하는 부분
+    	if(result){//바로 세션 생성. 쿠키는 top에서 만듦.
     		session.setAttribute("sessionId", dto.getUser_id());
     		session.setAttribute("sessionAuto",dto.getAuto());
     		response.sendRedirect("/myShop/index.jsp");

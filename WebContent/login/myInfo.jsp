@@ -11,9 +11,6 @@
 			response.sendRedirect("/myShop/login/loginForm.jsp");
   		}
     %>
-
-	
-	
 	<%@ include file="/include/top.jsp"%> <!-- 상단 -->
 <body style="text-align: center;">
 	<div>

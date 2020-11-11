@@ -6,10 +6,9 @@
     
     <%
 		session.invalidate(); 
-		String id = null, pw = null, auto = null;
-		Cookie [] cookies = request.getCookies();
-		if(cookies != null){
-			for(Cookie c : cookies){
+		Cookie [] acookies = request.getCookies();
+		if(acookies != null){
+			for(Cookie c : acookies){
 				if(c.getName().equals("cid")){
 					c.setMaxAge(0);
 					response.addCookie(c);
@@ -24,5 +23,5 @@
 				}
 			}
 		}
-		response.sendRedirect("/myShop/index.jsp");
+		response.sendRedirect("/myShop/index.jsp?logout=true");
     %>
