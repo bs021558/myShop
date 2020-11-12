@@ -7,8 +7,8 @@
 <%@ page import="myshop.contact.ContactDAO" %>
 <%@ page import="myshop.contact.ContactDTO" %>
 
-     <h1>contactPro 페이지..!!</h1> 
-<% 
+     <h1>contactPro 페이지..!!</h1>
+<%
 	request.setCharacterEncoding("UTF-8");
 
 	//세션 획득
@@ -21,7 +21,7 @@
 		ContactDTO cdto = new ContactDTO();
 		request.setCharacterEncoding("UTF-8"); 
 		
-		String save = request.getRealPath("save");
+		String save = request.getRealPath("/imgsave/comimg");
 		int size = 1024*1024*10; // 10mb
 		String enc = "UTF-8";
 		DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();

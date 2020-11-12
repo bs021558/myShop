@@ -1,6 +1,7 @@
+<%@page import="myshop.goods.MyShopDAO"%>
+<%@page import="myshop.goods.MyShopDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="myshop.board.*"%>
 
 <% 	String goods_code = request.getParameter("goods_code");
 	int code = 0;

@@ -1,10 +1,10 @@
+<%@page import="myshop.qnaboard.QnaDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8"%>
-<%@ page import="myshop.board.*" %>
 
 <% request.setCharacterEncoding("UTF-8");%>
 
-<jsp:useBean id="dto" class = "myshop.board.QnaDTO">
+<jsp:useBean id="dto" class = "myshop.qnaboard.QnaDTO">
 	<jsp:setProperty name = "dto" property="*"/>
 </jsp:useBean>
 

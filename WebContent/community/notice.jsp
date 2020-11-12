@@ -1,6 +1,6 @@
+<%@page import="myshop.notice.NoticeDTO"%>
+<%@page import="myshop.notice.NoticeDAO"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@page import="myshop.community.NoticeDTO"%>
-<%@page import="myshop.community.NoticeDAO"%>
 <%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>

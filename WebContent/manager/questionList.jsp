@@ -1,5 +1,5 @@
-<%@page import="myshop.opboard.OpBoardDAO"%>
 <%@page import="myshop.opboard.OpBoardDTO"%>
+<%@page import="myshop.opboard.OpBoardDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title></title> 
 </head>
 <body>
 	<%
@@ -27,84 +27,90 @@
 		if (sessionId == null) {
 			response.sendRedirect("/myShop/login/loginForm.jsp");
 		} else {
-			OpBoardDTO dto = new OpBoardDTO();
+
 			OpBoardDAO dao = OpBoardDAO.getInstance();
 			int count = dao.getInquiry();
-			
 			if (count > 0) {
 				articleList = dao.selectInquiry(start, end);
+				
 			}
 	%>
 	<center>
-		<h1>문의 내용</h1>
-		</head>
-		<b>답변 안한 문의 수 : <%=count%></b>
-		<%
-			if (count <= 0) {
-		%>
-		<table width="700" border="1" cellpadding="0" cellspacing="0">
-			<tr>
-				<td align="center">문의 내역을 전부 해결했습니다.</td>
-		</table>
+	<h1>문의 내용</h1>
+</head>
+<b>답변 안한 문의 수 : <%=count%></b>
+<%
+	if (count <= 0) {
+%>
+<table width="700" border="1" cellpadding="0" cellspacing="0">
+	<tr>
+		<td align="center">문의 내역을 전부 해결했습니다.</td>
+</table>
 
-		<%
-			} else {
-		%>
-		<table border="1" width="700" cellpadding="0" cellspacing="0"
-			align="center">
-			<tr height="30">
-				<td align="center" width="200">작성자</td>
-				<td align="center" width="200">제목</td>
-				<td align="center" width="200">이메일</td>
-				<td align="center" width="200">IP주소</td>
-			</tr>
-			<%
-				for (int i = 0; i < articleList.size(); i++) {
-
-							OpBoardDTO article = (OpBoardDTO) articleList.get(i);
-			%>
+<%
+	} else {
+%>
+<table border="1" width="700" cellpadding="0" cellspacing="0"
+	align="center">
 	<tr height="30">
-		<td align="center" width="200"><a href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_id()%></a></td>
-		<td align="center" width="200"><a href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_title() %></a></td>
-		<td align="center" width="200"><a href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_email() %></a></td>
-		<td align="center" width="200"><a href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_ip() %></a></td>
-	</tr>			<%
-				}
-			%>
-		</table>
-		<%
-			}
-		%>
+		<td align="center" width="200">작성자</td>
+		<td align="center" width="200">제목</td>
+		<td align="center" width="200">이메일</td>
+		<td align="center" width="200">IP주소</td>
+	</tr>
+	<%
+		for (int i = 0; i < articleList.size(); i++) {
+		
+		OpBoardDTO article = (OpBoardDTO) articleList.get(i);
+		
+	%>
+	<tr height="30">
+		<td align="center" width="200"><a
+			href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_id()%></a></td>
+		<td align="center" width="200"><a
+			href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_title()%></a></td>
+		<td align="center" width="200"><a
+			href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_email()%></a></td>
+		<td align="center" width="200"><a
+			href="/myShop/manager/questionDetails.jsp?num=<%=article.getOp_idx()%>&pageNum=<%=pageNum%>"><%=article.getOp_ip()%></a></td>
+	</tr>
+	<%	
+		}
+	%>
+</table>
+<%
+	}
+%>
 
-		<%
-			if (count > 0) {
-					int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+<%
+	if (count > 0) {
+			int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 
-					int startPage = (int) (currentPage / 10) * 10 + 1;
-					int pageBlock = 10;
-					int endPage = startPage + pageBlock - 1;
-					if (endPage > pageCount)
-						endPage = pageCount;
+			int startPage = (int) (currentPage / 10) * 10 + 1;
+			int pageBlock = 10;
+			int endPage = startPage + pageBlock - 1;
+			if (endPage > pageCount)
+				endPage = pageCount;
 
-					if (startPage > 10) {
-		%>
-		<a href="questionList.jsp?pageNum=<%=startPage - 10%>">[이전]</a>
-		<%
-			}
-					for (int i = startPage; i <= endPage; i++) {
-		%>
-		<a href="questionList.jsp?pageNum=<%=i%>">[<%=i%>]
-		</a>
-		<%
-			}
-					if (endPage < pageCount) {
-		%>
-		<a href="questionList.jsp?pageNum=<%=startPage + 10%>">[다음]</a>
-		<%
-			}
-				}
-		%>
-	</center>
+			if (startPage > 10) {
+%>
+<a href="questionList.jsp?pageNum=<%=startPage - 10%>">[이전]</a>
+<%
+	}
+			for (int i = startPage; i <= endPage; i++) {
+%>
+<a href="questionList.jsp?pageNum=<%=i%>">[<%=i%>]
+</a>
+<%
+	}
+			if (endPage < pageCount) {
+%>
+<a href="questionList.jsp?pageNum=<%=startPage + 10%>">[다음]</a>
+<%
+	}
+		}
+%>
+</center>
 </body>
 <%
 	}

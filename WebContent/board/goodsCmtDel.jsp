@@ -1,22 +1,19 @@
+<%@page import="myshop.goodscmt.CmtDTO"%>
+<%@page import="myshop.goodscmt.CmtDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
-<% 	String num = request.getParameter("num"); %>
+<%@ page import = "java.sql.Timestamp" %>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>방명록</title>
-</head>
-<body>
-<form method="post" action="goodsCmtDelPro.jsp">
-    <input type='hidden' name="num" value="<%= num%>">
-    <table>
-        <tr>
-            <td>비밀번호</td>
-            <td><input type="password" name="passwd"></td>
-            <td><input type="submit" value="확인"></td>
-        </tr>
-    </table>
-</form>
-<a href="goodsDetail.jsp">돌아가기</a>
-</body>
-</html>
+<%// request.setCharacterEncoding("UTF-8");%>
+
+<%
+  int num = Integer.parseInt(request.getParameter("num"));
+  String pageNum = request.getParameter("cmtPageNum");
+  CmtDAO dao = CmtDAO.getInstance();
+  CmtDTO dto = new CmtDTO();
+  dao.deleteCmt(num);
+  
+%>
+	<script>
+		alert("삭제 되었습니다.");
+	</script>

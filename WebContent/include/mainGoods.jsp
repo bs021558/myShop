@@ -173,8 +173,7 @@ function search() {
 		}
 	%>
 </ul>
-	<form ><input type="button" onClick="window.location.reload()" value="더 보기">
-	<input type="button" value="초기화"id="su" onClick="alert('클릭이벤트1 발생')"></form>
+	<input type="button" onClick="window.location.reload()" value="더 보기">
 </div>
 </center>
 <script>

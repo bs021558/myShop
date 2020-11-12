@@ -112,7 +112,7 @@ if (sessionId != null) {
 					<td><input type="password" name="user_pw2"></td>
 				</tr>
 				<tr>
-					<td width="20%" align="right">이름</td>
+					<td width="20%" align="right">성명</td>
 					<td><input type="text" name="user_name" autocomplete=”off”></td>
 				</tr>
 				<tr>

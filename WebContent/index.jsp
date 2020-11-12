@@ -1,9 +1,9 @@
+<%@page import="myshop.shopuser.UserDAO"%>
+<%@page import="myshop.shopuser.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="myshop.user.UserDAO" %>
-<%@ page import="myshop.user.UserDTO" %>
 
-<jsp:useBean id="udto" class="myshop.user.UserDTO"/>		
+<jsp:useBean id="udto" class="myshop.shopuser.UserDTO"/>		
 <%
 	//세션이 있을 때만 동작
 	if(session.getAttribute("sessionId")!=null){
@@ -31,7 +31,6 @@
 	    		response.addCookie(cid);
 	    		response.addCookie(cpw);
 	    		response.addCookie(cauto);
-	    		System.out.println("쿠키 생성 확인 =="+cid.getValue());
 	    	}
 		}
 	//세션이 없을 때
@@ -40,7 +39,6 @@
 		
 		//쿠키 불러오기
 		Cookie [] cookies = request.getCookies();
-		System.out.println("로그아웃 - 쿠키 상태 확인=="+cookies);
 		//로그아웃일 경우 로그아웃 파라미터 가져옴
 		String logout = request.getParameter("logout");
 		

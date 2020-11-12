@@ -1,6 +1,7 @@
+<%@page import="myshop.qnaboard.QnaDTO"%>
+<%@page import="myshop.qnaboard.QnaDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "myshop.board.*"%>
 <%@ page import = "java.util.List" %>
 <%@ page import = "java.text.SimpleDateFormat" %>
 <html>

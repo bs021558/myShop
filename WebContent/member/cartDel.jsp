@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import = "java.sql.Timestamp" %>
 
-<% request.setCharacterEncoding("euc-kr");%>
+<% request.setCharacterEncoding("UTF-8");%>
 
 <%
 	String sessionId = (String)session.getAttribute("sessionId");

@@ -1,8 +1,8 @@
+<%@page import="myshop.shoporder.OrderDTO"%>
+<%@page import="myshop.shoporder.OrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="myshop.order.OrderDTO"%>
-<%@ page import="myshop.order.OrderDAO"%>
 <%@ page import="myshop.goods.GoodsDAO"%>
 <%@ page import="myshop.goods.GoodsDTO"%>
 <h1>myOrder 페이지입니다.</h1>

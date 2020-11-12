@@ -1,4 +1,4 @@
-package myshop.board;
+package myshop.goods;
 
 public class MyShopDTO {
 

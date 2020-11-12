@@ -1,7 +1,7 @@
+<%@page import="myshop.notice.NoticeDAO"%>
+<%@page import="myshop.notice.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="myshop.community.NoticeDAO" %>
-<%@ page import="myshop.community.NoticeDTO" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>

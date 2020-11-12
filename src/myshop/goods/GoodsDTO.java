@@ -6,7 +6,7 @@ public class GoodsDTO {
 	private String goods_brand;
 	private String goods_name;
 	private int goods_price;
-	private String goods_delivery;
+	private int goods_delivery;
 	private int goods_state;
 	private String goods_option;
 	private String goods_img;
@@ -54,11 +54,11 @@ public class GoodsDTO {
 		this.goods_price = goods_price;
 	}
 
-	public String getGoods_delivery() {
+	public int getGoods_delivery() {
 		return goods_delivery;
 	}
 
-	public void setGoods_delivery(String goods_delivery) {
+	public void setGoods_delivery(int goods_delivery) {
 		this.goods_delivery = goods_delivery;
 	}
 

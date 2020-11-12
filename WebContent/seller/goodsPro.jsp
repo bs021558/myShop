@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ page import="myshop.board.*" %>
 <%@ page import="myshop.goods.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
@@ -15,16 +13,16 @@
       DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
       MultipartRequest mr = new MultipartRequest(request,save,size,enc,dp);
       
-      //String code = mr.getParameter("goods_code");
+      //String code = mr.gew]tParameter("goods_code");
       
       GoodsDTO dto = new GoodsDTO();
       
       dto.setGoods_name(mr.getParameter("goods_name"));
       //dto.setGoods_brand(mr.getParameter("goods_brand"));
       //String goods_brand = (String)session.getAttribute("user_id");
-      dto.setGoods_brand((String)session.getAttribute("user_id"));
+      dto.setGoods_brand(mr.getParameter("goods_brand"));
       dto.setGoods_price(Integer.parseInt(mr.getParameter("goods_price")));
-      dto.setGoods_delivery(mr.getParameter("goods_delivery"));
+      dto.setGoods_delivery(Integer.parseInt(mr.getParameter("goods_delivery")));
       dto.setGoods_option(mr.getParameter("goods_option"));
       dto.setGoods_count(Integer.parseInt(mr.getParameter("goods_count")));
       dto.setGoods_msg(mr.getParameter("goods_msg"));

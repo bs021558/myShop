@@ -1,10 +1,11 @@
-<%@page import="myshop.user.UserDAO"%>
+<%@page import="myshop.shopuser.UserDAO"%>
+<%@page import="myshop.shopuser.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <h1>cookiePro</h1>
 
-<jsp:useBean id="dto" class="myshop.user.UserDTO" />
+<jsp:useBean id="dto" class="myshop.shopuser.UserDTO" />
 <jsp:setProperty property="*" name="dto" />
 
  

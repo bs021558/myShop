@@ -1,4 +1,4 @@
-package myshop.board;
+package myshop.goodscmt;
 
 import java.sql.Timestamp;
 
@@ -7,11 +7,10 @@ public class CmtDTO {
 	private int num; 
 	private int goods_code;
     private String writer;
-    private String passwd;
     private String content;
     private Timestamp reg_date;
-    
-	public int getNum() {
+  
+    public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
@@ -29,12 +28,6 @@ public class CmtDTO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getPasswd() {
-		return passwd;
-	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
 	public String getContent() {
 		return content;
 	}
@@ -48,4 +41,3 @@ public class CmtDTO {
 		this.reg_date = reg_date;
 	}
 }
-    

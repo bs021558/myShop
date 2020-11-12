@@ -1,10 +1,10 @@
-<%@page import="myshop.community.CommentDAO"%>
+<%@page import="myshop.cmu_comment.CommentDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import = "java.sql.Timestamp" %>
 
 <% request.setCharacterEncoding("UTF-8");%>
 
-    <jsp:useBean id="comment" scope="page" class="myshop.community.CommentDTO" />
+    <jsp:useBean id="comment" scope="page" class="myshop.cmu_comment.CommentDTO" />
     <jsp:setProperty name="comment" property="*"/>
      
 <%

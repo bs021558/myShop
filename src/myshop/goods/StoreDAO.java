@@ -36,7 +36,7 @@ public class StoreDAO {
 				dto.setGoods_brand(rs.getString("goods_brand"));
 				dto.setGoods_name(rs.getString("goods_name"));
 				dto.setGoods_price(rs.getInt("goods_price"));
-				dto.setGoods_delivery(rs.getString("goods_delivery"));
+				dto.setGoods_delivery(rs.getInt("goods_delivery"));
 				dto.setGoods_state(rs.getInt("goods_state"));
 				dto.setGoods_option(rs.getString("option"));
 				dto.setGoods_img(rs.getString("goods_img"));
@@ -59,7 +59,7 @@ public class StoreDAO {
 		try {
 			conn = DBCon.getConnection();
 			
-			String sql = "select count(*) from Goods where goods_brand=?";
+			String sql = "select count(*) from goods where goods_brand=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, goods_brand);
 			rs = pstmt.executeQuery();
@@ -82,7 +82,7 @@ public class StoreDAO {
 		try {
 			conn = DBCon.getConnection();
 			
-			String sql = "select count(*) from (select count(*) from Goods where " + choice + " like'%"+ search +"%') where goods_brand =?";
+			String sql = "select count(*) from (select count(*) from goods where " + choice + " like'%"+ search +"%') where goods_brand =?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, goods_brand);
 			rs = pstmt.executeQuery();
@@ -111,10 +111,10 @@ public class StoreDAO {
 			pstmt.setInt(2, start);
 			pstmt.setInt(3, end);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				albumList = new ArrayList(end);
-				do {
+			albumList = new ArrayList();
+			while(rs.next()) {
+				
+				
 					StoreDTO dto = new StoreDTO();
 					dto.setGoods_code(rs.getInt("goods_code"));
 					dto.setGoods_img(rs.getString("goods_img"));
@@ -123,7 +123,7 @@ public class StoreDAO {
 					
 					albumList.add(dto);
 				
-				}while(rs.next());
+				
 			}
 		}catch(Exception e) { 
 			e.printStackTrace();

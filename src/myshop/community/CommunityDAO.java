@@ -39,6 +39,24 @@ public class CommunityDAO {
 		return x;
 	}
 	
+	public int getMyCommuCount(String user_id) throws Exception {
+		int x = 0;
+		try {
+			conn = DBCon.getConnection();
+			pstmt = conn.prepareStatement("select count(*) from community where state=1 and writer = ?");
+			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				x=rs.getInt(1);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return x;
+	}
+	
 	public List getCommues(int start, int end) throws Exception{
 		List commuList = null;
 		try {
@@ -73,6 +91,45 @@ public class CommunityDAO {
 		}
 		return commuList;
 	}		  
+
+	public ArrayList getMyCommuList(String user_id, int startRow, int endRow) throws Exception{
+		ArrayList<CommunityDTO> commuList = null;
+		try {
+			conn = DBCon.getConnection();
+			String sql = "select * from " + 
+							"(select num,writer,subject,content,passwd,reg_date,readcount,state,rownum r from " + 
+								"(select * from "+
+									"community "+
+							"where writer = ? and state = 1 order by reg_date desc)) " + 
+						 "where r >= ? and r <= ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				commuList = new ArrayList<CommunityDTO>(endRow);
+				do{
+	                  CommunityDTO cm = new CommunityDTO();
+	                  cm.setNum(rs.getInt("num"));
+	                  cm.setWriter(rs.getString("writer"));
+	                  cm.setSubject(rs.getString("subject"));
+	                  cm.setContent(rs.getString("content"));
+	                  cm.setPasswd(rs.getString("passwd"));
+	                  cm.setReg_date(rs.getTimestamp("reg_date"));
+	                  cm.setReadcount(rs.getInt("readcount"));		
+	                  cm.setState(rs.getInt("state"));
+	                  commuList.add(cm);
+				    }while(rs.next()); 
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return commuList;
+	}
 	
     public void insertCommu(CommunityDTO community) throws Exception { 
 		int number=0; 
@@ -229,6 +286,25 @@ public class CommunityDAO {
 			closeAll();
 		}
 	}    
+    
+    public String getRating(String user_id) throws Exception {
+    	String rating = "";
+    	try {
+    		conn = DBCon.getConnection();
+			String sql = "select rating from shopUser where user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user_id);
+			rs = pstmt.executeQuery();
+    		if(rs.next()){
+    			rating = rs.getString("rating");		
+    		}
+    	}catch(Exception e) {
+    		
+    	}finally {
+    		closeAll();
+    	}
+    	return rating;
+    }
 	private void closeAll() {
 		if (rs != null) {try {rs.close();}catch(SQLException s) {}}
 		if (pstmt != null) {try {pstmt.close();}catch(SQLException s) {}}

@@ -1,5 +1,5 @@
+<%@page import="myshop.qnaboard.QnaDAO"%>
 <%@ page contentType="text/html;charset=euc-kr" %>
-<%@ page import = "myshop.board.*" %>
 <%@ page import = "java.sql.Timestamp" %>
 
 

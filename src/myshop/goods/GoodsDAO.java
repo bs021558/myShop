@@ -30,7 +30,7 @@ public class GoodsDAO {
 		try {
 			conn = DBCon.getConnection();
 
-			String sql = "select count(*) from goods";
+			String sql = "select count(*) from Goods";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
@@ -46,30 +46,30 @@ public class GoodsDAO {
 	}
 
 	public void insertGoods(GoodsDTO dto) {
-		try {
-			conn =DBCon.getConnection();
+	      try {
+	         conn =DBCon.getConnection();
 
-			String sql = "insert into goods values(goods_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	         String sql = "insert into Goods values(goods_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	         
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, dto.getGoods_brand());
+	         pstmt.setString(2, dto.getGoods_name());
+	         pstmt.setInt(3, dto.getGoods_price());
+	         pstmt.setInt(4, dto.getGoods_delivery());
+	         pstmt.setInt(5, dto.getGoods_state());
+	         pstmt.setString(6, dto.getGoods_option());
+	         pstmt.setString(7, dto.getGoods_img());
+	         pstmt.setString(8, dto.getGoods_msg());
+	         pstmt.setInt(9, dto.getGoods_count());
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getGoods_brand());
-			pstmt.setString(2, dto.getGoods_name());
-			pstmt.setInt(3, dto.getGoods_price());
-			pstmt.setString(4, dto.getGoods_delivery());
-			pstmt.setInt(5, dto.getGoods_state());
-			pstmt.setString(6, dto.getGoods_option());
-			pstmt.setString(7, dto.getGoods_img());
-			pstmt.setString(8, dto.getGoods_msg());
-			pstmt.setInt(9, dto.getGoods_count());
+	         pstmt.executeUpdate();
 
-			pstmt.executeUpdate();
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			closeAll();
-		}
-	}
+	      } catch (Exception ex) {
+	         ex.printStackTrace();
+	      } finally {
+	         closeAll();
+	      }
+	   }
 
 
 	public List getGoodsList(int start, int end) {
@@ -78,7 +78,7 @@ public class GoodsDAO {
 			conn = DBCon.getConnection();
 
 			String sql = "select goods_code, goods_img, goods_name, goods_price, rownum ";
-			sql+= "from (select * from MyShopGoods order by goods_code desc) ";
+			sql+= "from (select * from Goods order by goods_code desc) ";
 			sql+= "where rownum >= ? and rownum <= ?";
 
 			pstmt = conn.prepareStatement(sql);
@@ -113,7 +113,7 @@ public class GoodsDAO {
 		try {
 			conn = DBCon.getConnection();
 
-			String sql = "select * from goods where goods_code = ?";
+			String sql = "select * from goods where Goods_code = ?";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, code);
@@ -124,7 +124,7 @@ public class GoodsDAO {
 				dto.setGoods_brand(rs.getString("goods_brand"));
 				dto.setGoods_name(rs.getString("goods_name"));
 				dto.setGoods_price(rs.getInt("goods_price"));
-				dto.setGoods_delivery(rs.getString("goods_delivery"));
+				dto.setGoods_delivery(rs.getInt("goods_delivery"));
 				dto.setGoods_state(rs.getInt("goods_state"));
 				dto.setGoods_option(rs.getString("goods_option"));
 				dto.setGoods_img(rs.getString("goods_img"));
@@ -144,7 +144,7 @@ public class GoodsDAO {
 		String goods_name = null;
 		try
 		{
-			String sql = "select goods_name from goods where goods_code = ?";
+			String sql = "select goods_name from Goods where goods_code = ?";
 			DBCon dbConn = new DBCon();
 			conn = dbConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -188,21 +188,18 @@ public class GoodsDAO {
 		return goods_brand;
 	}
 
-	public ArrayList myGoods(String goods_brand) {
-		ArrayList goodsList = null;
+	public int myGoodsCount(String goods_brand) {
+		int x = 0;
 		try
 		{
-			String sql = "select goods_code from goods where goods_brand = ?";
+			String sql = "select count(*) from goods where goods_brand = ?";
 			DBCon dbConn = new DBCon();
 			conn = dbConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, goods_brand);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				do {
-					goodsList.add(rs.getInt("goods_code"));
-
-				}while(rs.next());
+					x=rs.getInt(1);
 			}
 		}
 		catch (Exception ex) 
@@ -214,7 +211,35 @@ public class GoodsDAO {
 			closeAll();
 		}
 
-		return goodsList;
+		return x;
+	}
+	
+	public List myGoods(String goods_brand) {
+		List list = null;
+		try {
+			int x=myGoodsCount(goods_brand); 
+			if(x>0) {
+				list = new ArrayList();
+				String sql = "select goods_code from goods where goods_brand = ?";
+				conn = DBCon.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, goods_brand);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					list.add(rs.getInt(1));
+				}
+			}
+		}
+		catch (Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			closeAll();
+		}
+
+		return list;
 	}
 
 	private void closeAll() {

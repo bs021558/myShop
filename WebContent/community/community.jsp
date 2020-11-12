@@ -1,8 +1,8 @@
+<%@page import="myshop.cmu_comment.CommentDTO"%>
+<%@page import="myshop.cmu_comment.CommentDAO"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import="myshop.community.CommunityDTO"%>
 <%@page import="myshop.community.CommunityDAO"%>
-<%@page import="myshop.community.CommentDAO"%>
-<%@page import="myshop.community.CommentDTO"%>
 <%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import= "java.util.List" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>

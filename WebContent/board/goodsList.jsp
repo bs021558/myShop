@@ -1,28 +1,22 @@
+<%@page import="myshop.goods.MyShopDTO"%>
+<%@page import="myshop.goods.MyShopDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="myshop.board.MyShopDAO"%>
-<%@ page import="myshop.board.MyShopDTO"%>
 <%@ page import = "java.util.List" %>
-
-
-
+<%@ include file="/include/top.jsp"%> 
+<br/><br/>
 <table>
 <tr><td align = "right">
 <form action="goodsList.jsp" text-align="right">
-
 	<select name="filter">
 		<option value="">필터</option>
 		<option value="lowPrice">낮은가격순</option>
 		<option value="highPrice">높은가격순</option>
 	</select>	
-		
 		<input type="submit" value="적용" />
 
 </form>
 </td></tr>
 </table>
-
-
-
 <%!
    int pageSize = 10; //상품메인에 보여지는 상품개수
 %>

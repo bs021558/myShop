@@ -1,4 +1,4 @@
-package myshop.board;
+package myshop.qnaboard;
 import java.sql.Timestamp;
 
 public class QnaDTO{

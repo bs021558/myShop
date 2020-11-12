@@ -1,5 +1,5 @@
+<%@page import="myshop.community.CommunityDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import = "myshop.community.CommunityDAO" %>
 <%@ page import = "java.sql.Timestamp" %>
 
 <% request.setCharacterEncoding("UTF-8");%>

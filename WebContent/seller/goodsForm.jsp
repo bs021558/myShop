@@ -26,8 +26,8 @@
    		</div>
    		   
       	<div>
-   <%-- 상품코드--%>    <input type="hidden" size="50"  name="goods_code" readonly></div>
-<%--       제조사/브랜드  <%=goods_brand%> </br> --%>
+<!--     상품코드   <input type="text" size="50"  name="goods_code" readonly></div> -->
+<!--       제조사/브랜드  --><input type="hidden" name="goods_brand" value="<%=goods_brand%>">
       상품이름 <input type="text" size="50"  name="goods_name"></br>
       가격 <input type="text" size="50"  name="goods_price"></br>
       배송비 <input type="text" size="50" name="goods_delivery"></br>

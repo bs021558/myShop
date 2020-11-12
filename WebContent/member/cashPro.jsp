@@ -1,8 +1,8 @@
-<%@page import="myshop.user.UserDTO"%>
-<%@page import="myshop.user.UserDAO"%>
+<%@page import="myshop.shopuser.UserDAO"%>
+<%@page import="myshop.shopuser.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="dto" class="myshop.user.UserDTO" />
+<jsp:useBean id="dto" class="myshop.shopuser.UserDTO" />
 <jsp:setProperty name="dto" property="*" />
 <% 
 	request.setCharacterEncoding("UTF-8");
@@ -12,7 +12,7 @@
 		response.sendRedirect("/myShop/login/loginForm.jsp");
 	}else{
 	UserDAO dao = new UserDAO();
-	UserDTO infodto = dao.myInfo(sessionId);
+	dao.myInfo(sessionId);
 
 	String parcash = request.getParameter("user_cash1");
 	String dtocash = dto.getUser_cash();

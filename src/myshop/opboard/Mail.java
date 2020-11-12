@@ -8,5 +8,5 @@ public class Mail extends Authenticator{
     protected PasswordAuthentication getPasswordAuthentication() {
         return new PasswordAuthentication("kimheec2000@naver.com","Kimheec2000");
     }
-
+ 
 }

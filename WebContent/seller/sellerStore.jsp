@@ -11,7 +11,7 @@
    <script>
       alert("로그인 후 이용 가능합니다");
       window.location='/myShop/login/loginForm.jsp';
-    </script>
+    </script>	
 
 <%} %>
 
@@ -30,7 +30,6 @@
    
     String choice = request.getParameter("choice");
    	String search = request.getParameter("search");
-	
 	
 	List albumList = null; 
 	StoreDAO dao = StoreDAO.getInstance();
@@ -92,7 +91,6 @@
 		<td align="center" width="50%" > 상품사진  </td>
 		<td align="center" width="25%" > 상품이름 </td>
 		<td align="center" width="20%" > 상품가격 </td>
-		
 	</tr>
 <%
 		for(int i = 0; i < albumList.size() ; i++){
@@ -101,7 +99,6 @@
 	<tr>
 		
 		<td align="center" width="100" height="150"><%=dto.getGoods_code() %></td>
-		
 		
 		<td align="center" width="500" height="150">
 		<a href="/myShop/board/goodsDetail.jsp?goods_code=<%=dto.getGoods_code()%>&pageNum=<%=currentPage %>">

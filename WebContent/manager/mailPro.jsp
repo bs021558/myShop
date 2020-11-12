@@ -1,23 +1,25 @@
-<%@page import="myshop.opboard.Mail"%>
-<%@page import="javax.mail.Transport"%>
 <%@page import="javax.mail.Message"%>
-<%@page import="javax.mail.Address"%>
 <%@page import="javax.mail.internet.InternetAddress"%>
+<%@page import="javax.mail.Transport"%>
+<%@page import="javax.mail.Address"%>
 <%@page import="javax.mail.internet.MimeMessage"%>
 <%@page import="javax.mail.Session"%>
 <%@page import="javax.mail.Authenticator"%>
+<%@page import="myshop.opboard.Mail"%>
 <%@page import="java.util.Properties"%>
+<%@page import="myshop.opboard.OpBoardDAO"%>
+<%@page import="myshop.opboard.OpBoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-request.setCharacterEncoding("utf-8");
- 
+request.setCharacterEncoding("UTF-8");
+
+int idx = Integer.parseInt(request.getParameter("idx"));
 String from = request.getParameter("from");
 String to = request.getParameter("to");
-String subject = request.getParameter("subject");
+String subject = request.getParameter("subject"); 
 String content = request.getParameter("content");
-// 입력값 받음
- 
+
 Properties p = new Properties(); // 정보를 담을 객체
  
 p.put("mail.smtp.host","smtp.naver.com"); // 네이버 SMTP
@@ -32,6 +34,7 @@ p.put("mail.smtp.socketFactory.fallback", "false");
 // SMTP 서버에 접속하기 위한 정보들
  
 try{
+	
     Authenticator auth = new Mail();
     Session ses = Session.getInstance(p, auth);
      
@@ -55,7 +58,14 @@ try{
     // 오류 발생시 뒤로 돌아가도록
     return;
 }
- 
-out.println("<script>alert('메세지전달성공');location.href='mailForm.html';</script>");
+
+OpBoardDAO dao = OpBoardDAO.getInstance();
+dao.answerUpdate(idx);
+
+out.println("<script>alert('메세지전달성공');location.href='questionList.jsp';</script>");
 // 성공 시
+
+
+
+
 %>

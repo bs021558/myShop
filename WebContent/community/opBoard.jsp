@@ -10,15 +10,50 @@
 <body>
 <%@ include file="/include/top.jsp"%>
 
+
+<script language="JavaScript">
+    
+    function checkIt() {
+        var opinput = eval("document.opinput");
+        
+        if(!opinput.op_id.value) {
+            alert("사용자 / 업체 명를 입력하세요");
+            return false;
+        }
+        
+        if(!opinput.op_email.value ) {
+            alert("이메일을 입력하세요");
+            return false;
+        }
+        if(!opinput.op_phone.value ) {
+            alert("전화번호을 입력하세요");
+            return false;
+        }
+        if(!opinput.op_title.value ) {
+            alert("제목을 입력하세요");
+            return false;
+        }
+        if(!opinput.op_content.value ) {
+            alert("내용을 입력하세요");
+            return false;
+        }
+    }
+</script>
+
+
 <div style="align: center;">
-	<form action="opBoardPro.jsp" method="post" style="width:300px; left:40%; right:45%;position: absolute; background-color: yellow;">
+	<form action="opBoardPro.jsp" name="opinput" method="post" onSubmit="return checkIt()" style="width:300px; left:40%; right:45%;position: absolute; background-color: #CCFFFF;">
 			<input type="hidden" value="1" name="op_answer">
 			<input type="hidden" value="<%= InetAddress.getLocalHost() %>" name="op_ip">
 			
-		<table>
+		<table >
 			<tr>
 				<td style="text-align: right;">사용자 / 업체 명</td>
 				<td><input type="text" name="op_id"></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">이메일</td>
+				<td><input type="email" name="op_email"></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">전화번호</td>

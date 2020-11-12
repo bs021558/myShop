@@ -1,4 +1,4 @@
-package myshop.community;
+package myshop.notice;
 
 import java.sql.Timestamp;
 

@@ -1,8 +1,8 @@
+<%@page import="myshop.goods.GoodsDTO"%>
+<%@page import="myshop.goods.GoodsDAO"%>
+<%@page import="myshop.shoporder.OrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "myshop.order.OrderDAO" %>
-<%@ page import = "myshop.goods.GoodsDAO" %>
-<%@ page import = "myshop.goods.GoodsDTO" %>
 <h1>contactSeller페이지입니다.</h1>
 <script language="javascript">
 <!-- 
@@ -13,7 +13,7 @@ function checkFile(f){
 
 	// file[0].name 은 파일명 입니다.
 	// 정규식으로 확장자 체크
-	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.');
+	if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)) alert('gif, jpg, png 파일만 선택해 주세요.);
 
 	// 체크를 통과했다면 종료.
 	else return;

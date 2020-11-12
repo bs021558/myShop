@@ -1,4 +1,4 @@
-package myshop.community;
+package myshop.notice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

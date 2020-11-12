@@ -1,6 +1,6 @@
+<%@page import="myshop.notice.NoticeDTO"%>
+<%@page import="myshop.notice.NoticeDAO"%>
 <%@ page contentType = "text/html; charset=UTF-8" %>
-<%@ page import = "myshop.community.NoticeDAO" %>
-<%@ page import = "myshop.community.NoticeDTO" %>
     
 <html>
 <head>

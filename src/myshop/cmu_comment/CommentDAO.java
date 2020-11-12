@@ -1,4 +1,4 @@
-package myshop.community;
+package myshop.cmu_comment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

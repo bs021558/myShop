@@ -1,4 +1,4 @@
-package myshop.board;
+package myshop.goods;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -41,7 +41,7 @@
 				<button onclick="window.location='/myShop/member/cash.jsp'" style="width: 90px;">충전</button><br /><br />
 			</div>
 			<div>
-				<button onclick="window.location='/myShop/member/myQuestion.jsp'" style="width: 90px;">게시판</button><br /><br />
+				<button onclick="window.location='/myShop/member/myCommuList.jsp'" style="width: 90px;">게시판</button><br /><br />
 			</div>
 			<div>
 				<button onclick="window.location='/myShop/member/cartList.jsp'" style="width: 90px;">장바구니</button><br /><br />
