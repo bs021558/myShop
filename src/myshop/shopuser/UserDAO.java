@@ -19,7 +19,7 @@ public class UserDAO {
 	private ResultSet rs = null;
 	
 
-	public ArrayList selectAll() { //¸ðµçÈ¸¿ø Á¶È¸
+	public ArrayList selectAll() { //ï¿½ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½È¸
 		ArrayList list = new ArrayList();	
 		try {
 			conn = DBCon.getConnection();
@@ -45,7 +45,7 @@ public class UserDAO {
 		}
 		return list;
 	}
-	public UserDTO usersselect(String rating, String user_id) { //ÆÇ¸ÅÀÚ È¸¿ø Á¤º¸ Ã£±â
+	public UserDTO usersselect(String rating, String user_id) { //ï¿½Ç¸ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
 		UserDTO dto = new UserDTO();
 		try {
 			conn = DBCon.getConnection();
@@ -73,7 +73,7 @@ public class UserDAO {
 		}
 		return dto;
 	}
-	public int getcompany() {//ÆÇ¸ÅÀÚ(È¸»ç) ¼ö
+	public int getcompany() {//ï¿½Ç¸ï¿½ï¿½ï¿½(È¸ï¿½ï¿½) ï¿½ï¿½
 		int getcompany = 0;
 		
 		try {
@@ -93,7 +93,71 @@ public class UserDAO {
 		}
 		return getcompany;
 	}
-	public ArrayList selectcompany() { //È¸»ç Á¶È¸
+	
+	public int waitingSellerCount() {//ï¿½Ç¸ï¿½ï¿½ï¿½(È¸ï¿½ï¿½) ï¿½ï¿½
+		int x = 0;
+		
+		try {
+			conn = DBCon.getConnection();
+			
+			String sql = "select count(*) from shopUser where rating='3' and join ='0'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				x = rs.getInt(1);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return x;
+	}
+	
+	public void authorizeSeller(String user_id) {
+		try{
+			conn = DBCon.getConnection();
+			pstmt = conn.prepareStatement("update shopuser set join = '1', rating = '2' where user_id = ?");
+			pstmt.setString(1, user_id);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+	}	
+	
+	public ArrayList waitingSeller() { //È¸ï¿½ï¿½ ï¿½ï¿½È¸
+		ArrayList list = new ArrayList();	
+		try {
+			conn = DBCon.getConnection();
+			pstmt = conn.prepareStatement("select * from shopUser where rating='3' and join ='0'");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				UserDTO dto = new UserDTO();
+				dto.setJoin(rs.getInt("join"));
+				dto.setRating(rs.getString("rating"));
+				dto.setUser_id(rs.getString("user_id"));
+				dto.setUser_pw(rs.getString("user_pw"));
+				dto.setUser_name(rs.getString("user_name"));
+				dto.setUser_phone(rs.getString("user_phone"));
+				dto.setUser_address(rs.getString("user_address"));
+				dto.setUser_date(rs.getTimestamp("user_date"));
+				dto.setUser_cash(rs.getString("user_cash"));
+				dto.setUser_cash(rs.getString("business_num"));
+				dto.setUser_cash(rs.getString("bank_num"));
+				list.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return list;
+	}
+	
+	public ArrayList selectcompany() { //È¸ï¿½ï¿½ ï¿½ï¿½È¸
 		ArrayList list = new ArrayList();	
 		try {
 			conn = DBCon.getConnection();
@@ -121,6 +185,9 @@ public class UserDAO {
 		}
 		return list;
 	}
+	
+
+	
 	public void insert(UserDTO dto) {
 	      try {
 	         conn = DBCon.getConnection();
