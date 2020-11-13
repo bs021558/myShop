@@ -148,6 +148,7 @@
 		}
 %>
 </table>
+<center>
 <%
 	}
     if (count > 0) { 

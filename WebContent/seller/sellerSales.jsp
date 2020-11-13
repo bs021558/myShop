@@ -86,4 +86,6 @@
 		<td align="center">합계</td><td></td><td></td><td>
 			<%=totalPrice%>
 		</td><td></td>
+		</tr>
 </table>
+<<jsp:include page="/contact/contactList.jsp"></jsp:include>
