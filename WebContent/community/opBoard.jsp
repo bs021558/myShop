@@ -39,9 +39,16 @@
         }
     }
 </script>
-
-
-<div style="align: center;">
+<%
+String sessionID = "null";
+if(session.getAttribute("sessionId") !=null){
+sessionID = (String)session.getAttribute("sessionId");
+}
+if(sessionID.equals("null")){
+	sessionID="비회원";
+}
+	%>
+<div style="align: centser;">
 	<form action="opBoardPro.jsp" name="opinput" method="post" onSubmit="return checkIt()" style="width:300px; left:40%; right:45%;position: absolute; background-color: #CCFFFF;">
 			<input type="hidden" value="1" name="op_answer">
 			<input type="hidden" value="<%= InetAddress.getLocalHost() %>" name="op_ip">
@@ -49,7 +56,7 @@
 		<table >
 			<tr>
 				<td style="text-align: right;">사용자 / 업체 명</td>
-				<td><input type="text" name="op_id"></td>
+				<td><input type="text" name="op_id" size="5" value="<%=sessionID%>" readonly></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">이메일</td>

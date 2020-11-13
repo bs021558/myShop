@@ -48,27 +48,6 @@
     
     </script>
 
-	<script type="text/javascript">
-
-	<!--
-	function Rradio_OnOff(id)
-	{
-	//  <tr> id로 값을 비교한다!
-	   if(id == "Radio_On")
-	   {
-	      document.all["Radio_On"].style.display = '';         // 보이게
-	      document.all["Radio_Off"].style.display = 'none';  // 안보이게
-	   }
-	   else
-	   {
-	      document.all["Radio_On"].style.display = 'none';  // 안보이게
-	      document.all["Radio_Off"].style.display = '';         // 보이게
-	   }
-	}
-	//-->
-
-	</script>
-
 </head>
 <body>
 <div>
@@ -91,14 +70,10 @@ if (sessionId != null) {
 				<tr>
 					<td width="20%" align="right">
 					<td colspan="2">
-				       <label>&ensp;&ensp;판매자<input type="radio" name="rating" value="2" onclick="Rradio_OnOff('Radio_On');" checked/></label>  
-				       <label>구매자<input type="radio" name="rating" value="1" onclick="Rradio_OnOff('Radio_Off');"/></label> 
+				       <label><a href="insertForm.jsp">&ensp;&ensp;구매자<input type="radio" name="rating" value="2" checked/></a></label>  
+				       <label><a href="insertSeller.jsp">판매자<input type="radio" name="rating" value="1" "/></a></label> 
 				    </td>
 				</tr>
-				<tr id="Radio_On">
-					<td width="40" align="right" >사업자 번호</td>
-					<td><input type = "text" value="" name= "business_num" ></td>
-	    		</tr>
 				<tr>
 					<td width="40" align="right">아이디</td>
 					<td><input type="text" name="user_id"  autocomplete=”off”> <input type="button" value="중복확인"></td>
@@ -172,7 +147,7 @@ if (sessionId != null) {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="submit" value="로그인하기" style=" width:100%;height:50px;">
+						<input type="submit" value="회원가입" style=" width:100%;height:50px;">
 					</td>			
 				</tr>
 			</table>

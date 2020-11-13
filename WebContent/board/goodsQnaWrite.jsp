@@ -3,7 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<% 	String goods_code = request.getParameter("goods_code");
+<% 	
+	String sessionId = (String) session.getAttribute("sessionId");
+	
+	String goods_code = request.getParameter("goods_code");
 	int code = 0;
 
 	MyShopDAO goodsDAO = MyShopDAO.getInstance();//new myshopDAO();
@@ -38,22 +41,22 @@
 <table width="400" border="1" cellspacing="0" cellpadding="0"  bgcolor="eaeaea" align="center">
    <tr>
    	<td align="right" colspan="2" bgcolor="eaeaea">
-	    <a href="goodsQnaList.jsp"> 글목록</a> 
+	    <a href="goodsDetail.jsp?goods_code=<%=goods_code%>"> 글목록</a> 
    </td>
    </tr>
    <tr>
-   	<th width="70"  bgcolor="eaeaea" align="center">이 름</th>
+   	<th width="70"  bgcolor="eaeaea" align="center">이 름 </th>
    	<td width="330">
-       <input type="text" size="10" maxlength="10" name="writer"></td>
+       &nbsp;<%=sessionId%><input type="hidden" size="10" maxlength="10" name="writer" value="<%=sessionId%>"></td>
   </tr>
   <tr>
     <th width="70"  bgcolor="eaeaea" align="center" >제 목</th>
     <td width="330">
-    <%// if(request.getParameter("num")==null){ %>
+    <%if(request.getParameter("num")==null){ %>
        <input type="text" size="40" maxlength="50" name="subject"></td>
-	<%// }else{ %>
+	<%}else{ %>
 	   <input type="text" size="40" maxlength="50" name="subject" value="[답변]"></td>
-	<%// } %>
+	<%} %>
   </tr>
   <tr>
     <th width="70"  bgcolor="eaeaea" align="center">Email</th>
@@ -65,17 +68,11 @@
     <td width="330" >
      <textarea name="content" rows="13" cols="40"></textarea> </td>
   </tr>
-  <tr>
-    <th width="70"  bgcolor="eaeaea" align="center" >비밀번호</th>
-    <td width="330" >
-     <input type="password" size="8" maxlength="12" name="passwd"> 
-	</td>
-  </tr>
   <tr>      
  	<td colspan=2 bgcolor="eaeaea" align="center"> 
   	<input type="submit" value="글쓰기" >  
   	<input type="reset" value="다시작성">
-  	<input type="button" value="목록보기" OnClick="window.location='goodsQnaList.jsp'">
+  	<input type="button" value="목록보기" OnClick="window.location='goodsDetail.jsp?goods_code=<%=goods_code%>'">
 	</td>
   </tr>
   </table>

@@ -1,51 +1,24 @@
+<%@page import="myshop.qnaboard.QnaDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	
 	pageEncoding="UTF-8"%>
+<%@ page import = "java.sql.Timestamp" %>
+
+<jsp:useBean id="dto" scope="page" class="myshop.qnaboard.QnaDTO">
+	<jsp:setProperty name="dto" property="*" />
+</jsp:useBean>
 
 <%
+  String goods_code = request.getParameter("goods_code");
   int num = Integer.parseInt(request.getParameter("num"));
   String pageNum = request.getParameter("pageNum");
 
+  
+  QnaDAO dao = QnaDAO.getInstance();
+  dao.deleteQna(num);
+  
 %>
-<html>
-<head>
-<title>게시판</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+	<script>
+		alert("삭제 되었습니다.");
+	</script>
 
-<script language="JavaScript">      
-<!--      
-  function deleteSave(){	
-	if(document.delForm.passwd.value==''){
-	alert("비밀번호를 입력하십시요.");
-	document.delForm.passwd.focus();
-	return false;
- }
-}    
-// -->      
-</script>
-</head>
-
-<body bgcolor="eaeaea">
-<center><b>글삭제</b>
-<br>
-<form method="post" name="goodsQnaDelete.jsp"  action="goodsQnaDeletePro.jsp?pageNum=<%=pageNum%>" 
-   onsubmit="return deleteSave()"> 
- <table border="1" align="center" cellspacing="0" cellpadding="0" width="360">
-  <tr height="30">
-     <td align=center  bgcolor="eaeaea">
-       <b>비밀번호를 입력해 주세요.</b></td>
-  </tr>
-  <tr height="30">
-     <td align=center >비밀번호 :   
-       <input type="password" name="passwd" size="8" maxlength="12">
-	   <input type="hidden" name="num" value="<%=num%>"></td>
- </tr>
- <tr height="30">
-    <td align=center bgcolor="eaeaea">
-      <input type="submit" value="글삭제" >
-      <input type="button" value="글목록" 
-       onclick="document.location.href='goodsQnaList.jsp?pageNum=<%=pageNum%>'">     
-   </td>
- </tr>
- </table>
- </form>
- </center>
+	<meta http-equiv="Refresh" content="0;url=goodsDetail.jsp?goods_code=<%=goods_code%>">

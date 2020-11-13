@@ -5,6 +5,7 @@
 <%@ page import = "java.util.Date" %>
 <%@ page import = "java.text.SimpleDateFormat" %>
 
+
 <%!
     int pageSize = 10;
     SimpleDateFormat sdf = 
@@ -50,7 +51,7 @@
 		</tr>
 	</table>
 	<br/>
-<b>공지사항(전체 글:<%=count%>)</b> 
+<b>공지사항</b> 
 <br/>
 <br/>
 <table width="700">

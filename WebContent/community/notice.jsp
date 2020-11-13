@@ -8,19 +8,26 @@
 
 <html>
 <head>
+<%@ include file="/include/top.jsp"%>
 <title>공지사항</title>
 <script language="JavaScript" src="script.js"></script>
 </head>
 
 <%
-
-   int num = Integer.parseInt(request.getParameter("num"));
+	String strNum = request.getParameter("num");
+	int num =0;	
+	if(strNum != null)
+		num = Integer.parseInt(strNum);
+	
    String pageNum = request.getParameter("pageNum");
    String content = request.getParameter("content");
-   SimpleDateFormat sdf = 
-        new SimpleDateFormat("yyyy-MM-dd");
+   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-   try{
+   if(pageNum == null || content == null)
+   {
+		//오류 처리   
+   }
+   
       NoticeDAO dao = NoticeDAO.getInstance();
       NoticeDTO notice =  dao.getNotice(num);
 %>
@@ -53,29 +60,34 @@
     <tr height="30">
     <td align="center" width="125">첨부파일</td>
     <td align="center" width="375" align="center" colspan="3">
+    <% if(notice.getNoti_file() != null){%>
 	     <a href="/myShop/imgsave/comimg/<%=notice.getNoti_file()%>" download><%=notice.getNoti_file()%></a></td>
-   
+   <%} else%>
+   		첨부파일이 없습니다.
   </tr>
   <tr>
     <td align="center" width="125">글내용</td>
     <td align="left" width="375" colspan="3"><input type="hidden" name="noticeFile" value="<%=notice.getNoti_file()%>" />
 	<%
 	String str = notice.getNoti_file();
-	String ex = str.substring(str.length()-4, str.length());
-	boolean isImg =  false;
-// 	String[] fileName = notice.getNoti_file().split(".");
-// 	String fn = fileName[0];
-// 	String ex = fileName[1];
-// 	System.out.println(ex);
-	 final String[] UPLOADABLE_FILE_EXTENSION = {".png", ".jpg", "jpeg", ".bmp", ".gif", ".PNG", ".JPG", "JPEG", ".BMP", ".GIF"};
-	 isImg = Arrays.asList(UPLOADABLE_FILE_EXTENSION).contains(ex);
-	 if(isImg == true){
+	if(str != null)
+	{
+		String ex = str.substring(str.length()-4, str.length());
+		final String[] UPLOADABLE_FILE_EXTENSION = {".png", ".jpg", "jpeg", ".bmp", ".gif", ".PNG", ".JPG", "JPEG", ".BMP", ".GIF"};
+		boolean isImg = Arrays.asList(UPLOADABLE_FILE_EXTENSION).contains(ex);
+		if(isImg == true)
+		 {
+	%>
+		 	<img src="/myShop/imgsave/comimg/<%=notice.getNoti_file()%>" width="375" />
+		 <%
+		 }
+		 %>
+	<%
+	}
 	 %>
-    <img src="/myShop/imgsave/comimg/<%=notice.getNoti_file()%>" width="375" />
-        <%} %>
+	 
     <pre><%=notice.getNoti_content()%></pre></td>
 
-    
   </tr>
   <tr height="30">      
     <td colspan="4" align="right" >
@@ -101,9 +113,6 @@
     </td>
   </tr>
 </table>  
-<%
- }catch(Exception e){} 
- %>
 </form>      
 </body>
 </html>      

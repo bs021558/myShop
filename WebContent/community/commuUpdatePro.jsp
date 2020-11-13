@@ -13,22 +13,12 @@
     String pageNum = request.getParameter("pageNum");
 
 	CommunityDAO dao = CommunityDAO.getInstance();
-    int check = dao.updateCommu(commu);
-
-    if(check==1){
-%>	      <script language="JavaScript">         
+    dao.updateCommu(commu);
+%>	     
+	<script language="JavaScript">         
         alert("수정되었습니다.");
-     </script>
-	  <meta http-equiv="Refresh" content="0;url=community.jsp?num=<%=commu.getNum()%>&pageNum=<%=pageNum%>" >
-<% }else{%>
-      <script language="JavaScript">      
-      <!--      
-        alert("비밀번호가 맞지 않습니다");
-        history.go(-1);
-      -->
-     </script>
-<%
-    }
- %>  
+	</script>
+	<meta http-equiv="Refresh" content="0;url=community.jsp?num=<%=commu.getNum()%>&pageNum=<%=pageNum%>" >
+
 
  
