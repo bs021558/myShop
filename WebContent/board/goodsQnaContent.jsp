@@ -58,22 +58,22 @@
     <td colspan="4" bgcolor="eaeaea" align="right" > 
     
 <%
+	
      if(sessionId != null){
         if(sessionId.equals(dto.getWriter())){
      %>
      <input type="button" value="글수정" 
-       onclick="document.location.href='updateForm.jsp?goods_code=<%=goods_code%>&num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
+       onclick="document.location.href='goodsQnaUpdate.jsp?goods_code=<%=goods_code%>&num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
       &nbsp;&nbsp;&nbsp;&nbsp;
      <input type="button" value="글삭제" 
-       onclick="document.location.href='deleteForm.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
+       onclick="document.location.href='goodsQnaDelete.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>&goods_code=<%=goods_code%>'">
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <%} 
-      if(sessionId.equals("admin")){
-      %>
+     
       <input type="button" value="답글쓰기" 
-       onclick="document.location.href='writeForm.jsp?goods_code=<%=goods_code%>&num=<%=num%>&ref=<%=ref%>&re_step=<%=re_step%>&re_level=<%=re_level%>'">
+       onclick="document.location.href='goodsQnaWrite.jsp?goods_code=<%=goods_code%>&num=<%=num%>&ref=<%=ref%>&re_step=<%=re_step%>&re_level=<%=re_level%>'">
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <%} 
+      <% 
+      }
       }%>
       
        <input type="button" value="글목록" 

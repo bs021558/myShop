@@ -9,10 +9,8 @@
 
 <%!
     int pageSize = 10;
-    SimpleDateFormat sdf = 
-        new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    SimpleDateFormat noti_sdf = 
-            new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat noti_sdf = new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
     String today = (String)noti_sdf.format(date);
     
@@ -47,7 +45,20 @@
 %>
 <html>
 <head>
+
 <title>자유게시판</title>
+</head>
+<body>
+<%@ include file="/include/top.jsp"%>
+	<center>
+	<br/>
+	<table border="1" style="width: 400;height: 50; text-align: center;">
+		<tr>
+		<td><a href="/myShop/community/commuList.jsp">자유게시판</a></td>
+		<td><a href="/myShop/community/noticeList.jsp">공지게시판</a></td>
+		</tr>
+	</table>
+	<br/>
 </head>
 <body>
 <center><b>자유게시판</b> 
@@ -95,10 +106,10 @@
     	<a href="notice.jsp?num=<%=notice.getNoti_num()%>&pageNum=<%=currentPage%>&content=commu">
     	<%=notice.getNoti_subject()%></a>
     	<% if(notice.getNoti_file() != null){%>
-         <img src="dev_img/file.png" border="0"  height="16"><%}%>
+         <img src="/myShop/dev_img/file.png" border="0"  height="16"><%}%>
         <% if(today.equals(noti_sdf.format(notice.getNoti_date()))){
 %>
-		<img src="dev_img/new.jpg" border="0"  height="16"><%}%></td>
+		<img src="/myShop/dev_img/new.jpg" border="0"  height="16"><%}%></td>
 	<td align="center"  width="100" bgcolor="#D9E5FF">관리자</td> 
     <td align="center" width="150" bgcolor="#D9E5FF"><%= noti_sdf.format(notice.getNoti_date())%></td> 
     <td align="center" width="50" bgcolor="#D9E5FF"><%=notice.getNoti_readcount()%></td>				
@@ -161,3 +172,4 @@
 </center>
 </body>
 </html>
+<%@ include file="/include/bottom.jsp" %> <!--하단 -->

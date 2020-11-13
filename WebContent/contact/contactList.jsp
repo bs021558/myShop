@@ -3,8 +3,8 @@
 <%@ page import = "myshop.contact.ContactDTO" %>
 <%@ page import = "myshop.goods.GoodsDAO" %>
 <%@ page import = "myshop.goods.GoodsDTO" %>
-<%@ page import = "myshop.user.UserDAO" %>
-<%@ page import = "myshop.user.UserDTO" %>
+<%@ page import = "myshop.shopuser.UserDAO" %>
+<%@ page import = "myshop.shopuser.UserDTO" %>
 <%@ page import = "java.util.List" %>
 <%@ page import = "java.text.SimpleDateFormat" %>
 
@@ -102,7 +102,7 @@
 %>
 	<tr height="30">
 		<td align="center">
-			<a href="content.jsp?code=<%=gdto.getGoods_code() %>&pageNum=<%=currentPage %>">
+			<a href="/board/goodsDetail.jsp?code=<%=gdto.getGoods_code() %>&pageNum=<%=currentPage %>">
 				<%=gdto.getGoods_name() %>
 			</a>
 		</td>
@@ -116,7 +116,7 @@
 			<%}else{ %>	
 			<img src ="images/level.gif" width="<%=wid%>" height="16">
 			<%}%> 
-			<a href="contactDetail.jsp?num=<%=cdto.getNum() %>">
+			<a href="contactDetail.jsp?num=<%=cdto.getNum() %>&pageNum=<%=currentPage%>">
 				<%=cdto.getSubject() %>
 			</a>
 		</td>

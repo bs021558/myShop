@@ -2,6 +2,22 @@
 <html>
 <head>
 <title>공지사항</title>
+<script language="JavaScript">
+    
+    function checkIt() {
+        var writeform = eval("document.writeform");
+        if(!writeform.subject.value) {
+            alert("제목을 입력하세요");
+            return false;
+        }
+        
+        if(!writeform.content.value ) {
+            alert("내용을 입력하세요");
+            return false;
+        }
+    }
+    </script>
+
 <script language="JavaScript" src="script.js"></script>
 </head>
 
@@ -26,8 +42,8 @@
 <body>
 	<center>
 		<b>글쓰기</b> <br>
-		<form method="post" name="writeform" action="commuWritePro.jsp"
-			onsubmit="return writeSave()">
+		<form method="post" name="writeform" action="commuWritePro.jsp" 
+			onSubmit="return checkIt()">
 			<input type="hidden" name="num" value="<%=num%>">
 			<input type="hidden" name="state" value=1>
 			

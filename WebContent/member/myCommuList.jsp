@@ -1,7 +1,7 @@
 <%@ page contentType = "text/html; charset=UTF-8" %>
 <%@ page import = "myshop.community.CommunityDAO" %>
 <%@ page import = "myshop.community.CommunityDTO" %>
-<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "java.util.List" %>
 <%@ page import = "java.text.SimpleDateFormat" %>
 
 <%
@@ -26,8 +26,8 @@
     int endRow = currentPage * pageSize;	
     int count = 0;
     int number = 0;
-    ArrayList<CommunityDTO> commuList = null;
-    
+	List commuList = null;
+	
     //COMMUNITY DB에 접근할 DAO 인스턴스 호출
     CommunityDAO cmdao = CommunityDAO.getInstance();
     //사용자id를 세션에서 가져옵니다.
@@ -36,21 +36,27 @@
     count = cmdao.getMyCommuCount(sessionId); 
     //글이 있을 경우 목록을 가져옵니다.
     if (count > 0) {
-    	commuList = cmdao.getMyCommuList(sessionId,startRow,endRow); 
+    	commuList = cmdao.getMyCommuList(sessionId,startRow, endRow); 
     }
 %>
 <html>
 <head>
-<title>내가 쓴 글</title>
+<title>자유게시판</title>
 </head>
 <body>
-<center><b>내가 쓴 글</b> 
 <table width="700">
 <tr>
     <td align="right">
 <%
 	//로그인 되어있는 경우
-    if(sessionId == null){
+    if(sessionId != null){
+%>
+    <a href="commuWrite.jsp">
+    	글쓰기
+    </a>
+<%
+	//로그인 안 되어있을 경우
+	}else{
 %>
     <a href="/myShop/login/loginForm.jsp">
     	로그인
@@ -142,6 +148,7 @@
 		}
 %>
 </table>
+<center>
 <%
 	}
     if (count > 0) { 

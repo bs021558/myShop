@@ -1,12 +1,13 @@
-<%@page import="myshop.cmu_comment.CommentDTO"%>
-<%@page import="myshop.cmu_comment.CommentDAO"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import="myshop.community.CommunityDTO"%>
 <%@page import="myshop.community.CommunityDAO"%>
+<%@page import="myshop.cmu_comment.CommentDAO"%>
+<%@page import="myshop.cmu_comment.CommentDTO"%>
 <%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import= "java.util.List" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ include file="/include/top.jsp"%> <!-- 상단 -->
 <style>
 textarea {
 	width: 100%;
@@ -92,7 +93,7 @@ textarea {
 	   <%}
 	      if(sessionId.equals("admin")){ %>
 	  <input type="button" value="관리자 글삭제" 
-       	onclick="document.location.href='deleteAdminPro.jsp?num=<%=cm.getNum()%>&pageNum=<%=pageNum%>'">
+       	onclick="document.location.href='commuDelPro.jsp?num=<%=cm.getNum()%>&pageNum=<%=pageNum%>'">
 	   	&nbsp;&nbsp;&nbsp;&nbsp;
 	   <%}
 	   }%>
@@ -117,8 +118,8 @@ textarea {
    댓글이 없습니다.
     </td>
 </table>
-<%  } else {%> 
-
+<%  } else {
+%> 
 <table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="20"> 
       <td align="center"  width="100" >작성자</td>
@@ -180,3 +181,5 @@ textarea {
  %>    
 </body>
 </html>      
+
+<%@ include file="/include/bottom.jsp" %> <!--하단 -->

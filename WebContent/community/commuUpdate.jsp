@@ -37,13 +37,6 @@
     <td align="left" width="330">
      <textarea name="content" rows="13" cols="40"><%=cm.getContent()%></textarea></td>
   </tr>
-  <tr>
-    <td  width="70" align="center" >비밀번호</td>
-    <td align="left" width="330" >
-     <input type="password" size="8" maxlength="12" name="passwd">
-     
-	 </td>
-  </tr>
   <tr>      
    <td colspan=2 align="center"> 
      <input type="submit" value="글수정" >  

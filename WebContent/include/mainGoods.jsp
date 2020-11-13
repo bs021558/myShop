@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="myshop.goods.GoodsDTO" %>
+<%@ page import="myshop.goods.GoodsDAO" %>
 
 <style>
 div.img-wrap {
@@ -145,29 +148,40 @@ function search() {
 }
 </script>
 
-
-<%!	int five=0; %>
+<jsp:useBean id="gdto" class="myshop.goods.GoodsDTO"/>
+<%!	int five=0; 
+	String directory = "/myshop/save/"; //상품 이미지 파일 경로
+%>
 <script>
 </script>
-	<%five+=1; %>
+<%
+	five+=4;
+	GoodsDAO gdao = GoodsDAO.getInstance();
+	int count = gdao.getGoodsCount();
+	if(count<five){
+		five = count;
+	}
+%>
 <ul class="grid">
 <%
 // 	String tCnt = "tCnt";
 // 	String tPage = "tPage";
 // 	String tBlock = "tBlock";
-	if(5 > 0){
+
+	if(5>0){
+		List goodsList = gdao.getGoodsList(1,five);
 		for(int i = 0; i < five; i++){
-				
+			gdto = (GoodsDTO)goodsList.get(i);
 	
 	%>
 	<li>
 <%-- 	<a href = "detail.jsp?no=<%=dto.getNo()%>" > --%>
 	<div class="img-wrap" style="cursor:pointer;">
-	<img alt = "" src = "/animal/save/<%=5%>" onload="$makeRect(this)" >
+	<img alt = "" src = "<%=directory%>+<%=gdto.getGoods_img()%>" onload="$makeRect(this)" >
 	</div>
 	</a><p>
-	<b>물건명: 이름 </b><br>
-	<b>가격: 100원 </b></p>
+	<b><%=gdto.getGoods_name() %> </b><br>
+	<b><%=gdto.getGoods_price()%>원</b></p>
 	</li>
 			<%}
 		}

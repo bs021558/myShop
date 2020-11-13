@@ -27,4 +27,6 @@
      </script>
 <%
     }
+    
+    response.sendRedirect("goodsDetail.jsp?goods_code=" + dto.getGoods_code());
  %>  

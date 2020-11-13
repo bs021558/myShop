@@ -1,11 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="myshop.shopuser.UserDAO"%>
 <%@page import="myshop.shopuser.UserDTO"%>
 <%@page import="myshop.goods.MyShopDAO"%>
 <%@page import="myshop.cart.CartDAO"%>
 <%@page import="myshop.cart.CartDTO"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@page import="java.text.DecimalFormat"%>
 
 <html>
@@ -14,12 +14,16 @@
 </head>
 
 <%
+	request.setCharacterEncoding("UTF-8");
     String sessionId = (String)session.getAttribute("sessionId");
 	String[] chkbox = request.getParameterValues("cartCheck");
 	
 	String goods_name = request.getParameter("goods_name");
+	String goods_brand = request.getParameter("goods_brand");
 	String amount = request.getParameter("amount");
 	String goods_price = request.getParameter("goods_price");
+	int goods_code = Integer.parseInt(request.getParameter("goods_code"));
+
 	
     if(sessionId==null)
      {
@@ -32,9 +36,8 @@
 <%}else{ %>
 <% 
    int count = 0;
-   int goods_code=0; 
    int number=0;
-   int totalPrice = 0;
+   int total_price = 0;
    int startRow=0;
    int endRow=5;
    
@@ -44,7 +47,6 @@
    DecimalFormat df = new DecimalFormat("###,###");
    MyShopDAO dao = MyShopDAO.getInstance();
    count = c_dao.getCartCount(sessionId);
-   goods_code = dto.getGoods_code(); 
 
    if (count > 0){
       cartList = c_dao.getCartList(sessionId, startRow, endRow);
@@ -53,6 +55,7 @@
    UserDTO userdto = new UserDTO();
    UserDAO userdao = new UserDAO();
    userdto = userdao.myInfo(sessionId);
+   int cash = Integer.parseInt(userdto.getUser_cash());
   
 %>
 
@@ -71,11 +74,13 @@
    <tr height="30">
       <td align="center"><%=++number %></td>
       <td align="center" width="250" ><%=goods_name%></td>
+      <input type="hidden" name="goods_code" value=<%=goods_code%>>
       <td align="center" width="100" ><%=amount%></td>
+      <input type="hidden" name="amount" value=<%=amount%>>
       <td align="center" width="100" ><%=goods_price%></td>
-      <% totalPrice += (Integer.parseInt(amount) * Integer.parseInt(goods_price)); %>
+      <% total_price += (Integer.parseInt(amount) * Integer.parseInt(goods_price)); %>
       <tr>
-        <td align="right" colspan="5"> 총 금액: <%=df.format(totalPrice)%> 원<br/>
+        <td align="right" colspan="5"> 총 금액: <%=df.format(total_price)%> 원<br/>
            
      </tr>
 </table>
@@ -113,7 +118,7 @@
       <tr>
          <td width="200">전화번호</td>
          <td width="400">
-            <input type="text" name="re_Tel" style="width:400px;" ></td>
+            <input type="text" name="re_phone" style="width:400px;" ></td>
       </tr>
       <tr>
          <td width="200">주소</td>
@@ -128,31 +133,33 @@
       </tr>
       <tr>
          <td width="200">보유 캐시</td>
-         <td width="400"><%=userdto.getUser_cash()%></td>
+         <td width="400"><%=df.format(cash)%></td>
       </tr>
       <tr>
          <td width="200">결제 금액</td>
-         <td width="400"><%=df.format(totalPrice)%></td>
+         <td width="400"><%=df.format(total_price)%></td>
       </tr>
       <tr>
          <td width="200">남는 캐시</td>
          <% 
-         int remain = Integer.parseInt(userdto.getUser_cash())-totalPrice;
+         int remain = Integer.parseInt(userdto.getUser_cash())-total_price;
          if(remain > 0){%>
-         <td width="400"><%=remain%></td>
+         <td width="400"><%=df.format(remain)%></td>
             <%}else{ %>
          <td width="400">보유 캐시가 부족합니다.</td>
          <%} %>
-      <input type="hidden" name="totalPrice" value=<%=totalPrice%>>
       </tr>
       <tr>
          <td colspan="2" align="center" >
+         <input type="hidden" name="total_price" value=<%=total_price%>>
+         <input type="hidden" name="remain" value=<%=remain%>>
+         <input type="hidden" name="goods_brand" value=<%=goods_brand%>>
             <%if(remain > 0){ %>
             <input type="submit" value="결제">
             <%}else{ %>
-            <input type="button" value="충전하기" onclick="location.href='myShop/member/cash.jsp'">
+            <input type="button" value="충전하기" onclick="location.href='/myShop/member/cash.jsp'">
             <%} %>
-            <input type="button" value="취소" onclick="//메인경로">
+            <input type="button" value="취소" onclick="location.href='/myShop/board/goodsList.jsp'">
          </td>
       </tr>
       </table>

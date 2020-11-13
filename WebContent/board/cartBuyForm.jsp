@@ -49,6 +49,7 @@
    
    UserDAO userdao = new UserDAO();
    UserDTO userdto = userdao.myInfo(sessionId);
+   int cash = Integer.parseInt(userdto.getUser_cash());
 %>
 
 
@@ -126,7 +127,7 @@
       </tr>
       <tr>
          <td width="200">보유 캐시</td>
-         <td width="400"><%=userdto.getUser_cash()%></td>
+         <td width="400"><%=df.format(cash)%></td>
       </tr>
       <tr>
          <td width="200">결제 금액</td>
@@ -137,7 +138,7 @@
          <% 
          int remain = Integer.parseInt(userdto.getUser_cash())-cartTotalPrice;
          if(remain > 0){%>
-         <td width="400"><%=remain%></td>
+         <td width="400"><%=df.format(remain)%></td>
             <%}else{ %>
          <td width="400">보유 캐시가 부족합니다.</td>
          <%} %>

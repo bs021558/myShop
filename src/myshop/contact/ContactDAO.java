@@ -232,8 +232,6 @@ public class ContactDAO {
 				  dto.setRe_step(rs.getInt("re_step"));
 				  dto.setRe_level(rs.getInt("re_level"));
 				  dto.setReg_date(rs.getTimestamp("reg_date"));
-				  
-				  
                   contactList.add(dto);
 			    }while(rs.next());
 			}

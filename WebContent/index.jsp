@@ -3,12 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<jsp:useBean id="udto" class="myshop.shopuser.UserDTO"/>		
 <%
+UserDTO udto = new UserDTO();
 	//세션이 있을 때만 동작
 	if(session.getAttribute("sessionId")!=null){
-		
-		//세션 불러오기
+
+//세션 불러오기
 		String sessionId = (String)session.getAttribute("sessionId");
 		String sessionAuto = (String)session.getAttribute("sessionAuto");
 	
@@ -92,6 +92,7 @@
 <div>
 <%@ include file="/include/mainGoods.jsp" %> 
 </div>
+<br/><br/><br/>&nbsp;<br/><br/>
 <div>
 <%@ include file="/include/bottom.jsp" %> <!--하단 -->
 </div>

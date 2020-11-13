@@ -9,6 +9,7 @@
 <br />
 <br />
 <%!String sessionId;%>
+<% String rating1=""; %>
 <div id="mainframe" style="border-color: red;">
 	<div id="top">
 		<div id="header_brandform"></div>
@@ -23,6 +24,7 @@
 					UserDAO topdao = new UserDAO();
 					UserDTO topdto = topdao.myInfo(sessionId);
 					String rating = topdto.getRating();
+					rating1=rating;
 			%>
 						<% if(rating.equals("1")){%>
 			<ul>
@@ -42,7 +44,8 @@
 						<ul>
 						<li><%=sessionId%>님</li>
 						<li>|</li>
-						<li>운영자 또는 미등급</li>
+						<li>운영자 <li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+						</li>
 					</ul>
 					<%} %>
 			<%
@@ -65,10 +68,19 @@
 		</div>
 		<div id="menu">
 			<ul>
+			<%
+			if(rating1.equals("2")){
+				%>
+				<li>
+				<a  href="void(0);" onclick="alert('판매자는 권한없음');return false;">스토어</a>
+				</li>
+				<%}else{ %>
 				<li><a href="/myShop/board/goodsList.jsp">스토어</a></li>
+				<%} %>
 				<li><a href="/myShop/community/commuList.jsp">커뮤니티</a></li>
 				<li><a href="/myShop/community/opBoard.jsp">문의하기</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
+<br/><br/><br/>

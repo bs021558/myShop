@@ -1,21 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<%
-	
-	
-/* 		String user_id = null, user_pw = null, auto = null;
-		Cookie [] cookies = request.getCookies();
-		if(cookies != null){
-			for(Cookie c : cookies){
-				if(c.getName().equals("cid")) user_id = c.getValue();
-				if(c.getName().equals("cpw")) user_pw = c.getValue();
-				if(c.getName().equals("cauto")) auto = c.getValue();
-			}
-		}
-		
-		if(auto != null && user_id != null && user_pw != null){
- 			response.sendRedirect("/myShop/index.jsp");
-		} */
+	String sessionId = (String)session.getAttribute("sessionId");
+	if(sessionId != null){
+		response.sendRedirect("/myShop/index.jsp");
+	}
 	%>
 <body style="text-align: center;">
 	<%@ include file="/include/top.jsp"%> <!-- 상단 -->

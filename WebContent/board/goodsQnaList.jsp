@@ -7,13 +7,12 @@
 <%@page import="java.text.SimpleDateFormat"%>
 
 <%
-   	int pageSize = 5;
+   	int pageSize = 10;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 	
 	String sessionId = (String)session.getAttribute("sessionId");
    	String code = request.getParameter("goods_code");
-	//int goods_code = Integer.parseInt(code);
-	int goods_code = 54;
+	int goods_code = Integer.parseInt(code);
    	MyShopDAO mysh = MyShopDAO.getInstance();
     MyShopDTO dto = mysh.detailGoods(goods_code);
 %>
@@ -48,9 +47,13 @@
 <center><b><%=dto.getGoods_name() %>상품 Q&A(전체 글:<%=count%>)</b>
 <table width="700">
 <tr>
+	
 	<td align="right" >
-	<%if(sessionId!=null)%>
+	<%if(sessionId!=null){%>
   	<a href="goodsQnaWrite.jsp?goods_code=<%=goods_code%>&pageNum=<%=pageNum%>">글쓰기</a>
+  	<%}else{ %>
+    	<a href="..//login/loginForm.jsp">로그인</a>
+    	 <%} %>
 </td>
 </tr>
 </table>

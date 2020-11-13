@@ -101,12 +101,12 @@
 		<td align="center" width="100" height="150"><%=dto.getGoods_code() %></td>
 		
 		<td align="center" width="500" height="150">
-		<a href="/myShop/board/goodsDetail.jsp?goods_code=<%=dto.getGoods_code()%>&pageNum=<%=currentPage %>">
+		<a href="sellerGoodsDetail.jsp?goods_code=<%=dto.getGoods_code()%>&pageNum=<%=currentPage %>">
 		<img src="/myShop/imgsave/sellerimg/<%=dto.getGoods_img() %>"></a></td>
 		
 		
 		<td align="center" width="100" height="150">
-		<a href="/myShop/board/goodsDetail.jsp?goods_code=<%=dto.getGoods_code()%>&pageNum=<%=currentPage %>">
+		<a href="sellerGoodsDetail.jsp?goods_code=<%=dto.getGoods_code()%>&pageNum=<%=currentPage %>">
 		<%=dto.getGoods_name() %></a></td>
 		
 		

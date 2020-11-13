@@ -7,6 +7,8 @@
 
     
 <%
+	String sessionId = (String) session.getAttribute("sessionId");
+
 	String goods_code = request.getParameter("goods_code");
 	int code = 0;
 
@@ -33,7 +35,7 @@
   <tr>
     <td  width="70"  bgcolor="eaeaea" align="center">이 름</td>
     <td align="left" width="330">
-       <input type="text" size="10" maxlength="10" name="writer" value="<%=dto2.getWriter()%>">
+       &nbsp;<%=sessionId%><input type="hidden" size="10" maxlength="10" name="writer" value="<%=sessionId%>">
 	   <input type="hidden" name="num" value="<%=dto2.getNum()%>">
 	   <input type="hidden" name="goods_code" value="<%= code %>">
 	   <input type="hidden" name="pageNum" value="<%= pageNum %>">
@@ -54,19 +56,12 @@
     <td align="left" width="330">
      <textarea name="content" rows="13" cols="40"><%=dto2.getContent()%></textarea></td>
   </tr>
-  <tr>
-    <td  width="70"  bgcolor="eaeaea" align="center" >비밀번호</td>
-    <td align="left" width="330" >
-     <input type="password" size="8" maxlength="12" name="passwd">
-     
-	 </td>
-  </tr>
   <tr>      
    <td colspan=2 bgcolor="eaeaea" align="center"> 
      <input type="submit" value="글수정" >  
      <input type="reset" value="다시작성">
      <input type="button" value="목록보기" 
-       onclick="document.location.href='goodsQnaList.jsp?pageNum=<%=pageNum%>'">
+       onclick="document.location.href='goodsDetail.jsp?goods_code=<%=goods_code%>&pageNum=<%=pageNum%>'">
    </td>
  </tr>
  </table>

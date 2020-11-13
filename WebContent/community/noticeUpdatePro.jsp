@@ -8,7 +8,7 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String save = request.getRealPath("/imgsave/coming"); 
+	String save = request.getRealPath("/imgsave/comimg"); 
 	int size = 1024*1024*100;
 	String enc = "UTF-8";
 	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
@@ -27,20 +27,10 @@
 	notice.setNoti_date(new Timestamp(System.currentTimeMillis()));
 
 	NoticeDAO dao = NoticeDAO.getInstance();
-	int check = dao.updateNotice(notice);
-    if(check==1){
+	dao.updateNotice(notice);
 %>
 	<script language="JavaScript">         
         alert("수정되었습니다.");
      </script>
   <meta http-equiv="Refresh" content="0;url=noticeList.jsp?pageNum=<%=pageNum%>" >
-<% }else{%>
-      <script language="JavaScript">      
-      <!--      
-        alert("비밀번호가 맞지 않습니다");
-        history.go(-1);
-      -->
-     </script>
-<%
-    }
- %>  
+

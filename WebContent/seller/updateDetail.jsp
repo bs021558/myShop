@@ -6,6 +6,7 @@
 <h1> goodsDetail.jsp</h1>
 
 <%
+	
 	String code = request.getParameter("goods_code");
 	if(code == null){
 		System.out.println("코드못받음");
@@ -29,10 +30,13 @@
 	<tbody>
 		<tr>
 		<th>
-		<input type="text" name="goods_name" value="<%=dto.getGoods_name()%>"></th>
+		<input type="text" name="goods_name" value="<%=dto.getGoods_name()%>">
+		<input type="hidden" name="goods_name" value="<%=dto.getGoods_name()%>">
+		</th>
 		<td>
 		<img src="/myShop/imgsave/sellerimg/<%=dto.getGoods_img()%>"><br>
-		<input type="file" name="goods_img" value="/myShop/imgsave/sellerimg/<%=dto.getGoods_img()%>">
+		<input type="file" name="img" value="/myShop/imgsave/sellerimg/<%=dto.getGoods_img()%>">
+		<input type="hidden" name="sysImg" value="<%=dto.getGoods_img()%>" />
 		
 		</td>
 		
@@ -79,6 +83,13 @@
 		<td>
 		<input type="text" name="goods_delivery" value="<%=dto.getGoods_delivery()%>"></td>
 		</tr>
+		
+		<tr>
+      	<td>상품상세</td>
+      	<td>
+      	<input type="text" name="goods_msg" value="<%=dto.getGoods_msg()%>"></td>
+      </tr>
+      
 		</tbody>
 		</table>
 		
@@ -91,20 +102,10 @@
 		UserDTO infodto = udao.myInfo(goods_brand);
 		String rating = infodto.getRating();
 		
-		if(rating.equals("2")){ %>  
-	<input type="submit" value="수정하기" ><%} %> 	
+		 %>
+		 <input type="submit" value="수정하기" >
 		
-		
-		<h2>제품설명</h2>  
-	<br>
-	
-	
-	<img src="<%=dto.getGoods_msg() %>"></br>
-
 	 
 	</center>
 	</form>
-	<h2>상품댓글</h2>
 	
-	
-	<h2>상품 Q&A</h2>
