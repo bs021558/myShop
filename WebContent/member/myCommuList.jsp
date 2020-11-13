@@ -41,9 +41,10 @@
 %>
 <html>
 <head>
-<title>자유게시판</title>
 </head>
 <body>
+<%@ include file="/include/top.jsp"%>
+<center><b>내가 쓴 글</b> 
 <table width="700">
 <tr>
     <td align="right">
@@ -122,7 +123,7 @@
 			<%=c_rating%>
 		</td>
 		<td  width="250" align="center">           
-			<a href="community.jsp?num=<%=cmdto.getNum()%>&pageNum=<%=currentPage%>">
+			<a href="/myShop/community/community.jsp?num=<%=cmdto.getNum()%>&pageNum=<%=currentPage%>">
             	<%=cmdto.getSubject()%>
             </a> 
 <% 
@@ -148,7 +149,6 @@
 		}
 %>
 </table>
-<center>
 <%
 	}
     if (count > 0) { 
