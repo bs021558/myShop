@@ -13,17 +13,19 @@ textarea {width: 100%;height: 100px;}
 <html>
 <head>
 <title>문의 내용</title>
-<script language="JavaScript" src="script.js"></script>
 </head>
 <%	
 	int num = Integer.parseInt(request.getParameter("num"));
 	String pageNum = request.getParameter("pageNum");
+	if(pageNum.equals(null)){
+		pageNum = "1";
+	}
 
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	ContactDTO cdto = null;
 	try {
 		ContactDAO cdao = ContactDAO.getInstance();
-		ContactDTO cdto = cdao.getContact(num);
+		cdto = cdao.getContact(num);
 		GoodsDAO gdao = GoodsDAO.getInstance();
 		GoodsDTO gdto = gdao.goodsDetail(cdto.getGoods_code());
 %>
@@ -35,26 +37,30 @@ textarea {width: 100%;height: 100px;}
 				<tr height="30">
 					<td align="center" width="125">작성자</td>
 					<td align="center" width="125" align="center"><%=cdto.getWriter()%></td>
+					<td align="center" width="125">email</td>
+					<td align="center" width="125" align="center"><%=cdto.getEmail()%></td>
 					<td align="center" width="125">작성일</td>
 					<td align="center" width="125" align="center"><%=sdf.format(cdto.getReg_date())%></td>
 				</tr>
 				<tr height="30">
 					<td align="center" width="125">상품이름</td>
-					<td colspan="3" width="375">
+					<td colspan="5" width="375">
 					<%if(gdto!=null){%>
+					<a href="/myShop/board/goodsDetail.jsp?goods_code=<%=gdto.getGoods_code()%>">
 					<%=gdto.getGoods_name() %>
+					</a>
 					<%} %>
 					</td>	
 				<tr height="30">
 					<td align="center" width="125">글제목</td>
-					<td align="center" width="375" align="center" colspan="3"><%=cdto.getSubject()%></td>
+					<td align="center" width="375" align="center" colspan="5"><%=cdto.getSubject()%></td>
 				</tr>
 				<tr height="300">
 					<td align="center" width="125">글내용</td>
-					<td align="left" width="375" colspan="3"><pre><%=cdto.getContent()%></pre></td>
+					<td align="left" width="375" colspan="5"><%=cdto.getContent()%></td>
 				</tr>
 				<tr height="30">
-					<td colspan="4" align="center">
+					<td colspan="6" align="center">
 					<br/>
 						<form>
 <%						String sessionId = (String) session.getAttribute("sessionId");
@@ -63,8 +69,7 @@ textarea {width: 100%;height: 100px;}
 %> 								<input type="button" value="글수정"
 								onclick="document.location.href='contactUpdate.jsp?num=<%=cdto.getNum()%>&pageNum=<%=pageNum%>'" />
 								&nbsp;&nbsp;&nbsp;&nbsp; 
-								<input type="button" value="글삭제"
-								onclick="document.location.href='contactDelPro.jsp?num=<%=cdto.getNum()%>&pageNum=<%=pageNum%>'" />
+								<input type="button" value="글삭제" onclick="del()"/>
 								&nbsp;&nbsp;&nbsp;&nbsp; 
 <% 	
 							}
@@ -94,3 +99,14 @@ textarea {width: 100%;height: 100px;}
 	}catch(Exception e){}
 %>
 </html>
+<script type="text/javascript">
+<!--
+function del(){
+if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	location.href="contactDelPro.jsp?num="+<%=cdto.getNum()%>+"&pageNum="+<%=pageNum%>;
+}else{   //취소
+    return;
+}
+}
+//-->
+</script>

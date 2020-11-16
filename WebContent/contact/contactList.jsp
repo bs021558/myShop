@@ -65,7 +65,7 @@
 <body>
 <%@ include file="/include/top.jsp" %>
 
-<center><b>내 상품 문의(전체 글:<%=count %>)</b>
+<center><b>나의 상품 문의(전체 글:<%=count %>)</b>
 
 <%
 	if(count == 0){ //문의글이 없을 때
@@ -100,12 +100,12 @@
 		<%
 			if(gdto!=null){
 		%>
-			<a href="/board/goodsDetail.jsp?code=<%=gdto.getGoods_code() %>&pageNum=<%=currentPage %>">
+			<a href="/myShop/board/goodsDetail.jsp?goods_code=<%=gdto.getGoods_code() %>">
 				<%=gdto.getGoods_name() %>
+			</a>
 		<%	}else{ %>
 			존재하지 않는 상품
 		<%	} %>
-			</a>
 		</td>
 		<td>
 			<%
