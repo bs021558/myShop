@@ -136,10 +136,11 @@ public class ContactDAO {
         try {
             conn = conn = DBCon.getConnection();
     		pstmt = conn.prepareStatement(
-    				"select * "+
-            		"from (select num,goods_code, writer,email,goods_brand,subject,content,filename,ref,re_step,re_level,reg_date,rownum r " +
-        			"from (select * from contact where writer=? ) order by reg_date desc ) where r >= ? and r <= ? "
-            		);
+    				"select * from "+
+    				"(select num,goods_code, writer,email,goods_brand,subject,content,filename,ref,re_step,re_level,reg_date,rownum r from "+
+    				"(select * from contact where writer=? order by reg_date desc ) ) "+
+    				"where r >= ? and r <= ?" 
+    				);
     		pstmt.setString(1, writer);
     		pstmt.setInt(2, start);
     		pstmt.setInt(3, end);
@@ -149,6 +150,7 @@ public class ContactDAO {
     			do{
     				ContactDTO dto= new ContactDTO();
     				dto.setNum(rs.getInt("num"));
+    				dto.setGoods_code(rs.getInt("goods_code"));
     				dto.setWriter(rs.getString("writer"));
     				dto.setEmail(rs.getString("email"));
     				dto.setGoods_brand(rs.getString("goods_brand"));
@@ -249,11 +251,12 @@ public class ContactDAO {
         String sql="";
         try {
         	conn = DBCon.getConnection();
-            sql="update contact set subject=?,content=? where num=?";
+            sql="update contact set email=?,subject=?,content=? where num=?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, dto.getSubject());
-            pstmt.setString(2, dto.getContent());
-			pstmt.setInt(3, dto.getNum());
+            pstmt.setString(1, dto.getEmail());
+            pstmt.setString(2, dto.getSubject());
+            pstmt.setString(3, dto.getContent());
+			pstmt.setInt(4, dto.getNum());
             pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -267,7 +270,7 @@ public class ContactDAO {
         try {
         	conn = DBCon.getConnection();
 
-            pstmt = conn.prepareStatement("delete from board where num=?");
+            pstmt = conn.prepareStatement("delete from contact where num=?");
             pstmt.setInt(1, num);
             pstmt.executeUpdate();
         }catch(Exception e) {
