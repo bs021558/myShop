@@ -3,11 +3,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="myshop.goods.GoodsDAO"%>
 <%@ page import="myshop.goods.GoodsDTO"%>
-<h1>myOrder 페이지입니다.</h1>
 
 <%
+	//날짜 포맷
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
 	//세션 획득
     String user_id = (String)session.getAttribute("sessionId");
     //로그인되어 있지 않으면 loginForm.jsp파일로 리디렉트합니다.
@@ -43,14 +46,19 @@
     //goods_code 보관 변수
     int goods_code = 0;
 %>
+<html>
+<body>
+<%@ include file="/include/top.jsp" %>
+<center>
 <table border="1" width="700" cellpadding="0" cellspacing="0" align="center">
-	 <td align="center">
-	  <br><br>
-	      <h2>주문번호: <%=order_number%></h2><br>
-	      <h2>주문날짜: <%=odao.getOrder_date(order_number)%></h2><br>
-	  <br><br>
+	 <td colspan="9" align="center">
+	  <br>
+	      <h3>주문번호: <%=order_number%></h3><br>
+	      <h3>주문날짜: <%=sdf.format(odao.getOrder_date(order_number))%></h3>
+	  <br>
 	 </td>
 	<tr height="30" bgcolor="white">
+		<td align="center" width="50">상품번호</td>
 	    <td align="center" width="100">상품이미지</td>
 		<td align="center" width="250">상품</td>
 		<td align="center" width="50">옵션</td>
@@ -74,23 +82,24 @@
 %>
 	<tr height="30">
 		<td align="center" width="150">
+		<%if(gdto!=null) {%>
 	  	 <a href="content.jsp?code=<%=gdto.getGoods_code()%>">
 	  	 <img src="<%=gdto.getGoods_img()%>"/>
+	  	<%}%>
 	  	 </a>
 	 	</td>
-		<td align="center" width="100">
-		 <a href="orderDetail.jsp">
-		  <%=odto.getOrder_number()%>
-		 </a>
-		</td>
 		<td width="250">
 		 <!-- 누르면 새창에서 제품상세페이지 열기  -->
+		 <%if(gdto!=null){ %>
 		 <a href="content.jsp?code=<%=gdto.getGoods_name()%>" onclick="window.open('this.href')">
 		  <%=gdto.getGoods_name() %>
+		  <%}%>
 		 </a> 
 		</td>
 		<td align="center" width="100">
+		<%if(gdto!=null) {%>
 		 <%=gdto.getGoods_option() %>
+		 <%} %>
 		</td>
 		<td align="center" width="50">
 		 <%= odto.getAmount()%>
@@ -101,12 +110,16 @@
 		<td align="center" width="100">
 		 <ul> 
 		  <li>
+		  <%if(gdto!=null) {%>
 		   <%=gdto.getGoods_brand() %>
+		   <%} %>
 		  </li> 
 		  <li>
-		   <form action="contactForm.jsp" method="post">
+		   <form action="/myShop/contact/contactForm.jsp" method="post">
     		 <input type="hidden" name="order_number" value="<%=odto.getOrder_number() %>" />
+    		 <%if(gdto!=null) {%>
     		 <input type="hidden" name="goods_code" value="<%=gdto.getGoods_code()%>" />
+    		 <%} %>
     		 <input type="submit" value="판매자문의"/>
     		</form>
 		  </li>
@@ -115,8 +128,10 @@
 		 <%=odto.getOrder_date()%>
 		</td>
 		<td align="center" width="100">
+		<%if(odto.getTrack()!=null){%>
 		 <a href="<%=cjtrack %><%=odto.getTrack() %>" onclick="window.open('this.href')">
 		  <%=odto.getTrack() %>
+		  <%} %>
 		 </a>
 		</td>
 	   </tr>
@@ -124,7 +139,7 @@
 		}
 %>
 <tr>
-<td align="center" width="100">
+<td colspan="9" align="center" width="100">
 <!-- order_number를 파라미터로 갖고 관리자문의 페이지로 이동 -->
 <h2>
  <form action="op_board.jsp" method="post">

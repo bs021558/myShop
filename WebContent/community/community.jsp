@@ -16,6 +16,7 @@ textarea {
 
 <html>
 <head>
+<meta charset="UTF-8">
 <title>자유게시판</title>
 <script language="JavaScript" src="script.js"></script>
 </head>

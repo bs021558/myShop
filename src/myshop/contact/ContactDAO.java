@@ -75,13 +75,13 @@ public class ContactDAO {
 		         pstmt.setString(4, dto.getGoods_brand());
 		         pstmt.setString(5, dto.getSubject());
 		         pstmt.setString(6, dto.getContent());
-		         pstmt.setInt(7, ref);
-		         pstmt.setInt(8, re_step);
-		         pstmt.setInt(9, re_level);
-				 pstmt.setTimestamp(10,dto.getReg_date());
+		         pstmt.setString(7, dto.getFilename());
+		         pstmt.setInt(8, ref);
+		         pstmt.setInt(9, re_step);
+		         pstmt.setInt(10, re_level);
 		     }	 
 		
-		pstmt.executeUpdate();  
+		     pstmt.executeUpdate();  
         
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -90,13 +90,14 @@ public class ContactDAO {
 		}
     }
 
-	public int getQnaCount1(String user_id) throws Exception {
+	public int getContactCount1(String user_id) throws Exception {
         
 		int x=0;
 		ArrayList refList = null;
         try {
         	conn = DBCon.getConnection();
             pstmt = conn.prepareStatement("select ref from contact where writer = ?");
+            pstmt.setString(1, user_id);
             rs = pstmt.executeQuery();
             
             if (rs.next()) {
@@ -124,13 +125,14 @@ public class ContactDAO {
 		return x;
 }
 	
-	public int getQnaCount2(String user_id) throws Exception {
+	public int getContactCount2(String user_id) throws Exception {
         
 		int x=0;
 
         try {
         	conn = DBCon.getConnection();
             pstmt = conn.prepareStatement("select count(*) from contact where goods_brand = ?");
+            pstmt.setString(1, user_id);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -157,7 +159,7 @@ public class ContactDAO {
             rs=pstmt.executeQuery();
             if(rs.next()) {
             	do {
-            	refList.add(rs.getInt("ref"));
+            		refList.add(rs.getInt("ref"));
             	}while(rs.next());
             }
             

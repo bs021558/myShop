@@ -20,7 +20,7 @@
 	UserDAO udao = UserDAO.getInstance();
 	UserDTO udto = new UserDTO();
 	udto = udao.myInfo(user_id);
-	String rating = udto.getRating();
+	String arating = udto.getRating();
 	//rating = 1은 구매자 rating = 2는 판매자
 	
 	int pageSize = 10; //한 화면에 보여줄 게시글 개수
@@ -48,33 +48,32 @@
 	
 	//상품DB DAO
 	GoodsDAO gdao = GoodsDAO.getInstance();
-	
+
 	//
-	if(count > 0){
 		//일반회원이면 writer칼럼으로 검색
-		if(rating == "1"){
+		if(arating == "1"){
 		contactList = cdao.getContactList1(user_id,startRow,endRow);
-		count = cdao.getQnaCount1(user_id);
+		count = cdao.getContactCount1(user_id);
 		
 		}else{//판매자면 goods_brand칼럼으로 검색
 			contactList = cdao.getContactList2(user_id, startRow, endRow);
-			count = cdao.getQnaCount2(user_id);
+			count = cdao.getContactCount2(user_id);
 		}
-	}
-	number = count-(currentPage-1)*pageSize; 
+	number = count-(currentPage-1)*pageSize;
 %>
 <html>
 <head>
 <title>판매자 문의답변 게시판</title>
 </head>
-
+<body>
+<%@ include file="/include/top.jsp" %>
 
 <center><b>내 상품 문의(전체 글:<%=count %>)</b>
 
 <%
 	if(count == 0){ //문의글이 없을 때
 %>
-<table width="100%" border="1" cellpadding="0" cellspacing="0">
+<table width="800" border="1" cellpadding="0" cellspacing="0">
 <tr>
 	<td align="center">
 	등록된 문의글이 없습니다.

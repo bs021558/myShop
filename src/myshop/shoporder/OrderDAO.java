@@ -27,7 +27,7 @@ public class OrderDAO {
 
 	public boolean contactCheck(int order_number, String user_id) throws Exception{
 		//입력받은 order_number, userId와 일치하는 정보가 있으면 true를 리턴합니다.
-		String sql = "select * from shoporder where order_number = ? user_id = ?";
+		String sql = "select * from shoporder where order_number = ? and user_id = ?";
 	
 		boolean result = false;
 		
@@ -50,40 +50,31 @@ public class OrderDAO {
 		return result;
 	}
 	
-	public ArrayList getOrderList(String user_id, int preMonths, int nextMonths, int start, int end) throws Exception {
+	public List<OrderDTO> getOrderList(String user_id, int preMonths, int nextMonths, int start, int end) throws Exception {
 		//입력받은 개월 수 동안의 주문만 가져옵니다.
 		//order_number의 중복을 제거하기 위해 order_number로 그룹을 묶어 각 그룹의 첫번째 행만 검색합니다.
-		String sql = "select * from";
-			   sql+= 	"(select order_number, goods_code, total_price, track, order_date, rownum r  from";
-			   sql+= 		"(select * from ";
+		String sql = "select * from ";
+			   sql+= 	"(select order_number, goods_code, total_price, track, order_date, rownum r  from ";
 			   sql+=        	"(select a.*, row_number() over (partition by a.order_number order by order_date) as num from ";
-			   sql+=            	"shoporder a)"; 
-			   sql+=        "where num = 1)";
-			   sql+=    "where user_id = ? and order_date >= add_months(sysdate,-?) and order_date <= add_months(sysdate,-?))";
+			   sql+=            	"shoporder a) where num = 1 and user_id = ? and order_date >= add_months(sysdate,?) and order_date <= add_months(sysdate,?)) ";
 			   sql+= "where r>=? and r<=?";
-
-		ArrayList myOrderList = null;
-		myOrderList = new ArrayList();
+		List<OrderDTO> myOrderList = null;
 		try {
 			conn = DBCon.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			pstmt.setInt(2, preMonths);
 			pstmt.setInt(3, nextMonths);
-			pstmt.setInt(3, start);
-			pstmt.setInt(4, end);
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.setInt(4, start);
+			pstmt.setInt(5, end);
+			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
+				myOrderList = new ArrayList(end);
 				do {
 					OrderDTO odto = new OrderDTO();
-					odto.setOrder_pk(rs.getInt("order_pk"));
 					odto.setOrder_number(rs.getInt("order_number"));
 					odto.setGoods_code(rs.getInt("goods_code"));
-					odto.setRe_name(rs.getString("re_name"));
-					odto.setRe_phone(rs.getString("re_phone"));
-					odto.setRe_address(rs.getString("re_address"));
-					odto.setAmount(rs.getInt("amount"));
 					odto.setTotalPrice(rs.getInt("total_price"));
 					odto.setTrack(rs.getString("track"));
 					odto.setOrderDate(rs.getTimestamp("order_date"));
@@ -115,7 +106,7 @@ public class OrderDAO {
 		return user_id;
 	}
 	
-	public Timestamp getOrder_date(int order_number) throws Exception{//order_number를 입력해서 user_id를 검색해 반환합니다.
+	public Timestamp getOrder_date(int order_number) throws Exception{
 		String sql="select order_date from shoporder where order_number =?";		
 		Timestamp order_date = null;
 		try{
@@ -123,7 +114,9 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, order_number);
 			rs = pstmt.executeQuery();
-			order_date=rs.getTimestamp(1);
+			if(rs.next()) {
+				order_date=rs.getTimestamp(1);
+			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -191,7 +184,9 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, order_number);
 			rs = pstmt.executeQuery();
-			count = rs.getInt(1);
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -238,7 +233,8 @@ public class OrderDAO {
 		int x=0;
 		try {
 			conn = DBCon.getConnection();
-		    pstmt = conn.prepareStatement("select count(*) from shoporder");
+		    pstmt = conn.prepareStatement("select count(*) from shoporder where user_id = ?");
+		    pstmt.setString(1, user_id);
 		    rs = pstmt.executeQuery();
 		    if (rs.next()) {
 		        x= rs.getInt(1);

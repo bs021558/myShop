@@ -4,7 +4,7 @@
 <%@page import="myshop.contact.ContactDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<h1>contactSeller페이지입니다.</h1>
+<h1>contactForm페이지입니다.</h1>
 <script language="javascript">
 <!-- 
 function checkFile(f){
@@ -38,14 +38,18 @@ function checkFile(f){
     OrderDAO odao = OrderDAO.getInstance();
 	GoodsDAO gdao = GoodsDAO.getInstance();
 	
-	//문의할 주문의 주문번호와 상품이름 파라미터 획득
-    int order_number= Integer.parseInt(request.getParameter("order_number"));
-	int goods_code = Integer.parseInt(request.getParameter("goods_code"));
-	boolean reply = false;
+
 	int num = 0;
 	String title = "문의하기";
 	GoodsDTO gdto  = new GoodsDTO();
-	gdto = gdao.goodsDetail(goods_code);
+	//문의할 주문의 주문번호와 상품이름 파라미터 획득
+    int order_number= Integer.parseInt(request.getParameter("order_number"));
+	
+	int goods_code=0;
+	if(request.getParameter("goods_code")!=null){
+		goods_code = Integer.parseInt(request.getParameter("goods_code"));
+		gdto = gdao.goodsDetail(goods_code);
+	}
 	
 	//답변이 아니라면 구매자가 직접 접근하는지 확인
 		boolean result = odao.contactCheck(order_number, userId);
@@ -68,22 +72,29 @@ function checkFile(f){
 </script>
 </head>
    
-<body>  
+<body> 
+<%@ include file="/include/top.jsp" %> 
 <center><b>작성</b>
 <br>
 <form method="post" name="contactForm" action="contactPro.jsp" enctype="multipart/form-data">
 	<input type="hidden" name="order_number" value="<%=order_number %>"/>
 	<input type="hidden" name="writer" value="<%=userId %>"/>
 	<input type="hidden" name="goods_code" value="<%=goods_code %>"/>
-	<input type="hidden" name="goods_brand" value="<%=gdto.getGoods_brand() %>" />
+	<%if(gdto!=null){%>
+		<input type="hidden" name="goods_brand" value="<%=gdto.getGoods_brand() %>" />
+	<%} %>
 <table width="400" border="1" cellspacing="0" cellpadding="0" align="center">
    <tr>
-    <td  width="400">
+    <td colspan="2" width="400" align="center">
+    <%if(gdto!=null&&gdto.getGoods_name()!=null){ %>
        <%=gdto.getGoods_name()%>
+    <%}else{ %>
+   		 존재하지 않는 상품
+    <%} %>
     </td>
   </tr>
   <tr>
-    <td  width="70"  align="center" >
+    <td  width="120"  align="center" >
        제 목
     </td>
     <td  width="330">
@@ -91,7 +102,7 @@ function checkFile(f){
     </td>
   </tr>
   <tr>
-   <td  width="70"  align="center">
+   <td  align="center">
     Email
    </td>
    <td  width="330">
@@ -99,7 +110,7 @@ function checkFile(f){
    </td>
   </tr>
   <tr>
-   <td  width="70"  align="center" >
+   <td  align="center" >
       내 용
    </td>
    <td  width="330" >
@@ -107,10 +118,10 @@ function checkFile(f){
    </td>
   </tr>
   <tr>
-   <td>
+   <td align="center">
   	파일첨부
    </td>
-   <td> 
+   <td align="center"> 
   	<input type="file" name="filename" onchange = "checkFile(this)"/><br>
    </td>
   </tr>
@@ -122,7 +133,7 @@ function checkFile(f){
    </td>
   </tr>
 </table>
- <%
+<%
   }catch(Exception e){}
 %>     
 </form>      
