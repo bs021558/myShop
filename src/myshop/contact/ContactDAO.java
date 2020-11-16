@@ -93,30 +93,14 @@ public class ContactDAO {
 	public int getContactCount1(String user_id) throws Exception {
         
 		int x=0;
-		ArrayList refList = null;
         try {
         	conn = DBCon.getConnection();
-            pstmt = conn.prepareStatement("select ref from contact where writer = ?");
-            pstmt.setString(1, user_id);
-            rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-            	refList = new ArrayList();
-            	do {
-            		refList.add(rs.getInt("ref"));
-            	}while(rs.next());
-			}
-            for(int i = 0; i < refList.size() ; i++){
-    			int ref = (int)refList.get(i);
-    			pstmt = conn.prepareStatement("select count(*) from contact where ref = ?");
-    			pstmt.setInt(1, ref);
-    			rs = pstmt.executeQuery();
-    			if (rs.next()) {
-    				do{
-    					x = x + rs.getInt(1);
-    				}while(rs.next());
-    			}
-			}
+    		pstmt = conn.prepareStatement("select count(*) from contact where writer = ?");
+    		pstmt.setString(1, user_id);
+    		rs = pstmt.executeQuery();
+    		if (rs.next()) {
+    			x = rs.getInt(1);
+    		}
         } catch(Exception e) {
             e.printStackTrace();
         } finally {
@@ -151,52 +135,34 @@ public class ContactDAO {
         List contactList=null;
         try {
             conn = conn = DBCon.getConnection();
-            ArrayList refList = new ArrayList();
-            
-            //내가 작성한 글의 그룹 먼저 검색
-            pstmt = conn.prepareStatement("select ref where writer = ?");
-            pstmt.setString(1, writer);
-            rs=pstmt.executeQuery();
-            if(rs.next()) {
-            	do {
-            		refList.add(rs.getInt("ref"));
-            	}while(rs.next());
-            }
-            
-            contactList = new ArrayList(end);
-            
-            //그룹을 통해 내가 쓴 글의 답글까지 같이 검색
-            //판매자의 글은 구매자의 아이디로 검색했을 때 보이지 않기 때문
-    		for(int i = 0; i < refList.size() ; i++){
-    			int ref = (int)refList.get(i);
-    			pstmt = conn.prepareStatement(
+    		pstmt = conn.prepareStatement(
     				"select * "+
             		"from (select num,goods_code, writer,email,goods_brand,subject,content,filename,ref,re_step,re_level,reg_date,rownum r " +
-        			"from (select * from contact where ref=? ) order by ref desc, re_step asc ) where r >= ? and r <= ? "
+        			"from (select * from contact where writer=? ) order by reg_date desc ) where r >= ? and r <= ? "
             		);
-    			pstmt.setInt(1, ref);
-    			pstmt.setInt(2, start);
-    			pstmt.setInt(3, end);
-    			rs = pstmt.executeQuery();
-    			if (rs.next()) {
-    				do{
-    					ContactDTO dto= new ContactDTO();
-    					dto.setNum(rs.getInt("num"));
-    					dto.setWriter(rs.getString("writer"));
-    					dto.setEmail(rs.getString("email"));
-    					dto.setGoods_brand(rs.getString("goods_brand"));
-    					dto.setSubject(rs.getString("subject"));
-    					dto.setContent(rs.getString("content"));
-    					dto.setFilename(rs.getString("filename"));
-    					dto.setRef(rs.getInt("ref"));
-    					dto.setRe_step(rs.getInt("re_step"));
-    					dto.setRe_level(rs.getInt("re_level"));
-    					dto.setReg_date(rs.getTimestamp("reg_date"));
+    		pstmt.setString(1, writer);
+    		pstmt.setInt(2, start);
+    		pstmt.setInt(3, end);
+    		rs = pstmt.executeQuery();
+    		contactList = new ArrayList(end);
+    		if (rs.next()) {
+    			do{
+    				ContactDTO dto= new ContactDTO();
+    				dto.setNum(rs.getInt("num"));
+    				dto.setWriter(rs.getString("writer"));
+    				dto.setEmail(rs.getString("email"));
+    				dto.setGoods_brand(rs.getString("goods_brand"));
+    				dto.setSubject(rs.getString("subject"));
+    				dto.setContent(rs.getString("content"));
+    				dto.setFilename(rs.getString("filename"));
+    				dto.setRef(rs.getInt("ref"));
+    				dto.setRe_step(rs.getInt("re_step"));
+    				dto.setRe_level(rs.getInt("re_level"));
+    				dto.setReg_date(rs.getTimestamp("reg_date"));
     					
-    					contactList.add(dto);
-    				}while(rs.next());
-    			}
-			}
+    				contactList.add(dto);
+    			}while(rs.next());
+    		}
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {

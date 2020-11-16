@@ -81,20 +81,27 @@
         	gdto = gdao.goodsDetail(goods_code);
 %>
 	<tr height="30">
-		<td align="center" width="150">
+		<td align="center" width="50">
 		<%if(gdto!=null) {%>
-	  	 <a href="content.jsp?code=<%=gdto.getGoods_code()%>">
+	  	 <%=gdto.getGoods_code()%>
+	  	 <%} %>
+	  	</td>
+	  	<td width="120">
+	  	<%if(gdto!=null) {%>
 	  	 <img src="<%=gdto.getGoods_img()%>"/>
-	  	<%}%>
-	  	 </a>
+	  	<%}else{%>
+	  	없음
+	  	<%} %>
 	 	</td>
 		<td width="250">
 		 <!-- 누르면 새창에서 제품상세페이지 열기  -->
 		 <%if(gdto!=null){ %>
 		 <a href="content.jsp?code=<%=gdto.getGoods_name()%>" onclick="window.open('this.href')">
-		  <%=gdto.getGoods_name() %>
-		  <%}%>
+		 	<%=gdto.getGoods_name() %>
 		 </a> 
+		 <%}else{%>
+		 	존재하지 않는 상품
+		 <%} %>
 		</td>
 		<td align="center" width="100">
 		<%if(gdto!=null) {%>
@@ -112,7 +119,7 @@
 		  <li>
 		  <%if(gdto!=null) {%>
 		   <%=gdto.getGoods_brand() %>
-		   <%} %>
+		   <%}%>
 		  </li> 
 		  <li>
 		   <form action="/myShop/contact/contactForm.jsp" method="post">
@@ -124,10 +131,7 @@
     		</form>
 		  </li>
 		</td>
-		<td align="center" width="100">
-		 <%=odto.getOrder_date()%>
-		</td>
-		<td align="center" width="100">
+		<td align="center" width="120">
 		<%if(odto.getTrack()!=null){%>
 		 <a href="<%=cjtrack %><%=odto.getTrack() %>" onclick="window.open('this.href')">
 		  <%=odto.getTrack() %>
@@ -138,8 +142,7 @@
 <%
 		}
 %>
-<tr>
-<td colspan="9" align="center" width="100">
+</table>
 <!-- order_number를 파라미터로 갖고 관리자문의 페이지로 이동 -->
 <h2>
  <form action="op_board.jsp" method="post">
@@ -147,8 +150,7 @@
   <input type="hidden" name="user_id" value="<%=user_id%>"/>
   <input type="submit" value="관리자문의"/>
  </form>
- </h2>
-</td>
- </table>
+</h2>
+
 </body>
 </html>

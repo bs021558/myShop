@@ -4,8 +4,8 @@
 <%@page import="myshop.shoporder.OrderDTO"%>
 <%@page import="myshop.shoporder.OrderDAO"%>
 <%@page import="myshop.goods.GoodsDAO"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.List"%>
 <%
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	//세션 획득
@@ -107,7 +107,7 @@
 <!-- OrderDAO의 getCountGoodsInOrder()메소드는 같은 주문 안에 몇 종류의 상품이 있는 지 세어서 그 수를 int로 돌려줍니다. -->
 		 <%if(gdto != null){%>
 		 	<%=gdto.getGoods_name()%>
-		 <%}else{ %>
+		 <%}else{%>
 		 존재하지 않는 상품
 		 <%} %>
 <%
@@ -153,18 +153,18 @@
 		%>
 		<a href="myOrder.jsp?pageNum=<%=startPage - 10%>">[이전]</a>
 		<%
-			}
+				}
 				for (int i = startPage; i <= endPage; i++) {
 		%>
 		<a href="myOrder.jsp?pageNum=<%=i%>">[<%=i%>]
 		</a>
 		<%
-			}
+				}
 				if (endPage < pageCount) {
 		%>
 		<a href="myOrder.jsp?pageNum=<%=startPage + 10%>">[다음]</a>
 		<%
-			}
+				}
 			}
 		%>
 </center>

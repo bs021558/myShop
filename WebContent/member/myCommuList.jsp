@@ -161,14 +161,14 @@
         if (endPage > pageCount) endPage = pageCount;
         
         if (startPage > 10) {  %>
-        <a href="commuList.jsp?pageNum=<%= startPage - 10 %>">[이전]</a>
+        <a href="myCommuList.jsp?pageNum=<%= startPage - 10 %>">[이전]</a>
 <%      }
         for (int i = startPage ; i <= endPage ; i++) { %>
-        <a href="commuList.jsp?pageNum=<%= i %>">[<%= i %>]</a>
+        <a href="myCommuList.jsp?pageNum=<%= i %>">[<%= i %>]</a>
 <%
         }
         if (endPage < pageCount) { %>
-        <a href="commuList.jsp?pageNum=<%= startPage + 10 %>">[다음]</a>
+        <a href="myCommuList.jsp?pageNum=<%= startPage + 10 %>">[다음]</a>
 <%
         }
     }

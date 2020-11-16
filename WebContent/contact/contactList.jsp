@@ -40,21 +40,18 @@
 	int number = 0;
 	
 	List contactList = null;
-	List orderList = null;
 	
 	//판매자문의DB DAO
 	ContactDAO cdao = ContactDAO.getInstance();
-	
 	
 	//상품DB DAO
 	GoodsDAO gdao = GoodsDAO.getInstance();
 
 	//
 		//일반회원이면 writer칼럼으로 검색
-		if(arating == "1"){
-		contactList = cdao.getContactList1(user_id,startRow,endRow);
-		count = cdao.getContactCount1(user_id);
-		
+		if(arating.equals("1")){
+			contactList = cdao.getContactList1(user_id,startRow,endRow);
+			count = cdao.getContactCount1(user_id);
 		}else{//판매자면 goods_brand칼럼으로 검색
 			contactList = cdao.getContactList2(user_id, startRow, endRow);
 			count = cdao.getContactCount2(user_id);
@@ -81,7 +78,7 @@
 </table>
 
 <%	} else	{ %> 
-<table border="1" width="100%" cellpadding="0" cellspacing="0" align="center">
+<table border="1" width="800" cellpadding="0" cellspacing="0" align="center">
 	<tr height="30" >
 		<td align="center" width="30%" >주문상품 </td>
 		<td align="center" width="40%" >제  목 </td>
@@ -92,17 +89,22 @@
 <%
 		int goods_code = 0;
 		
-		for(int i = 0; i < contactList.size() ; i++){
+		for(int i = 0 ; i < contactList.size() ; i++){
 			ContactDTO cdto = (ContactDTO)contactList.get(i);
-			goods_code = cdto.getGoods_code();
-					
-			GoodsDTO gdto = new GoodsDTO();
-			gdto = gdao.goodsDetail(goods_code);
+				goods_code = cdto.getGoods_code();	
+				GoodsDTO gdto = new GoodsDTO();
+				gdto = gdao.goodsDetail(goods_code);
 %>
 	<tr height="30">
 		<td align="center">
+		<%
+			if(gdto!=null){
+		%>
 			<a href="/board/goodsDetail.jsp?code=<%=gdto.getGoods_code() %>&pageNum=<%=currentPage %>">
 				<%=gdto.getGoods_name() %>
+		<%	}else{ %>
+			존재하지 않는 상품
+		<%	} %>
 			</a>
 		</td>
 		<td>
@@ -130,7 +132,6 @@
 		}
 %>		
 </table>
-<%}%>
 
 <%
 	if(count > 0){ //124
@@ -143,17 +144,18 @@
 		if(endPage > pageCount) endPage = pageCount;
 		
 		if(startPage > 10){ %> 
-		<a href="list.jsp?pageNum=<%=startPage - 10 %>">[이전]</a> 
+		<a href="contactList.jsp?pageNum=<%=startPage - 10 %>">[이전]</a> 
 <% 		}
 		for(int i = startPage ; i <= endPage ; i++) { %>
-		<a href="list.jsp?pageNum=<%= i %>">[<%= i %>]</a>
+		<a href="contactList.jsp?pageNum=<%= i %>">[<%= i %>]</a>
 <% 		
 		}
 		if(endPage < pageCount){ %>
-		<a href="list.jsp?pageNum=<%=startPage + 10 %>">[다음]</a>
-<% 
+		<a href="contactList.jsp?pageNum=<%=startPage + 10 %>">[다음]</a>
+<%
 		}
 	}
+}
 %>
 </center>
 </body>

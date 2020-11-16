@@ -63,8 +63,8 @@ public class OrderDAO {
 			conn = DBCon.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
-			pstmt.setInt(2, preMonths);
-			pstmt.setInt(3, nextMonths);
+			pstmt.setInt(2, -preMonths);
+			pstmt.setInt(3, -nextMonths);
 			pstmt.setInt(4, start);
 			pstmt.setInt(5, end);
 			rs = pstmt.executeQuery();

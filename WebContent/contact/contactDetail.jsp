@@ -28,6 +28,7 @@ textarea {width: 100%;height: 100px;}
 		GoodsDTO gdto = gdao.goodsDetail(cdto.getGoods_code());
 %>
 <body>
+<%@ include file="/include/top.jsp" %>
 	<center>
 		<b>글내용 보기</b> <br>
 			<table width="700" border="1" cellspacing="0" cellpadding="0"align="center">
@@ -39,17 +40,22 @@ textarea {width: 100%;height: 100px;}
 				</tr>
 				<tr height="30">
 					<td align="center" width="125">상품이름</td>
-					<td colspan="1" width="375"><%=gdto.getGoods_name() %></td>	
+					<td colspan="3" width="375">
+					<%if(gdto!=null){%>
+					<%=gdto.getGoods_name() %>
+					<%} %>
+					</td>	
 				<tr height="30">
 					<td align="center" width="125">글제목</td>
 					<td align="center" width="375" align="center" colspan="3"><%=cdto.getSubject()%></td>
 				</tr>
-				<tr>
+				<tr height="300">
 					<td align="center" width="125">글내용</td>
 					<td align="left" width="375" colspan="3"><pre><%=cdto.getContent()%></pre></td>
 				</tr>
 				<tr height="30">
-					<td colspan="4" align="right">
+					<td colspan="4" align="center">
+					<br/>
 						<form>
 <%						String sessionId = (String) session.getAttribute("sessionId");
 						if (sessionId != null) {
@@ -77,6 +83,7 @@ textarea {width: 100%;height: 100px;}
  %> 					<input type="button" value="글목록"
 						onclick="document.location.href='contactList.jsp?pageNum=<%=pageNum%>'">
 						</form>
+						<br/>
 					</td>
 				</tr>
 			</table>
