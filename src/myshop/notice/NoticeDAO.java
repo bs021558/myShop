@@ -170,20 +170,10 @@ public class NoticeDAO {
 		return notice;
 	}
 	
-	public int updateNotice(NoticeDTO notice) throws Exception {
-		String dbpasswd = "";
-		int x = -1;
+	public void updateNotice(NoticeDTO notice) throws Exception {
 		try {
 			conn = DBCon.getConnection();
-			String sql = "select noti_passwd from notice where noti_num = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,  notice.getNoti_num());
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				dbpasswd = rs.getString("noti_passwd");
-				if(dbpasswd.contentEquals(notice.getNoti_passwd())) {
-					sql = "update notice set noti_subject=?, noti_file=?, noti_content=?, noti_passwd=?"
+			String sql = "update notice set noti_subject=?, noti_file=?, noti_content=?, noti_passwd=?"
 							+ "where noti_num=?";
 					pstmt = conn.prepareStatement(sql);
 		            pstmt.setString(1, notice.getNoti_subject());
@@ -192,17 +182,11 @@ public class NoticeDAO {
 		            pstmt.setString(4, notice.getNoti_passwd());
 		            pstmt.setInt(5, notice.getNoti_num());
 		            pstmt.executeUpdate();
-		            x = 1;
-				}else {
-					x = 0;
-				}
-			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			closeAll();
 		}
-		return x;
 	}
 
 	private void closeAll() {

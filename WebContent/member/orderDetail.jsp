@@ -41,7 +41,7 @@
   
     //주문가져오기
   	ArrayList listInOrder = new ArrayList();
-  	listInOrder = odao.getOrderDetail(order_number);
+  	listInOrder = odao.getOrderDetail(order_number,user_id);
     
     //goods_code 보관 변수
     int goods_code = 0;
@@ -61,7 +61,6 @@
 		<td align="center" width="50">상품번호</td>
 	    <td align="center" width="100">상품이미지</td>
 		<td align="center" width="250">상품</td>
-		<td align="center" width="50">옵션</td>
 		<td align="center" width="50">수량</td>
 		<td align="center" width="100">금액</td>
 		<td align="center" width="100">판매자</td>
@@ -88,7 +87,7 @@
 	  	</td>
 	  	<td width="120">
 	  	<%if(gdto!=null) {%>
-	  	 <img src="<%=gdto.getGoods_img()%>"/>
+	  	 <img src="/myShop/imgsave/sellerimg/<%=gdto.getGoods_img()%>"/>
 	  	<%}else{%>
 	  	없음
 	  	<%} %>
@@ -96,16 +95,11 @@
 		<td width="250">
 		 <!-- 누르면 새창에서 제품상세페이지 열기  -->
 		 <%if(gdto!=null){ %>
-		 <a href="content.jsp?code=<%=gdto.getGoods_name()%>" onclick="window.open('this.href')">
+		 <a href="/myShop/board/goodsDetail.jsp?goods_code=<%=gdto.getGoods_code()%>">
 		 	<%=gdto.getGoods_name() %>
 		 </a> 
 		 <%}else{%>
 		 	존재하지 않는 상품
-		 <%} %>
-		</td>
-		<td align="center" width="100">
-		<%if(gdto!=null) {%>
-		 <%=gdto.getGoods_option() %>
 		 <%} %>
 		</td>
 		<td align="center" width="50">
@@ -133,7 +127,7 @@
 		</td>
 		<td align="center" width="120">
 		<%if(odto.getTrack()!=null){%>
-		 <a href="<%=cjtrack %><%=odto.getTrack() %>" onclick="window.open('this.href')">
+		 <a href="<%=cjtrack %><%=odto.getTrack() %>">
 		  <%=odto.getTrack() %>
 		  <%} %>
 		 </a>
@@ -145,7 +139,7 @@
 </table>
 <!-- order_number를 파라미터로 갖고 관리자문의 페이지로 이동 -->
 <h2>
- <form action="op_board.jsp" method="post">
+ <form action="/myShop/community/opBoard.jsp" method="post">
   <input type="hidden" name="order_number" value="<%=order_number%>" />
   <input type="hidden" name="user_id" value="<%=user_id%>"/>
   <input type="submit" value="관리자문의"/>

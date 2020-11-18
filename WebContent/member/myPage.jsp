@@ -49,6 +49,9 @@
 			<div>
 				<button onclick="window.location='/myShop/member/myOrder.jsp'" style="width: 90px;">구매 내역</button><br /><br />
 			</div>
+			<div>
+				<button onclick="window.location='/myShop/contact/contactList.jsp'" style="width: 90px;">내문의내역</button><br /><br />
+			</div>
 			
 	</div>
 <%}%>

@@ -1,4 +1,4 @@
-package myshop.community;
+package myshop.cmu_comment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myshop.alldb.DBCon;
+import myshop.community.CommunityDTO;
 
 public class CommunityDAO {
 	private static CommunityDAO instance = new CommunityDAO();
@@ -45,7 +46,7 @@ public class CommunityDAO {
 			conn = DBCon.getConnection();
 			String sql = "select num,writer,subject,content,passwd,reg_date,readcount,state,r "+
 					"from (select num,writer,subject,content,passwd,reg_date,readcount,state,rownum r " +
-					"from (select * " + "from community where state = 1 order by reg_date desc) order by reg_date desc) where r >= ? and r <= ? ";
+					"from (select * " + "from community order by reg_date desc) order by reg_date desc) where r >= ? and r <= ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -164,23 +165,39 @@ public class CommunityDAO {
     	}
     	return cm;
     }
-    public void updateCommu(CommunityDTO cm) throws Exception{
+    public int updateCommu(CommunityDTO cm) throws Exception{
+    	String dbpasswd = "";
+    	int x = -1;
     	try {
     		conn = DBCon.getConnection();
-    		String sql = "update community set writer=?, subject=?, content=? where num=?";
+    		String sql = "select passwd from community where num=?";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, cm.getNum());
+    		rs = pstmt.executeQuery();
+    		
+    		if(rs.next()) {
+    			dbpasswd = rs.getString("passwd");
+    			if(dbpasswd.equals(cm.getPasswd())) {
+    				sql = "update community set writer=?, subject=?, passwd=?, content=? where num=?";
     				pstmt = conn.prepareStatement(sql);
     				pstmt.setString(1, cm.getWriter());
     				pstmt.setString(2, cm.getSubject());
-    				pstmt.setString(3, cm.getContent());
-    				pstmt.setInt(4, cm.getNum());
+    				pstmt.setString(3, cm.getPasswd());
+    				pstmt.setString(4, cm.getContent());
+    				pstmt.setInt(5, cm.getNum());
     				pstmt.executeUpdate();
+    				x = 1;
+    			}else {
+    				x = 0;
+    			}
+    		}
     	}catch(Exception e) {
     		e.printStackTrace();
     	}finally {
     		closeAll();
     	}
-	}
-
+    	return x;
+    }
     public int getDelCount() throws Exception {
     	int x = 0;
     	try {
@@ -213,63 +230,7 @@ public class CommunityDAO {
 			closeAll();
 		}
 	}    
-	public int getMyCommuCount(String user_id) throws Exception {
-		int x = 0;
-		try {
-			conn = DBCon.getConnection();
-			pstmt = conn.prepareStatement("select count(*) from community where state=1 and writer = ?");
-			pstmt.setString(1, user_id);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				x=rs.getInt(1);
-			}
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally {
-			closeAll();
-		}
-		return x;
-	}
-	
-	public ArrayList getMyCommuList(String user_id, int startRow, int endRow) throws Exception{
-		ArrayList<CommunityDTO> commuList = null;
-		try {
-			conn = DBCon.getConnection();
-			String sql = "select * from " + 
-							"(select num,writer,subject,content,passwd,reg_date,readcount,state,rownum r from " + 
-								"(select * from "+
-									"community "+
-							"where writer = ? and state = 1 order by reg_date desc)) " + 
-						 "where r >= ? and r <= ? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user_id);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				commuList = new ArrayList<CommunityDTO>(endRow);
-				do{
-	                  CommunityDTO cm = new CommunityDTO();
-	                  cm.setNum(rs.getInt("num"));
-	                  cm.setWriter(rs.getString("writer"));
-	                  cm.setSubject(rs.getString("subject"));
-	                  cm.setContent(rs.getString("content"));
-	                  cm.setPasswd(rs.getString("passwd"));
-	                  cm.setReg_date(rs.getTimestamp("reg_date"));
-	                  cm.setReadcount(rs.getInt("readcount"));		
-	                  cm.setState(rs.getInt("state"));
-	                  commuList.add(cm);
-				    }while(rs.next()); 
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			closeAll();
-		}
-		return commuList;
-	}
-	
+    
     public String getRating(String user_id) throws Exception {
     	String rating = "";
     	try {

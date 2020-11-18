@@ -26,13 +26,13 @@
     int count = 0;
     int number=0;
      
+	String sessionId = (String) session.getAttribute("sessionId");
     List noticeList = null;
     NoticeDAO dao = NoticeDAO.getInstance(); 
     count = dao.getNoticeCount(); 
     if (count > 0) {
         noticeList = dao.getNotices(startRow, endRow); 
     }
-    sessionId = (String)session.getAttribute("sessionId");
 	number=count-(currentPage-1)*pageSize; 
 	
 %>
@@ -59,10 +59,10 @@
     <td align="right">
     <% if(sessionId == null){ %>
 		<a href="/myShop/login/loginForm.jsp">로그인</a>
-    <% }else if(sessionId.equals("admin")){%>
+    <% }else if(rating1.equals("5")){%>
     	<a href="noticeWrite.jsp">글쓰기</a>
      <%}else{%>
-    <%} //로그인경로 수정 필요%>
+    <%}%>
     </td>
    
 </table>
@@ -134,3 +134,5 @@
 </center>
 </body>
 </html>
+<br /><br /><br /><br /><br />
+<%@ include file="/include/bottom.jsp" %> <!--하단 -->

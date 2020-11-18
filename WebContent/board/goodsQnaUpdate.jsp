@@ -30,7 +30,21 @@
 <body bgcolor="eaeaea">  
 <b>글수정</b>
 <br>
-<form method="post" name="goodsQnaUpdate" action="goodsQnaUpdatePro.jsp">
+<script>
+   function formCheck(frm) {
+   if (frm.subject.value == "") {
+      alert("제목을 입력해 주세요!");
+      frm.subject.focus();
+       return false;
+   }
+    if (frm.content.value == "") {
+        alert("내용을 입력해 주세요!!");
+        frm.content.focus();
+        return false;
+    }
+   }
+</script>
+<form method="post" name="goodsQnaUpdate" action="goodsQnaUpdatePro.jsp" onsubmit="return formCheck(this)">
 <table width="400" border="1" cellspacing="0" cellpadding="0"  bgcolor="eaeaea" align="center">
   <tr>
     <td  width="70"  bgcolor="eaeaea" align="center">이 름</td>
@@ -45,11 +59,6 @@
     <td  width="70"  bgcolor="eaeaea" align="center" >제 목</td>
     <td align="left" width="330">
        <input type="text" size="40" maxlength="50" name="subject" value="<%=dto2.getSubject()%>"></td>
-  </tr>
-  <tr>
-    <td  width="70"  bgcolor="eaeaea" align="center">Email</td>
-    <td align="left" width="330">
-       <input type="text" size="40" maxlength="30" name="email" value="<%=dto2.getEmail()%>"></td>
   </tr>
   <tr>
     <td  width="70"  bgcolor="eaeaea" align="center" >내 용</td>

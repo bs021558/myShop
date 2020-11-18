@@ -1,14 +1,15 @@
-<%@page import="myshop.cart.CartDTO"%>
-<%@page import="myshop.goods.MyShopDAO"%>
-<%@page import="myshop.cart.CartDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="myshop.cart.CartDAO" %>
+<%@page import="myshop.cart.CartDTO" %>
+<%@page import="myshop.goods.MyShopDAO" %>   
+<%@page import="myshop.shoporder.OrderDAO" %>  
 <%@page import="java.util.List" %>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
-<script>
 
-</script>
+<%@ include file="/include/top.jsp"%>
+<br />
 <%
      String sessionId = (String)session.getAttribute("sessionId");
     if(sessionId==null)
@@ -104,5 +105,7 @@
 </center>
 </body>
 </html>
+<br /><br /><br /><br /><br />
+<%@ include file="/include/bottom.jsp" %> <!--하단 -->
 
 	

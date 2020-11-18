@@ -22,9 +22,18 @@
          <h1> 정보수정</h1>
          <br/>
          <div>
-            rating : <%=dto.getRating() %><br />
+         <%if(dto.getRating().equals("1")){ %>
+             회원등급 : 일반회원<br />
+         <%}else if(dto.getRating().equals("2")){%>
+             회원등급 : 판매자<br />
+         <%}else if(dto.getRating().equals("5")){%>    
+             회원등급 : 운영자<br />
+         <%}else{%>
+             회원등급 : 대기자<br />
+         <%} %>
             <input type = "hidden" name ="rating" value ="<%=dto.getRating()%>" />
          </div>
+         
          <div>
             id : <%=dto.getUser_id() %> <br />
             <input type = "hidden" name ="user_id" value ="<%=dto.getUser_id()%>" />
@@ -34,7 +43,8 @@
              <input type = "hidden" name ="user_cash" value ="<%=dto.getUser_cash()%>" />
          </div>
          <div>
-            pw : <input type = "text" name="user_pw" value="<%=dto.getUser_pw()%>" /><br />
+    	 비밀번호 <input type = "password" name="user_pw" value="<%=dto.getUser_pw()%>" /><br/>
+  		 비밀번호확인 <input type = "password" name="user_pw" value="<%=dto.getUser_pw()%>" />
          </div>
          <div>
             name : <input type = "text" name="user_name" value="<%=dto.getUser_name()%>" /><br />
@@ -43,7 +53,8 @@
             phone : <input type = "text" name="user_phone" value="<%=dto.getUser_phone()%>" /><br />
          </div>
          <div>
-            address : <input type = "text" name="user_address" value="<%=dto.getUser_address()%>" /><br />      
+            주소 : <input type = "text" name="user_address" value="<%=dto.getUser_address()%>" /><br />     
+            
          </div>
          <div>
             가입날짜 : <%=dto.getUser_date()%> <br />

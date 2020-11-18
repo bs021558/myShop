@@ -1,12 +1,11 @@
-<%@page import="myshop.shopuser.UserDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="myshop.shopuser.UserDAO"%>
-<%@page import="myshop.goods.MyShopDAO"%>
-<%@page import="java.text.DecimalFormat"%>
+<%@page import="myshop.shopuser.UserDTO"%>
 <%@page import="myshop.cart.CartDAO"%>
 <%@page import="myshop.cart.CartDTO"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="java.text.DecimalFormat"%>
 
 
 
@@ -14,10 +13,10 @@
 <head>
 <title>구매정보 입력</title>
 </head>
-
+<body>
 <%
     String sessionId = (String)session.getAttribute("sessionId");
-	String[] chkbox = request.getParameterValues("cartCheck");
+	String[] cartCheck = request.getParameterValues("cartCheck");
     if(sessionId==null)
      {
 %>
@@ -29,9 +28,9 @@
 <%}else{ %>
 <% 
    int count = 0; //담긴 상품 개수
-   int goods_code=0; 
    int number=0;
    int cartTotalPrice = 0; //장바구니 총액
+   int delivery = 0;
    int startRow=0;
    int endRow=5;
    
@@ -39,9 +38,7 @@
    CartDTO dto = new CartDTO();
    CartDAO c_dao = CartDAO.getInstance();
    DecimalFormat df = new DecimalFormat("###,###");
-   MyShopDAO dao = MyShopDAO.getInstance();
    count = c_dao.getCartCount(sessionId);
-   goods_code = dto.getGoods_code(); 
 
    if (count > 0){
       cartList = c_dao.getCartList(sessionId, startRow, endRow);
@@ -53,9 +50,25 @@
 %>
 
 
+
 <center><h3><b>구매목록</b></h3></center>
 
+<script language="javascript">
+	function formCheck(frm) {
+		if (frm.re_phone.value == "") {
+			alert("받으시는 분의 전화번호를 입력해 주세요!");
+			frm.re_phone.focus();
+			return false;
+		}
+		if (frm.re_address.value == "") {
+			alert("받으시는 분의 주소를 입력해 주세요!!");
+			frm.re_address.focus();
+			return false;
+		}
+	}
+</script>
 
+<form method = "post" action="cartBuyPro.jsp" onsubmit="return formCheck(this)">
 <table width="600" border=1 cellpadding="0" ceppspacing="0" align=center>
    <tr>
       <td align="center" width="50">번호</td>
@@ -64,18 +77,26 @@
       <td align="center" width="100">금액</td>
    </tr>
    <%
-	for( int i = 0; i < chkbox.length; i++ ){
-		CartDTO cart = (CartDTO)cartList.get(Integer.parseInt(chkbox[i])-1);
+	for( int i = 0; i < cartCheck.length; i++ ){
+		CartDTO cart = (CartDTO)cartList.get(Integer.parseInt(cartCheck[i])-1);
    %>
    <tr height="30">
+   <input type="hidden" name="amount" value=<%=cart.getAmount()%> >
+   <input type="hidden" name="goods_code" value=<%=cart.getGoods_code()%> />
+   <input type="hidden" name="goods_brand" value=<%=cart.getGoods_brand()%> />
+   <input type="hidden" name="cartCheck" value=<%=cartCheck[i]%> />
       <td align="center"><%=++number %></td>
       <td align="center" width="250" ><%=cart.getGoods_name()%></td>
       <td align="center" width="100" ><%=cart.getAmount()%></td>
+      
       <td align="center" width="100" ><%=cart.getGoods_price()%></td>
-      <% cartTotalPrice += (cart.getAmount() * cart.getGoods_price()); %>
+      <% cartTotalPrice += (cart.getAmount() * cart.getGoods_price()); 
+      	delivery += (c_dao.getDelivery(cart.getGoods_code()));
+      %>
      <%}%>
+     </tr>
       <tr>
-        <td align="right" colspan="5"> 총 금액: <%=df.format(cartTotalPrice)%> 원<br/>
+        <td align="right" colspan="5"> 배송비: <%=df.format(delivery) %> 원<br /> 총 금액: <%=df.format(cartTotalPrice)%> 원<br/>
            
      </tr>
 </table>
@@ -83,7 +104,7 @@
    <br />
       <table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
       <tr>
-         <td colspan="2" align="center"><b>주문자 정보</b></td>
+         <td colspan="2" align="center"><h1>01.주문자 정보</h1></td>
       </tr>
       <tr>
          <td width="200">성명</td>
@@ -99,31 +120,30 @@
       </tr>
       </table>
 <br />
-     <form method = "post" action="buyPro.jsp" >
      <table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
       <tr>
-         <td colspan="2" align="center"><b>배송지 정보</b></td>
+         <td colspan="2" align="center"><h1>02.배송지 정보</h1></td>
       </tr>
       <tr>
          <td width="200">성명</td>
          <td width="400">
-            <input type="text" name="re_name" style="width:400px;"></td>
+            <input type="text" name="re_name" value="<%= userdto.getUser_name()%>" style="width:400px;"></td>
       </tr>
       <tr>
          <td width="200">전화번호</td>
          <td width="400">
-            <input type="text" name="re_Tel" style="width:400px;"></td>
+            <input type="text" name="re_phone" value="<%= userdto.getUser_phone()%>" style="width:400px;" ></td>
       </tr>
       <tr>
          <td width="200">주소</td>
          <td width="400">
-            <input type="text" name="re_address" style="width:400px;"></td>
+            <input type="text" name="re_address" value="<%= userdto.getUser_address() %>" style="width:400px;"></td>
       </tr>
       </table>
 <br />   
        <table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
       <tr>
-         <td colspan="2" align="center"><b>결제 정보</b></td>
+         <td colspan="2" align="center"><h1>03.결제 정보</h1></td>
       </tr>
       <tr>
          <td width="200">보유 캐시</td>
@@ -131,18 +151,21 @@
       </tr>
       <tr>
          <td width="200">결제 금액</td>
-         <td width="400"><%=df.format(cartTotalPrice)%></td>
+         <%int price = delivery+cartTotalPrice; %>
+			<td width="400"><%=df.format(price)%></td>
       </tr>
       <tr>
          <td width="200">남는 캐시</td>
          <% 
-         int remain = Integer.parseInt(userdto.getUser_cash())-cartTotalPrice;
+         int remain = cash-price;
          if(remain > 0){%>
-         <td width="400"><%=df.format(remain)%></td>
+          <td width="400"><%=df.format(remain)%></td>
             <%}else{ %>
          <td width="400">보유 캐시가 부족합니다.</td>
          <%} %>
-      <input type="hidden" name="totalPrice" value=<%=cartTotalPrice%>>
+      <input type="hidden" name="total_price" value=<%=cartTotalPrice%>>
+      <input type="hidden" name="remain" value=<%=remain%>>
+
       </tr>
       <tr>
          <td colspan="2" align="center" >

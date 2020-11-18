@@ -296,7 +296,6 @@ public class QnaDAO {
             dto.setWriter(rs.getString("writer"));
             dto.setEmail(rs.getString("email"));
             dto.setSubject(rs.getString("subject"));
-            dto.setPasswd(rs.getString("passwd"));
             dto.setReg_date(rs.getTimestamp("reg_date"));
             dto.setReadcount(rs.getInt("readcount"));
             dto.setRef(rs.getInt("ref"));
@@ -314,36 +313,31 @@ public class QnaDAO {
    }
 
    public int updateQna(QnaDTO dto) throws Exception {
-      String dbpasswd = "";
       String sql = "";
       int x = -1;
       try {
          conn = DBCon.getConnection();
 
-         pstmt = conn.prepareStatement("select passwd from qnaboard where num = ?");
+         pstmt = conn.prepareStatement("select * from qnaboard where num = ?");
          pstmt.setInt(1, dto.getNum());
          rs = pstmt.executeQuery();
 
          if (rs.next()) {
-            dbpasswd = rs.getString("passwd");
-            if (dbpasswd.equals(dto.getPasswd())) {
                sql = "update qnaboard set writer=?,subject=?,email=?,content=?"
-                     + ",passwd=?, goods_code=? where num=?";
+                     + ",goods_code=? where num=?";
                pstmt = conn.prepareStatement(sql);
 
                pstmt.setString(1, dto.getWriter());
                pstmt.setString(2, dto.getSubject());
                pstmt.setString(3, dto.getEmail());
                pstmt.setString(4, dto.getContent());
-               pstmt.setString(5, dto.getPasswd());
-               pstmt.setInt(6, dto.getGoods_code());
-               pstmt.setInt(7, dto.getNum());
+               pstmt.setInt(5, dto.getGoods_code());
+               pstmt.setInt(6, dto.getNum());
                pstmt.executeUpdate();
                x = 1;
             } else {
                x = 0;
             }
-         }
       } catch (Exception e) {
          e.printStackTrace();
       } finally {
@@ -352,26 +346,23 @@ public class QnaDAO {
       return x;
    }
 
-   public int deleteQna(int num, String passwd) throws Exception {
-      String dbpasswd = "";
+   public int deleteQna(int num) throws Exception {
       int x = -1;
       try {
          conn = DBCon.getConnection();
 
-         pstmt = conn.prepareStatement("select passwd from qnaboard where num = ?");
+         pstmt = conn.prepareStatement("select * from qnaboard where num = ?");
          pstmt.setInt(1, num);
          rs = pstmt.executeQuery();
 
          if (rs.next()) {
-            dbpasswd = rs.getString("passwd");
-            if (dbpasswd.equals(passwd)) {
                pstmt = conn.prepareStatement("delete from qnaboard where num=?");
                pstmt.setInt(1, num);
                pstmt.executeUpdate();
                x = 1;
             } else
                x = 0;
-         }
+      
       } catch (Exception e) {
          e.printStackTrace();
       } finally {

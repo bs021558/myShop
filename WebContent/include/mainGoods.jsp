@@ -150,12 +150,12 @@ function search() {
 
 <jsp:useBean id="gdto" class="myshop.goods.GoodsDTO"/>
 <%!	int five=0; 
-	String directory = "/myshop/save/"; //상품 이미지 파일 경로
+	String directory = "/myShop/imgsave/sellerimg/"; //상품 이미지 파일 경로
 %>
 <script>
 </script>
 <%
-	five+=4;
+	five+=3;
 	GoodsDAO gdao = GoodsDAO.getInstance();
 	int count = gdao.getGoodsCount();
 	if(count<five){
@@ -175,9 +175,9 @@ function search() {
 	
 	%>
 	<li>
-<%-- 	<a href = "detail.jsp?no=<%=dto.getNo()%>" > --%>
+	<a href = "/myShop/board/goodsDetail.jsp?goods_code=<%=gdto.getGoods_code()%>&pageNum=1" >
 	<div class="img-wrap" style="cursor:pointer;">
-	<img alt = "" src = "<%=directory%>+<%=gdto.getGoods_img()%>" onload="$makeRect(this)" >
+	<img alt = "" src = "<%=directory%><%=gdto.getGoods_img()%>" onload="$makeRect(this)" >
 	</div>
 	</a><p>
 	<b><%=gdto.getGoods_name() %> </b><br>

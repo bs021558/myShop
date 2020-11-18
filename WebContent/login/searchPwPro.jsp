@@ -6,6 +6,8 @@
 <jsp:useBean id="dto" class = "myshop.shopuser.UserDTO" />
 <jsp:setProperty name = "dto" property="*" />
 	<%
+	
+		request.setCharacterEncoding("UTF-8");
 		UserDAO dao = new UserDAO();
 	 
 		String id = request.getParameter("user_id2");

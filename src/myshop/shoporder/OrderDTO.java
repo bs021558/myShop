@@ -14,7 +14,14 @@ public class OrderDTO
 	private int total_price;
 	private String track;
 	private Timestamp order_date;
+	private String goods_brand;
 	
+	public String getGoods_brand() {
+		return goods_brand;
+	}
+	public void setGoods_brand(String goods_brand) {
+		this.goods_brand = goods_brand;
+	}
 	public void setOrder_pk(int order_pk)
 	{
 		this.order_pk = order_pk;
@@ -47,9 +54,9 @@ public class OrderDTO
 	{
 		this.amount=amount;
 	}
-	public void setTotalPrice(int totalPrice)
+	public void setTotal_price(int total_price)
 	{
-		this.total_price=totalPrice;
+		this.total_price=total_price;
 	}
 	public void setTrack(String track)
 	{

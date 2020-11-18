@@ -21,7 +21,7 @@ public class OpBoardDAO {
     
     private OpBoardDAO() {}
 	
-    public ArrayList selectInquiry(int start, int end) { //ï¿½äº¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+    public ArrayList selectInquiry(int start, int end) { //´äº¯¾ÈÇÑ ¹®ÀÇ Á¶È¸
 		ArrayList list = new ArrayList();	
 		try {
 			conn = DBCon.getConnection();
@@ -51,7 +51,7 @@ public class OpBoardDAO {
 		return list;
 	}
     
-    public ArrayList userselect(int start, int end) { //È¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½È¸
+    public ArrayList userselect(int start, int end) { //È¸¿øÀÌ ÀÚ½ÅÁ¶È¸
 		ArrayList list = new ArrayList();	
 		try {
 			conn = DBCon.getConnection();
@@ -77,7 +77,7 @@ public class OpBoardDAO {
 		return list;
 	}
     
-	public int getInquiry() {//ï¿½äº¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	public int getInquiry() {//´äº¯¾ÈÇÑ ¹®ÀÇ °³¼ö
 		int getcompany = 0;
 		
 		try {
@@ -97,7 +97,7 @@ public class OpBoardDAO {
 		}
 		return getcompany;
 	}
-	public void insertOpBoard(OpBoardDTO dto) { //ï¿½î¿µï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+	public void insertOpBoard(OpBoardDTO dto) { //¿î¿µÀÚ ¹®ÀÇ Ãß°¡
 		try {
 			conn = DBCon.getConnection();
 			String sql = "insert into OpBoard values(OpBoard_seq.nextval,?,?,?,?,?,?,?)";

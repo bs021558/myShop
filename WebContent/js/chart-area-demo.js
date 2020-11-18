@@ -39,7 +39,7 @@ var myLineChart = new Chart(ctx, { // 값관련
   data: {
     labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
     datasets: [{
-      label: "월급",
+      label: "수익",
       lineTension: 0.3, // 곡선처리
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -51,7 +51,7 @@ var myLineChart = new Chart(ctx, { // 값관련
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [10000, 100100, 50010, 150001, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],// 데이터값
+      data: [10000, 100100, 50010, 150001, 10000, 20000, 15000, 25000, 20000, 32000, 85000, 70000],// 데이터값
     }],
   },
   options: {
@@ -83,7 +83,7 @@ var myLineChart = new Chart(ctx, { // 값관련
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return  number_format(value)+'원';
+            return  number_format(value)+'(만)원';
           }
         },
         gridLines: {
@@ -115,7 +115,7 @@ var myLineChart = new Chart(ctx, { // 값관련
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': ' + number_format(tooltipItem.yLabel)+'원';
+          return datasetLabel + ': ' + number_format(tooltipItem.yLabel)+'(만)원';
         }
       }
     }

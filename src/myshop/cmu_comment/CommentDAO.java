@@ -1,18 +1,15 @@
 package myshop.cmu_comment;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.sql.DataSource;
 import myshop.alldb.DBCon;
 
 public class CommentDAO {
-	
 	private static CommentDAO instance = new CommentDAO();
-
 	public static CommentDAO getInstance() {
 		return instance;
 	}
@@ -66,11 +63,11 @@ public class CommentDAO {
 			conn = DBCon.getConnection();
 			String sql = "select num,cmt_num,cmt_writer,cmt_content,cmt_date,cmt_state,r "
 					+ "from (select num,cmt_num,cmt_writer,cmt_content,cmt_date,cmt_state,rownum r "
-					+ "from (select * from cmu_comment order by cmt_date) order by cmt_date) where r >= ? and r <= ? and num=? ";
+					+ "from (select * from cmu_comment where num=? order by cmt_date) order by cmt_date) where r >= ? and r <= ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			pstmt.setInt(3, num);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

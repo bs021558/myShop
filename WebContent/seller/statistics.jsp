@@ -12,7 +12,7 @@
 	<div class="col-xl-8 col-lg-7">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3 d-flex flex-row align-items-center">
-				<h6>월수입11</h6>
+				<h6>월수입(백)원</h6>
 			</div>
 			<!-- 월별 내용 -->
 			<div class="card-body">

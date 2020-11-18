@@ -1,14 +1,16 @@
 <%@page import="myshop.qnaboard.QnaDTO"%>
 <%@page import="myshop.qnaboard.QnaDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ page import="java.text.SimpleDateFormat" %>
-
+<%@ page import = "myshop.shopuser.*" %>
+<%@ page import = "myshop.goods.*" %>
 
 <%
    String sessionId = (String)session.getAttribute("sessionId");
    String goods_code = request.getParameter("goods_code");
-
+   int code = 0;
+   code = Integer.parseInt(goods_code);
    
    int num = Integer.parseInt(request.getParameter("num"));
    String pageNum = request.getParameter("pageNum");
@@ -58,7 +60,7 @@
     <td colspan="4" bgcolor="eaeaea" align="right" > 
     
 <%
-	
+   
      if(sessionId != null){
         if(sessionId.equals(dto.getWriter())){
      %>
@@ -68,13 +70,20 @@
      <input type="button" value="글삭제" 
        onclick="document.location.href='goodsQnaDelete.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>&goods_code=<%=goods_code%>'">
       &nbsp;&nbsp;&nbsp;&nbsp;
-     
+     <%}
+        %>
+     <% 
+     MyShopDAO dao2 = MyShopDAO.getInstance();
+     MyShopDTO dto2 = dao2.detailGoods(code);
+     	 
+     if(sessionId.equals(dto2.getGoods_brand())){
+     %>
       <input type="button" value="답글쓰기" 
        onclick="document.location.href='goodsQnaWrite.jsp?goods_code=<%=goods_code%>&num=<%=num%>&ref=<%=ref%>&re_step=<%=re_step%>&re_level=<%=re_level%>'">
       &nbsp;&nbsp;&nbsp;&nbsp;
       <% 
-      }
-      }%>
+     }
+      %>
       
        <input type="button" value="글목록" 
        onclick="document.location.href='goodsDetail.jsp?goods_code=<%=goods_code%>&pageNum=<%=pageNum%>'">
@@ -82,6 +91,7 @@
   </tr>
 </table>    
 <%
+    }
  }catch(Exception e){} 
  %>
 </form>      

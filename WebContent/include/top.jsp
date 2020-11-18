@@ -31,20 +31,20 @@
 				<li><%=sessionId%>님</li>
 				<li>|</li>
 				<li><a href="/myShop/member/myPage.jsp">내 정보</a></li>
-				<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+				<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><img src="/myShop/dev_img/out.png" width="50"></button></a></li>
 			</ul>
 						<%}else if(rating.equals("2")){%>
 						<ul>
 							<li><%=sessionId%>님</li>
 							<li>|</li>
-							<li><a href="/myShop/seller/sellerStore.jsp">가게 정보</a></li>
-							<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+							<li><a href="/myShop/seller/sellerSales.jsp">가게 정보</a></li>
+							<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><img src="/myShop/dev_img/out.png" width="50"></button></a></li>
 						</ul>
 						<%}else{%>
 						<ul>
 						<li><%=sessionId%>님</li>
 						<li>|</li>
-						<li>운영자 <li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+						<li>운영자 <li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="50"></button></a></li>
 						</li>
 					</ul>
 					<%} %>

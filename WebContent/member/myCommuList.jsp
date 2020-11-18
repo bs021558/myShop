@@ -37,7 +37,7 @@
     //글이 있을 경우 목록을 가져옵니다.
     if (count > 0) {
     	commuList = cmdao.getMyCommuList(sessionId,startRow, endRow); 
-    }
+    }						
 %>
 <html>
 <head>
@@ -52,7 +52,7 @@
 	//로그인 되어있는 경우
     if(sessionId != null){
 %>
-    <a href="commuWrite.jsp">
+    <a href="/myShop/community/commuWrite.jsp">
     	글쓰기
     </a>
 <%

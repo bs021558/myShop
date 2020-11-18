@@ -148,10 +148,7 @@ public class CmtDAO {
 }	
 	public void deleteCmt(int num) throws Exception
 	{
-	   Connection conn = null;
-	   PreparedStatement pstmt = null;
-	   ResultSet rs= null;
-	   
+		
 	   try 
 	   {
 	      conn = DBCon.getConnection();

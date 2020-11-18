@@ -105,7 +105,7 @@ public class StoreDAO {
 			conn = DBCon.getConnection();
 			
 			String sql;
-			sql = "select goods_code, goods_img, goods_name, goods_price, rownum from (select * from (select * from Goods order by goods_code desc) where goods_brand =?) where rownum>=? and rownum<=?";
+			sql = "select goods_code, goods_img, goods_name, goods_price,goods_count, goods_amount, rownum from (select * from (select * from Goods order by goods_code desc) where goods_brand =?) where rownum>=? and rownum<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, goods_brand);
 			pstmt.setInt(2, start);
@@ -120,7 +120,8 @@ public class StoreDAO {
 					dto.setGoods_img(rs.getString("goods_img"));
 					dto.setGoods_name(rs.getString("goods_name"));
 					dto.setGoods_price(rs.getInt("goods_price"));
-					
+					dto.setGoods_count(rs.getInt("goods_count"));
+					dto.setGoods_amount(rs.getInt("goods_amount"));
 					albumList.add(dto);
 				
 				
@@ -140,7 +141,7 @@ public class StoreDAO {
 			conn = DBCon.getConnection();
 			
 			String sql;
-			sql = "select goods_code, goods_img, goods_name, goods_price, rownum from select * from (select * from Goods where " +choice+ " like'%"+search+"%'order by goods_brand desc) where goods_code =? ) where rownum>=? and rownum<=?";
+			sql = "select goods_code, goods_img, goods_name, goods_price, goods_count, goods_amount, rownum from select * from (select * from Goods where " +choice+ " like'%"+search+"%'order by goods_brand desc) where goods_code =? ) where rownum>=? and rownum<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -155,7 +156,8 @@ public class StoreDAO {
 					dto.setGoods_img(rs.getString("goods_img"));
 					dto.setGoods_name(rs.getString("goods_name"));
 					dto.setGoods_price(rs.getInt("goods_price"));
-					
+					dto.setGoods_count(rs.getInt("goods_count"));
+					dto.setGoods_amount(rs.getInt("goods_amount"));
 					albumList.add(dto);
 				
 				}while(rs.next());
@@ -168,7 +170,55 @@ public class StoreDAO {
 		return albumList;
 	}	
 	
+	public int sumAmount(int goods_code) {
+		int a=0;
+		try {
+			conn = DBCon.getConnection();
+		    pstmt = conn.prepareStatement("select goods_amount from goods where goods_code=?");
+		    pstmt.setInt(1, goods_code);
+		    rs = pstmt.executeQuery();
+		    if (rs.next()) {
+		        a= rs.getInt(1);
+			}
+		} catch(Exception ex) {
+		     ex.printStackTrace();
+		} finally {
+			 closeAll();
+		}
+		return a;
+	}
+   
+   
+	public void updateAmount(int sum,int goods_code) {
+		try {
+			conn = DBCon.getConnection();
+			String sql ="update Goods set Goods_amount=? where goods_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sum);
+			pstmt.setInt(2, goods_code);
+			rs = pstmt.executeQuery();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+	}
 
+	public void updateCount(int sum,int goods_code) {
+		try {
+			conn = DBCon.getConnection();
+			String sql ="update Goods set Goods_count=Goods_count-? where goods_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sum);
+			pstmt.setInt(2, goods_code);
+			rs = pstmt.executeQuery();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+	}
+	
 		private void closeAll() {
 		if(rs != null) {try {rs.close();}catch(SQLException s) {} }
 		if(pstmt != null) {try{pstmt.close();}catch(SQLException s) {} }

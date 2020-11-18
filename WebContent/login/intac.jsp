@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
 
 <div id="ser2"><label for="ser2_1"><span id="t1"></span></label></div><br><br>
 <div id="ser3">
-<form name="frmJoin" action="/myShop/login/insertForm.jsp"  onSubmit="return CheckForm(this)">
+<form name="frmJoin" action="/myShop/login/insertForm.jsp" onSubmit="return CheckForm(this)">
 <input type="checkbox" id="ser3_1" name="a">
 <label for="ser3_1">myshop 서비스 약관동의 <span id="t2">(필수)</span></label></div> <br><br>
 <div id ="ser3_1_1"><%@include file="./pieces_txt/join_txt1.jsp" %></div><br>

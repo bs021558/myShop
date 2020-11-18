@@ -5,12 +5,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; UTF-8"  charset="UTF-8" >
 <title>회원가입창</title>
+
+<style>
+::placeholder {
+  font-size: 0.3em;
+  font-weight: 400;
+  opacity: 1; /* Firefox */
+}
+
+</style>
+
 	<% request.setCharacterEncoding("UTF-8"); %>
 
     <script language="JavaScript">
-    
     function checkIt() {
-        var userinput = eval("document.userinput");
+       
+        
+    for (i = 0; i < document.userinput.user_id.value.length; i++) {
+        chid = document.userinput.user_id.value.charAt(i)
+        if (!(chid >= '0' && chid <= '9') && !(chid >= 'a' && chid <= 'z')&&!(chid >= 'A' && chid <= 'Z')) {
+            alert("아이디는 대소문자, 숫자만 입력가능합니다.")
+            document.userinput.user_id.focus()
+            document.userinput.user_id.select()
+            return false;
+        }
+    }
+
+	if (document.userinput.user_id.value.length<4 || document.userinput.user_id.value.length>12) {
+	        alert("아이디를 4~12자까지 입력해주세요.")
+	        document.userinput.user_id.focus()
+	        document.userinput.user_id.select()
+	        return false;
+	    }
+	
+	for (i = 0; i < document.userinput.user_pw.value.length; i++) {
+	       chpw = document.userinput.user_pw.value.charAt(i)
+	        if (!(chpw >= '0' && chpw <= '9') && !(chpw >= 'a' && chpw <= 'z')&&!(chpw >= 'A' && chpw <= 'Z')) {
+	            alert("비밀번호는 대소문자, 숫자만 입력이가능합니다.")
+	            document.userinput.user_pw.focus()
+	            document.userinput.user_pw.select()
+	            return false;
+	        }
+	    }
         if(!userinput.user_id.value) {
             alert("ID를 입력하세요");
             return false;
@@ -70,17 +106,19 @@ if (sessionId != null) {
 				<tr>
 					<td width="20%" align="right">
 					<td colspan="2">
-				       <label><a href="insertForm.jsp">&ensp;&ensp;구매자<input type="radio" name="rating" value="2" checked/></a></label>  
-				       <label><a href="insertSeller.jsp">판매자<input type="radio" name="rating" value="1" "/></a></label> 
+				       <label  style="background-color: #e0edf6"><a href="insertForm.jsp">&ensp;&ensp;구매자&ensp;</label>&ensp;&ensp;
+				       <label><a href="insertSeller.jsp">판매자</a> </label>
+				       <input type="hidden" name="rating" value="1" checked/></a></label>  
 				    </td>
 				</tr>
 				<tr>
 					<td width="40" align="right">아이디</td>
-					<td><input type="text" name="user_id"  autocomplete=”off”> <input type="button" value="중복확인"></td>
+					<td><input type="text" name="user_id"  autocomplete=”off” placeholder="4글자 20글자 사이,첫글자 알파벳">
+					</td>
 				</tr>
 				<tr>
 					<td width="20%" align="right">비밀번호</td>
-					<td><input type="password" name="user_pw"></td>
+					<td><input type="password" name="user_pw" placeholder="4글자 20글자 사이"></td>
 				</tr>
 				<tr>
 					<td width="20%" align="right">비밀번호 확인</td>

@@ -23,16 +23,14 @@
    String content = request.getParameter("content");
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-   if(pageNum == null || content == null)
+   if(pageNum != null)//오류 처리   
    {
-		//오류 처리   
-   }
-   
+		
       NoticeDAO dao = NoticeDAO.getInstance();
       NoticeDTO notice =  dao.getNotice(num);
 %>
 <body>
-<center><b>글내용 보기</b>
+<center><b>글내용 보기</b><br />
 <br>
 <form>
 <table width="500" border="1" cellspacing="0" cellpadding="0" align="center">  
@@ -56,14 +54,6 @@
     <td align="center" width="125">글제목</td>
     <td align="center" width="375" align="center" colspan="3">
 	     <%=notice.getNoti_subject()%></td>
-  </tr>
-    <tr height="30">
-    <td align="center" width="125">첨부파일</td>
-    <td align="center" width="375" align="center" colspan="3">
-    <% if(notice.getNoti_file() != null){%>
-	     <a href="/myShop/imgsave/comimg/<%=notice.getNoti_file()%>" download><%=notice.getNoti_file()%></a></td>
-   <%} else%>
-   		첨부파일이 없습니다.
   </tr>
   <tr>
     <td align="center" width="125">글내용</td>
@@ -109,10 +99,16 @@
        <%} else {%>
        <input type="button" value="글목록" 
        onclick="document.location.href='commuList.jsp?pageNum=<%=pageNum%>'">
-       <%} %>
+       <%}
+   }else{%>
+	   <meta http-equiv="Refresh" content="0;url=/myShop/community/noticeList.jsp">
+   <% }%>
     </td>
   </tr>
 </table>  
 </form>      
 </body>
 </html>      
+
+<br /><br /><br /><br /><br />
+<%@ include file="/include/bottom.jsp" %> <!--하단 -->

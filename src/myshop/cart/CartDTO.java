@@ -7,7 +7,14 @@ public class CartDTO {
 	private String goods_name;
 	private int amount;
 	private int goods_price;
+	private String goods_brand;
 	
+	public String getGoods_brand() {
+		return goods_brand;
+	}
+	public void setGoods_brand(String goods_brand) {
+		this.goods_brand = goods_brand;
+	}
 	public int getGoods_price() {
 		return goods_price;
 	}

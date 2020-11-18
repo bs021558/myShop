@@ -12,9 +12,17 @@ public class StoreDTO {
 	private String goods_img;
 	private String goods_msg;
 	private int goods_count;
+	private int goods_amount;
 	
 	
-	
+	public int getGoods_amount() {
+		return goods_amount;
+	}
+
+	public void setGoods_amount(int goods_amount) {
+		this.goods_amount = goods_amount;
+	}
+
 		public int getGoods_code() {
 		return goods_code;
 	}

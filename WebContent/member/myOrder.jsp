@@ -85,7 +85,7 @@
 	  //goods_code를 이용해서 해당 상품의 정보를 객체 gdto에 보관합니다.
 	  gdto = (GoodsDTO) gdao.goodsDetail(goods_code);
 	  //상품개수
-	  int countGoods = odao.getCountGoodsInOrder(odto.getOrder_number()) - 1;
+	  int countGoods = odao.getCountGoodsInOrder(odto.getOrder_number(),user_id) - 1;
 %>
 	  <tr height="30">
 	   <td align="center" width="100"><%=odto.getOrder_number()%></td>
@@ -94,7 +94,7 @@
 		if (gdto != null) {
 			if(gdto.getGoods_img() != null){
 %> 
-		 		<img src="/myShop/imgsave/<%=gdto.getGoods_img()%>" /> 
+		 		<img src="/myShop/imgsave/sellerimg/<%=gdto.getGoods_img()%>" /> 
 <%
  			}else{
 %>

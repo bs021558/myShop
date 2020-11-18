@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="myshop.shopuser.UserDAO" %>
+<%@ page import="myshop.shopuser.UserDTO" %>
 <html>
 <head>
 <title>공지사항</title>
@@ -7,7 +9,13 @@
 
 <%
 	String sessionId = (String) session.getAttribute("sessionId");
-	if (!sessionId.equals("admin")) { //수정
+	UserDTO udto = new UserDTO();
+	UserDAO udao = new UserDAO();
+	UserDTO infodto = udao.myInfo(sessionId);
+	String rating = infodto.getRating();
+	System.out.println(rating);
+	
+	if (!rating.equals("5")) { 
 %>
 <script>
 	alert("관리자만 접근 가능합니다.");
@@ -56,7 +64,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 align="center"><input type="submit" value="글쓰기">
+					<td colspan=2 align="center"><input type="submit" value="등록">
 						<input type="reset" value="다시작성"> <input type="button"
 						value="목록보기" OnClick="window.location='noticeList.jsp'"></td>
 				</tr>

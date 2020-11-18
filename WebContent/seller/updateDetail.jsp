@@ -3,8 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "myshop.goods.*" %>
+<jsp:include page="seller_top.jsp"></jsp:include>
 <h1> goodsDetail.jsp</h1>
-
 <%
 	
 	String code = request.getParameter("goods_code");
@@ -49,34 +49,34 @@
 		<tr>
 		<th>상품코드</th>
 		<td>
-		<input type="text" name="goods_code" value="<%=dto.getGoods_code()%>"></td>
+		<input type="text" name="goods_code" value="<%=dto.getGoods_code()%>" readonly></td>
 		</tr>
 		
 		<tr>
 		<th>제조사/공급사</th>
 		<td>
-		<input type="text" name="goods_brand" value="<%=dto.getGoods_brand() %>"></td>
+		<input type="text" name="goods_brand" value="<%=dto.getGoods_brand() %>" readonly></td>
 		</tr>
 		
 		<tr>	
 		<th>남은수량</th>
 		<td>
-		<input type="text" name="goods_count" value="<%=dto.getGoods_count()%>"></td>
+		<input type="text" name="goods_count" value="<%=dto.getGoods_count()%>" ></td>
 		</td>
 		</tr>
 		
-		<tr>
-		<th>옵션선택</th>
-		<td> 
-		<select name="goods_option">
-			<option>옵션</option>
-			<option>옵션1</option>
-			<option>옵션2</option>
-			<option>옵션3</option>
-			<option>옵션4</option>
-		</select>
-		</td>	
-		</tr>
+<!-- 		<tr> -->
+<!-- 		<th>옵션선택</th> -->
+<!-- 		<td>  -->
+<!-- 		<select name="goods_option"> -->
+<!-- 			<option>옵션</option> -->
+<!-- 			<option>옵션1</option> -->
+<!-- 			<option>옵션2</option> -->
+<!-- 			<option>옵션3</option> -->
+<!-- 			<option>옵션4</option> -->
+<!-- 		</select> -->
+<!-- 		</td>	 -->
+<!-- 		</tr> -->
 		
 		<tr>
 		<th>배송비</th>

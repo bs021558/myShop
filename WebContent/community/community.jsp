@@ -7,7 +7,6 @@
 <%@ page import= "java.util.List" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
-<%@ include file="/include/top.jsp"%> <!-- 상단 -->
 <style>
 textarea {
 	width: 100%;
@@ -16,19 +15,27 @@ textarea {
 
 <html>
 <head>
-<meta charset="UTF-8">
+
 <title>자유게시판</title>
-<script language="JavaScript" src="script.js"></script>
+</head>
+<body>
+<%@ include file="/include/top.jsp"%>
 </head>
 
 <%
    int pageSize = 30;
-   int num = Integer.parseInt(request.getParameter("num"));
-   String pageNum = request.getParameter("pageNum");
+	String strNum = request.getParameter("num");
+	int num =0;	
+	if(strNum != null)
+	num = Integer.parseInt(strNum);
+   
+	String pageNum = request.getParameter("pageNum");
    int cmtPage = 1;
    
    SimpleDateFormat sdf = 
         new SimpleDateFormat("yyyy-MM-dd HH:mm");
+   if(pageNum != null)//오류 처리   
+   {
 
    int currentPage = cmtPage;
    int startRow = (currentPage - 1) * pageSize + 1; 
@@ -43,13 +50,12 @@ textarea {
    if (count > 0) {
    	cmtList = c_dao.getComments(num, startRow, endRow); 
    }
-   try{
 	   CommunityDAO dao = CommunityDAO.getInstance();
 	   CommunityDTO cm =  dao.getCommu(num);
 	   
 %>
 <body>
-<center><b>글내용 보기</b>
+<center><b>글내용 보기</b><br />
 <br>
 <form>
 <table width="700" border="1" cellspacing="0" cellpadding="0" align="center">  
@@ -94,7 +100,7 @@ textarea {
 	   <%}
 	      if(sessionId.equals("admin")){ %>
 	  <input type="button" value="관리자 글삭제" 
-       	onclick="document.location.href='commuDelPro.jsp?num=<%=cm.getNum()%>&pageNum=<%=pageNum%>'">
+       	onclick="document.location.href='deleteAdminPro.jsp?num=<%=cm.getNum()%>&pageNum=<%=pageNum%>'">
 	   	&nbsp;&nbsp;&nbsp;&nbsp;
 	   <%}
 	   }%>
@@ -119,8 +125,8 @@ textarea {
    댓글이 없습니다.
     </td>
 </table>
-<%  } else {
-%> 
+<%  } else {%> 
+
 <table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
     <tr height="20"> 
       <td align="center"  width="100" >작성자</td>
@@ -173,14 +179,13 @@ textarea {
 <%}else{ %>
 
     	<br />회원만 댓글쓰기가 가능합니다.
-
-<%}%>
+<%}
+   }else{%>
+	   <meta http-equiv="Refresh" content="0;url=/myShop/community/commuList.jsp">
+   <% }%>
 	
-
-<%
- }catch(Exception e){} 
- %>    
 </body>
 </html>      
 
+<br /><br /><br /><br /><br />
 <%@ include file="/include/bottom.jsp" %> <!--하단 -->

@@ -33,15 +33,15 @@
 						<ul>
 							<li><%=sessionId%>님</li>
 							<li>|</li>
-							<li><a href="/myShop/seller/sellerStore.jsp">가게 정보</a></li>
-							<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+							<li><a href="/myShop/seller/sellerSales.jsp">가게 정보</a></li>
+							<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><img src="/myShop/dev_img/out.png" width="50"></button></a></li>
 						</ul>
 						<%}else{%>
 						<ul>
 						<li><%=sessionId%>님</li>
 						<li>|</li>
 						<li>운영자 또는 미등급</li>
-						<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><button style="border: 0px;"  type="button"><img src="/myShop/dev_img/out.png" width="30"></button></a></li>
+						<li style="font-size: 5;"><a href="/myShop/login/logout.jsp"><img src="/myShop/dev_img/out.png" width="50"></button></a></li>
 					</ul>
 					<%} %>
 			<%
@@ -65,8 +65,8 @@
 		<div id="menu">
 			<ul>
             <li><a href="/myShop/seller/sellerSales.jsp">매출확인</a></li>
-            <li><a href="/myShop/seller/sellerStore.jsp">상품등록</a></li>
-            <li><a href="/myShop/seller/sellerQna.jsp">문의답변</a></li>
+            <li><a href="/myShop/seller/sellerStore.jsp">상품관리</a></li>
+            <li><a href="/myShop/contact/contactList.jsp">문의답변</a></li>
          </ul>
       </div>
    </div>

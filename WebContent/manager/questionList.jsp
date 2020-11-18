@@ -38,6 +38,12 @@
 	<center>
 	<h1>문의 내용</h1>
 </head>
+<center>
+<a href="/myShop/manager/opMain.jsp">메인으로</a><br/>
+<input type="button" value="회사 관리"  onclick="location.href='/myShop/manager/companys.jsp'">
+<input type="button" value="문의 내역 보기"  onclick="location.href='/myShop/manager/questionList.jsp'">
+<input type="button" value="판매자 가입 신청 " onclick="location.href='/myShop/manager/authorizeSeller.jsp'">
+</center>
 <b>답변 안한 문의 수 : <%=count%></b>
 <%
 	if (count <= 0) {

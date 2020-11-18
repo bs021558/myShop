@@ -42,6 +42,12 @@
 	<center>
 	<h1>등록한 회사 정보</h1>
 </head>
+<center>
+<a href="/myShop/manager/opMain.jsp">메인으로</a><br/>
+<input type="button" value="회사 관리"  onclick="location.href='/myShop/manager/companys.jsp'">
+<input type="button" value="문의 내역 보기"  onclick="location.href='/myShop/manager/questionList.jsp'">
+<input type="button" value="판매자 가입 신청 " onclick="location.href='/myShop/manager/authorizeSeller.jsp'">
+</center>
 <b>등록 회사 수: <%=count%></b>
 <%
 	if (count == 0) {
@@ -66,10 +72,10 @@
 				UserDTO article = (UserDTO) articleList.get(i);
 	%>
 	<tr height="30">
-		<td align="center" width="200"><%=article.getUser_id() %></td>
-		<td align="center" width="200"><%=article.getUser_phone() %></td>
-		<td align="center" width="200"><%=article.getUser_cash() %></td>
-		<td align="center" width="200"><%=article.getUser_date() %></td>
+		<td align="center" width="200"><a href="/myShop/manager/comDetails.jsp?user_id=<%=article.getUser_id()%>"><%=article.getUser_id() %></a></td>
+		<td align="center" width="200"><a href="/myShop/manager/comDetails.jsp?user_id=<%=article.getUser_id()%>"><%=article.getUser_phone() %></a></td>
+		<td align="center" width="200"><a href="/myShop/manager/comDetails.jsp?user_id=<%=article.getUser_id()%>"><%=article.getUser_cash() %></a></td>
+		<td align="center" width="200"><a href="/myShop/manager/comDetails.jsp?user_id=<%=article.getUser_id()%>"><%=article.getUser_date() %></a></td>
 	</tr>
 	<%
 		}

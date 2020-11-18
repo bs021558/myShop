@@ -50,7 +50,7 @@
 	
 	<td align="right" >
 	<%if(sessionId!=null){%>
-  	<a href="goodsQnaWrite.jsp?goods_code=<%=goods_code%>&pageNum=<%=pageNum%>">글쓰기</a>
+  	<a href="/myShop/seller/goodsQnaWrite.jsp?goods_code=<%=goods_code%>&pageNum=<%=pageNum%>">글쓰기</a>
   	<%}else{ %>
     	<a href="..//login/loginForm.jsp">로그인</a>
     	 <%} %>
@@ -91,17 +91,18 @@
            wid=5*(qna.getRe_level());
    %>
      <img src="images/level.gif" width="<%=wid%>" height="16">
-     <img src="images/re.gif">
    <%}else{%>
      <img src="images/level.gif" width="<%=wid%>" height="16">
    <%}%>
- 
+ 	<!-- 제목 눌렀을때 상세보기로 이동 -->
       <a href="goodsQnaContent.jsp?goods_code=<%=goods_code%>&num=<%=qna.getNum()%>&pageNum=<%=currentPage%>">
            <%=qna.getSubject()%></a> 
            <% if(qna.getReadcount()>=20){%>
          <img src="images/hot.gif" border="0"  height="16"><%}%> </td>
     <td align="center"  width="100"> 
-       <a href="mailto:<%=qna.getEmail()%>"><%=qna.getWriter()%></a></td>
+    <!-- 작성자 눌렀을때  이동-->
+       <a href="goodsQnaContent.jsp?goods_code=<%=goods_code%>&num=<%=qna.getNum()%>&pageNum=<%=currentPage%>">
+       <%=qna.getWriter()%></a></td>
     <td align="center"  width="150"><%= sdf.format(qna.getReg_date())%></td>
     <td align="center"  width="50"><%=qna.getReadcount()%></td>
   </tr>

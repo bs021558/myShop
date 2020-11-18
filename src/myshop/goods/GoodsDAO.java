@@ -49,7 +49,7 @@ public class GoodsDAO {
 	      try {
 	         conn =DBCon.getConnection();
 
-	         String sql = "insert into Goods values(goods_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	         String sql = "insert into Goods values(goods_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	         
 	         pstmt = conn.prepareStatement(sql);
 	         pstmt.setString(1, dto.getGoods_brand());
@@ -61,7 +61,7 @@ public class GoodsDAO {
 	         pstmt.setString(7, dto.getGoods_img());
 	         pstmt.setString(8, dto.getGoods_msg());
 	         pstmt.setInt(9, dto.getGoods_count());
-
+	         pstmt.setInt(10, 0);
 	         pstmt.executeUpdate();
 
 	      } catch (Exception ex) {
@@ -107,6 +107,7 @@ public class GoodsDAO {
 		}	
 		return goodsList;
 	}
+
 
 	public GoodsDTO goodsDetail(int code) { //
 		GoodsDTO dto = null;
@@ -242,6 +243,65 @@ public class GoodsDAO {
 		return list;
 	}
 
+	public GoodsDTO updateGetAlbum(int code) {
+	      GoodsDTO gdto = null;   
+	         try {
+	            String sql = "select * from Goods where goods_code =?";
+	            DBCon dbConn = new DBCon();
+	            conn = dbConn.getConnection();
+	              pstmt = conn.prepareStatement(sql);
+	              pstmt.setInt(1, code);
+	              rs = pstmt.executeQuery();
+	              
+	              if(rs.next()) {
+	                 gdto = new GoodsDTO();
+	    
+	               gdto.setGoods_code(rs.getInt("goods_code"));
+	               gdto.setGoods_brand(rs.getString("goods_brand"));
+	               gdto.setGoods_name(rs.getString("goods_name"));
+	               gdto.setGoods_price(rs.getInt("goods_price"));
+	               gdto.setGoods_delivery(rs.getInt("goods_delivery"));
+	               gdto.setGoods_state(rs.getInt("goods_state"));
+	               gdto.setGoods_option(rs.getString("goods_option"));
+	               gdto.setGoods_img(rs.getString("goods_img"));
+	               gdto.setGoods_msg(rs.getString("goods_msg"));
+	               gdto.setGoods_count(rs.getInt("goods_count"));
+	               
+	                 
+	              }
+	         }catch (Exception ex) 
+	         {
+	            ex.printStackTrace();
+	         }
+	         finally
+	         {
+	            closeAll();
+	         }
+	         return gdto;
+	   }
+
+	  
+	public GoodsDTO albumUpdate(GoodsDTO dto) {
+		try {
+			conn = DBCon.getConnection();
+			String sql = "update Goods set goods_name=?,goods_img=?,goods_price=?,goods_count=?,goods_option=?,goods_delivery=?,goods_msg=? where goods_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getGoods_name());
+			pstmt.setString(2, dto.getGoods_img());
+			pstmt.setInt(3, dto.getGoods_price());
+			pstmt.setInt(4, dto.getGoods_count());
+			pstmt.setString(5, dto.getGoods_option());
+			pstmt.setInt(6, dto.getGoods_delivery());
+			pstmt.setString(7, dto.getGoods_msg());
+			pstmt.setInt(8, dto.getGoods_code());
+			rs = pstmt.executeQuery();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return dto;
+	}
 	private void closeAll() {
 		if(rs != null) {try {rs.close();}catch(SQLException s) {} }
 		if(pstmt != null) {try{pstmt.close();}catch(SQLException s) {} }

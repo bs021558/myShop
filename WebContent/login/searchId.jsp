@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
   
   	<%@ include file="/include/top.jsp"%> <!-- 상단 -->
+<% request.setCharacterEncoding("UTF-8"); %>
+
 <body style="text-align: center;">
 	<div>
 		<br />
-		<form action="searchIdPro.jsp" method="post">
+		<form action="searchIdPro.jsp" method="get">
 			<h1> 아이디 찾기</h1>
 			<br/>
 			<div>

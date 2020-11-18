@@ -1,6 +1,7 @@
 <%@page import="myshop.community.CommunityDTO"%>
 <%@page import="myshop.notice.NoticeDTO"%>
 <%@page import="myshop.community.CommunityDAO"%>
+<%@page import="myshop.cmu_comment.CommentDAO"%>
 <%@page import="myshop.notice.NoticeDAO"%>
 <%@ page contentType = "text/html; charset=UTF-8" %>
 <%@ page import = "java.util.List" %>
@@ -36,6 +37,7 @@
         noticeList = dao.getNotices(startRow, endRow); 
     }
     CommunityDAO commu = CommunityDAO.getInstance();
+    CommentDAO cmt = CommentDAO.getInstance();
     count = commu.getCommuCount(); 
     if (count > 0) {
     	commuList = commu.getCommues(startRow, endRow); 
@@ -104,7 +106,7 @@
     <td align="center" width="50" bgcolor="#D9E5FF">공지</td>
     <td align="center" width="250" bgcolor="#D9E5FF"> 
     	<a href="notice.jsp?num=<%=notice.getNoti_num()%>&pageNum=<%=currentPage%>&content=commu">
-    	<%=notice.getNoti_subject()%></a>
+    	<%=notice.getNoti_subject()%></a> 
     	<% if(notice.getNoti_file() != null){%>
          <img src="/myShop/dev_img/file.png" border="0"  height="16"><%}%>
         <% if(today.equals(noti_sdf.format(notice.getNoti_date()))){
@@ -124,9 +126,9 @@
   		if(rating.equals("1")){
   			c_rating = "일반회원";
   		}else if(rating.equals("2")){
-  			c_rating= "관리자";
-  		}else if(rating.equals("5")){
   			c_rating= "판매자";
+  		}else if(rating.equals("5")){
+  			c_rating= "관리자";
   		}
     if(cm.getState() == 1){
 %>
@@ -134,9 +136,10 @@
 		<td align="center"  width="50" ><%=c_rating%></td>
 		<td  width="250" align="center">           
 			<a href="community.jsp?num=<%=cm.getNum()%>&pageNum=<%=currentPage%>">
-            <%=cm.getSubject()%></a> 
+			<%  int cmtCount = cmt.getCommentCount(cm.getNum()); %>
+            <%=cm.getSubject()%> [<%=cmtCount%>]</a> 
             <% if(cm.getReadcount()>=50){%>
-            <img src="dev_img/hot.gif" border="0"  height="16"><%}%> </td>
+            <img src="/myShop/dev_img/hot.gif" border="0"  height="16"><%}%> </td>
     <td align="center"  width="100"><%=cm.getWriter()%></td> 	
     <td align="center"  width="150"><%= sdf.format(cm.getReg_date())%></td> 
     <td align="center"  width="50"><%=cm.getReadcount()%></td>					
@@ -172,4 +175,5 @@
 </center>
 </body>
 </html>
+<br /><br /><br /><br /><br />
 <%@ include file="/include/bottom.jsp" %> <!--하단 -->

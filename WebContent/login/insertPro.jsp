@@ -6,6 +6,7 @@
     <h1>회원가입Pro</h1>
 
     <jsp:useBean id="dto" class= "myshop.shopuser.UserDTO" />
+    
     <jsp:setProperty property="*" name="dto" />
 
      	<%
@@ -20,6 +21,9 @@
 		</script>  
 	    <%	
 	        }else{
+	        	dto.setUser_address(request.getParameter("user_address1"));
+	        	dto.setUser_address(request.getParameter("user_address2"));
+	        	dto.setUser_address(request.getParameter("user_address3"));
 	        	dao.insert(dto); 
 	    %>
 	    <script>

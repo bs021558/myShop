@@ -52,7 +52,7 @@
 	alert("수정되었습니다.")
 </script>
 	
-	<meta http-equiv="Refresh" content="0;url=sellerGoodsDetail.jsp?goods_code=<%=goods_code%>">
+	<meta http-equiv="Refresh" content="0;url=/myShop/board/goodsDetail.jsp?goods_code=<%=goods_code%>">
 
 </body>
 </html>      

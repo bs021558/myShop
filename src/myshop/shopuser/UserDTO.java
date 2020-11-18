@@ -11,6 +11,9 @@ public class UserDTO {
 	private String user_name;
 	private String user_phone;
 	private String user_address;
+	private String user_address1;
+	private String user_address2;
+	private String user_address3;
 	private Timestamp user_date;
 	private String auto;
 	private String user_cash;
@@ -19,6 +22,30 @@ public class UserDTO {
 	private String user_birthday;
 	private String user_gender;
 	private String user_email;
+
+	public String getUser_address1() {
+		return user_address1;
+	}
+
+	public void setUser_address1(String user_address1) {
+		this.user_address1 = user_address1;
+	}
+
+	public String getUser_address2() {
+		return user_address2;
+	}
+
+	public void setUser_address2(String user_address2) {
+		this.user_address2 = user_address2;
+	}
+
+	public String getUser_address3() {
+		return user_address3;
+	}
+
+	public void setUser_address3(String user_address3) {
+		this.user_address3 = user_address3;
+	}
 
 	public String getUser_birthday() {
 		return user_birthday;
@@ -109,12 +136,12 @@ public class UserDTO {
 	}
 
 	public String getUser_address() {
-		return user_address;
-	}
+		   return user_address;
+		}
 
 	public void setUser_address(String user_address) {
-		this.user_address = user_address;
-	}
+        this.user_address = user_address;
+     }
 
 	public Timestamp getUser_date() {
 		return user_date;

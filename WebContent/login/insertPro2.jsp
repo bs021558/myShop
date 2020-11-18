@@ -20,6 +20,9 @@
 		</script>  
 	    <%	
 	        }else{
+	        	dto.setUser_address(request.getParameter("user_address1"));
+	        	dto.setUser_address(request.getParameter("user_address2"));
+	        	dto.setUser_address(request.getParameter("user_address3"));
 	        	dao.insert(dto); 
 	    %>
 	    <script>

@@ -28,10 +28,25 @@
 		re_level=Integer.parseInt(request.getParameter("re_level"));
 		}
 %>
-   
-<body bgcolor="eaeaea">  
+
+
+<body bgcolor="eaeaea">
 <center><b>글쓰기</b><br>
-<form method="post" name="goodsQnaWrite" action="goodsQnaWritePro.jsp" onsubmit="return writeSave()">
+<script language="javascript">
+   function formCheck(frm) {
+   if (frm.subject.value == "") {
+      alert("제목을 입력해 주세요!");
+      frm.subject.focus();
+       return false;
+   }
+    if (frm.content.value == "") {
+        alert("내용을 입력해 주세요!!");
+        frm.content.focus();
+        return false;
+    }
+   }
+    </script>
+<form method="post" name="goodsQnaWrite" action="goodsQnaWritePro.jsp" onsubmit="return formCheck(this)">
 		<input type="hidden" name="num" value="<%=num%>">
 		<input type="hidden" name="ref" value="<%=ref%>">
 		<input type="hidden" name="re_step" value="<%=re_step%>">
@@ -57,11 +72,6 @@
 	<%}else{ %>
 	   <input type="text" size="40" maxlength="50" name="subject" value="[답변]"></td>
 	<%} %>
-  </tr>
-  <tr>
-    <th width="70"  bgcolor="eaeaea" align="center">Email</th>
-    <td width="330">
-       <input type="text" size="40" maxlength="30" name="email"></td>
   </tr>
   <tr>
     <th width="70"  bgcolor="eaeaea" align="center" >내 용</th>

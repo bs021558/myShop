@@ -4,10 +4,12 @@
 <%@ page import="myshop.goods.GoodsDTO" %>
 <%@ page import="myshop.shoporder.OrderDAO"%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.DecimalFormat" %>
 <h1>sellerSales페이지입니다.</h1>
 <!-- 판매자 매출페이지 -->
 <%
-//세션 획득
+	DecimalFormat df = new DecimalFormat("###,###");
+	//세션 획득
     String user_id = (String)session.getAttribute("sessionId");
     //로그인되어 있지 않으면 loginForm.jsp파일로 리디렉트합니다.
     if(user_id==null)
@@ -25,6 +27,13 @@
     int count = gdao.myGoodsCount(user_id);
     List goodsArray = gdao.myGoods(user_id);
 %>
+<html>
+<body>
+<center>
+<%@ include file="/seller/seller_top.jsp" %>
+<div>
+<jsp:include page="statistics.jsp"></jsp:include>
+</div>
 <table border="1">
 	<tr>
 		<td align="center">
@@ -34,10 +43,16 @@
 			상품이름
 		</td>
 		<td align="center">
-			판매수량
+			오늘의 판매수량
 		</td>
 		<td align="center">
-			매출
+			오늘의 매출
+		</td>
+		<td align="center">
+			총 판매수량
+		</td>
+		<td align="center">
+			총 매출
 		</td>
 		<td align="center">
 			재고
@@ -45,6 +60,7 @@
 <%
 	int goods_code = 0;
 	int totalPrice = 0;
+	int todaySales=0;
 	try{
 		//리스트 개수만큼 반복
 		for(int i=0; i < goodsArray.size(); i++){
@@ -63,12 +79,17 @@
 			<%=gdto.getGoods_name() %>
 		</td>
 		<td align="center" width="100">
+		<%=odao.todayAmount(goods_code) %>
+		</td>
+		<td align="center" width"130">
+		<%=df.format(odao.todayTotal_price(goods_code)) %>원
+		<td align="center" width="100">
 		<!-- shoporder테이블을 통해서 해당 상품이 얼마나 팔렸는지 알 수 있습니다. -->
 			<%=odao.sumAmount(goods_code) %>
 		</td>
-		<td align="center" width="100">
+		<td align="center" width="130">
 		<!-- shoporder테이블을 통해서 해당 상품이 얼마나 팔렸는지 알 수 있습니다. -->
-			<%=odao.sumTotal_price(goods_code) %>
+			<%=df.format(odao.sumTotal_price(goods_code)) %>원
 		</td>
 		<td align="center" width="100">
 			<%=gdto.getGoods_count() %>
@@ -77,15 +98,19 @@
 <%
 			//상품별 매출 누산
 			totalPrice +=odao.sumTotal_price(goods_code);
+			todaySales += odao.todayTotal_price(goods_code);
 		}
 	}catch(Exception ex){
 		ex.printStackTrace();
 	}
 %>
 	<tr>
-		<td align="center">합계</td><td></td><td></td><td>
-			<%=totalPrice%>
-		</td><td></td>
+		<td align="center" colspan="8">
+			오늘의 매출:<%=df.format(todaySales) %>원<br/>
+			전체 매출: <%=df.format(totalPrice)%>원
+		</td>
 		</tr>
 </table>
-<<jsp:include page="/contact/contactList.jsp"></jsp:include>
+</center>
+</body>
+</html>

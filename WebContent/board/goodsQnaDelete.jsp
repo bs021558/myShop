@@ -15,7 +15,7 @@
   
   QnaDAO dao = QnaDAO.getInstance();
   dao.deleteQna(num);
-  
+ 
 %>
 	<script>
 		alert("삭제 되었습니다.");

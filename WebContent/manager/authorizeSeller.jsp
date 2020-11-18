@@ -39,6 +39,12 @@
 			가입 승인 대기중인 판매자
 		</h1>
 		</head>
+		<center>
+		<a href="/myShop/manager/opMain.jsp">메인으로</a><br/>
+<input type="button" value="회사 관리"  onclick="location.href='/myShop/manager/companys.jsp'">
+<input type="button" value="문의 내역 보기"  onclick="location.href='/myShop/manager/questionList.jsp'">
+<input type="button" value="판매자 가입 신청 " onclick="location.href='/myShop/manager/authorizeSeller.jsp'">
+</center>
 		<b align="right">
 			대기중인 내역: <%=count%>건
 		</b>

@@ -5,10 +5,11 @@
 <jsp:useBean id="dto" class = "myshop.shopuser.UserDTO" />
 <jsp:setProperty name = "dto" property="*" />
 	<%
+		request.setCharacterEncoding("UTF-8");
 		UserDAO dao = new UserDAO();
-	
 		String name = request.getParameter("user_name2");
 	 	String phone = request.getParameter("user_phone2");
+	 	
 	 	String result = dao.searchId(name,phone);
  
 		if (result != null) {%>
